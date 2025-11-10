@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="schedule_tech_person_view" model="ir.ui.view">
+            <field name="name">
+                averigo_case_management.schedule_tech_person_form
+            </field>
+            <field name="model">schedule.tech.person</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" delete="1"
+                      decoration-muted="old_record">
+                    <field name="employee_ids" widget="many2many_tags"
+                           required="True" width="300px"/>
+                    <field name="from_date" width="100px" required="1"/>
+                    <field name="to_date" width="100px" required="1"/>
+                    <field name="from_time" width="100px"
+                           string="Time From (24H)" required="1"
+                           widget="float_time"/>
+                    <field name="to_time" width="100px" string="Time To (24H)"
+                           required="1"
+                           widget="float_time"/>
+                    <field name="all_day_available"
+                           string="Available All Days"/>
+                    <field name="only_saturday"
+                           string="Available only on Saturday"/>
+                    <field name="only_sunday"
+                           string="Available only on Sunday"/>
+                    <field name="old_record" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="schedule_tech_person_act_window"
+                model="ir.actions.act_window">
+            <field name="name">Schedule tech Person</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">schedule.tech.person</field>
+            <field name="view_mode">tree</field>
+            <field name="target">current</field>
+        </record>
+
+        <menuitem name="Schedule Tech Person"
+                  id="schedule_tech_person_wizard_menu"
+                  parent="averigo_service_management.service_management_main_menu"
+                  action="schedule_tech_person_act_window"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,54 @@
+// .o_field_many2manytags.o_field_widget.o_kanban_tags {
+//     display: inline;
+// }
+
+.show-more {
+  cursor: pointer;
+  color: #3d9bbb;
+}
+.text-item
+{
+    display:flex;
+    flex-direction:column;
+    flex-wrap:nowrap;
+}
+.hide-more
+{
+    display:none;
+    cursor: pointer;
+    color: #3d9bbb;
+}
+.text-div
+{
+    height:20px;
+//     max-height:20px;
+    overflow:hidden;
+}
+
+#text-container {
+  height: 100px;
+  overflow: hidden;
+}
+.text-div
+{
+    pointer-events:none !important;
+}
+.description_dialog.o_field_widget{
+
+    margin-left:50%;
+}
+.field_comment
+{
+    width:700px;
+    max-width:700px;
+}
+span.fa.fa.fa-comments.icon-show-resolution {
+    margin-left: 50px;
+}
+span.case_records.o_field_widget.o_readonly_modifier.btn.btn-link {
+    margin-left: 50px;
+}
+.icon-color
+{
+    color:#3d9bbb !important;
+}

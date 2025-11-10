@@ -1,0 +1,56 @@
+<odoo>
+    <!--    This Tree view is created to show the number of open case count of each employee in case management -->
+    <record id="hr_employee_tree_Case" model="ir.ui.view">
+        <field name="name">case.count.hr.employee</field>
+        <field name="model">hr.employee</field>
+        <field name="priority" eval="17"/>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="open_case_count" string="Open Case Count"/>
+                <field name="parent_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="res_partner_address_search_inherit" model="ir.ui.view">
+        <field name="name">res.partner.address.search</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base_averigo.view_res_partner_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search/group" position="inside">
+                <field name="customer_address" string="Address"
+                       filter_domain="[('customer_address','ilike', self)]"/>
+            </xpath>
+
+        </field>
+    </record>
+    <record id="view_res_customers_case_mail_inherit" model="ir.ui.view">
+        <field name="name">res.partner.case.mail.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base_averigo.view_res_customers_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='buy_all_item']" position="after">
+                <label for="send_case_mail" style="margin-left: 30px;"
+                       string="Send Case Mails to AM"/>
+                <field name="send_case_mail" class="oe_inline"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_hr_user_domain" model="ir.ui.view">
+        <field name="name">hr.employee.user.domain</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <field name='user_id' position="replace">
+                <field name="user_id" string="Related User"
+                       domain="[('user_type', '=', 'operator')]" options='{"no_open": True, "no_create": True}'/>
+            </field>
+            <field name='first_name' position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+        </field>
+    </record>
+
+</odoo>

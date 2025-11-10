@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_case_notes,case.notes,model_casemanagement_notes,,1,0,0,0
+access_case_description,case.description,model_case_description,,1,1,1,1
+access_case_resolution,case.resolution,model_case_resolution,,1,1,1,1
+access_case_employee,case.employee,model_case_employee,,1,1,1,1
+access_schedule_tech_person,schedule.tech.person,model_schedule_tech_person,,1,1,1,1

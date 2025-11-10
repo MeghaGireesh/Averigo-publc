@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="case_sync_api_action_id" model="ir.actions.act_window">
+        <field name="name">Case sync from App</field>
+        <field name="res_model">case.sync.api</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="case_sync_api_form_view" model="ir.ui.view">
+        <field name="name">case.sync.api.form</field>
+        <field name="model">case.sync.api</field>
+        <field name="arch" type="xml">
+            <form string="Case from App">
+                <sheet>
+                    <group name="Sync input from App" string="Sync input from App">
+                        <group>
+                            <field name="json_data"/>
+                            <field name="date"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="case_sync_api_tree_view" model="ir.ui.view">
+        <field name="name">case.sync.api.tree</field>
+        <field name="model">case.sync.api</field>
+        <field name="arch" type="xml">
+            <tree string="Case sync from App">
+                <field name="json_data" readonly="1"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+    <menuitem id="case_sync_api_menu" name="Case Sync" parent="averigo_service_management.case_management_config_main_menu"
+              action="case_sync_api_action_id" sequence="2" groups="base.group_no_one"/>
+</odoo>

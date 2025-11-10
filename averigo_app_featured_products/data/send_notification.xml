@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_cron_notification_send" model="ir.cron">
+        <field name="name">Send Special Notification</field>
+        <field name="model_id" ref="averigo_app_featured_products.model_featured_products"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_notification_send()</field>
+        <field name="interval_number">5</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+</odoo>

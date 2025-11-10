@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="case_management_form_view_inherit" model="ir.ui.view">
+        <field name="name">case.management.view.form</field>
+        <field name="model">case.management</field>
+        <field name="inherit_id"
+               ref="averigo_service_management.case_management_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='reported_phone']" position="replace">
+                <field name="reported_phone"  class="w-100"
+                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"
+                       widget="number_validation"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_portal_case_management_form_inherit" model="ir.ui.view">
+        <field name="name">case.management.portal.view.form</field>
+        <field name="model">case.management</field>
+        <field name="inherit_id"
+               ref="averigo_portal_case_management.view_portal_case_management_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='reported_phone']" position="replace">
+                <field name="reported_phone" required="1" class="w-100"
+                       widget="number_validation"
+                       attrs="{'readonly': [('portal_state', '!=', 'draft')]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

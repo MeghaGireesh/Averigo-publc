@@ -1,0 +1,8 @@
+<odoo>
+    <record id="case_detailed_reporting_action" model="ir.actions.act_window">
+        <field name="name">Case Detailed Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">case.report</field>
+        <field name="view_mode">form</field>
+    </record>
+</odoo>

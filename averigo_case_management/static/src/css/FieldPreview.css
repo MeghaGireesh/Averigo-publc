@@ -1,0 +1,59 @@
+#main{
+    width:-moz-available !important;
+    margin-left:0px !important;
+    min-height:0px !important;
+    position:initial !important;
+}
+div#zPDF_iframe{
+    display:flex !important;
+    justify-content:center !important;
+}
+
+iframe#main{
+    height:78% !important;
+    width: -webkit-fill-available;
+
+}
+button.btn.oe_stat_button.close_case_button{
+    background-color:#015821fa !important;
+}
+img.myClass{
+    width:100% !important;
+    height:100% !important;
+    object-fit:contain !important;
+}
+
+@media (max-width:900px){
+    div#zPDF_iframe{
+        position:fixed;
+        right:40% !important;
+    }
+    iframe#main{
+        margin-left:0px !important;
+    }
+    div#pdf_close{
+        position:fixed;
+        z-index:999;
+
+    }
+    .btn_dowload{
+    position:fixed;
+        z-index:999;
+    }
+
+}
+@media (max-width:1700px){
+    div#zPDF_iframe{
+        position:fixed;
+        right:40% !important;
+    }
+    div#pdf_close{
+        position:fixed;
+        z-index:999;
+
+    }
+    .btn_dowload{
+    position:fixed;
+        z-index:999;
+    }
+}

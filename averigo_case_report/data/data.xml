@@ -1,0 +1,7 @@
+<odoo>
+    <data>
+        <record id="report_group_case_management" model="report.group">
+            <field name="name">Case Management Report</field>
+        </record>
+    </data>
+</odoo>

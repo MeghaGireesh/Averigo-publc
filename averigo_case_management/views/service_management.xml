@@ -1,0 +1,18 @@
+<odoo>
+    <record id="action_case_type" model="ir.actions.act_window">
+        <field name="name">Case Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">case.management.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="averigo_service_management.issue_type_menu" name="Case Type" parent="averigo_service_management.case_management_config_main_menu"
+              action="action_case_type" sequence="10" groups="base_averigo.hide_critical_menu"/>
+
+
+    <menuitem id="machine_management_menu_service" name="Equipment"
+              parent="averigo_service_management.service_management_main_menu"
+              action="account_asset_management.account_machine_action" groups="base.group_user" sequence="10"/>
+
+
+</odoo>

@@ -1,0 +1,602 @@
+<odoo>
+    <record id="case_management_assigned_case_notification_mail"
+            model="mail.template">
+        <field name="name">Case Management Case Assigned Notification Email
+        </field>
+        <field name="model_id"
+               ref="averigo_service_management.model_case_management"/>
+        <field name="email_from">support@grabscango.com</field>
+        <field name="partner_to"></field>
+        <field name="email_to">${object.env.context.get('case_mail_to')}</field>
+        <field name="subject">${object.company_id.name} - Service
+            Ticket ${object.number}
+        </field>
+        <field name="auto_delete" eval="True"/>
+        <field name="body_html" type="html">
+            <table border="0" cellpadding="0" cellspacing="0"
+                   style="padding-top:16px;background-color:#F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;">
+                <tbody>
+                    <tr>
+                        <td align="center">
+                            <table border="0" cellpadding="0"
+                                   cellspacing="0" width="590"
+                                   style="padding:16px;background-color: white; color: #454748; border-collapse:separate;">
+                                <tbody>
+                                    <tr>
+                                        <td align="center"
+                                            style="min-width:590px;">
+                                            <table border="0"
+                                                   cellpadding="0"
+                                                   cellspacing="0"
+                                                   width="590"
+                                                   style="min-width:590px;background-color: white;padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td valign="middle">
+                                                            <span style="font-size:10px;"></span>
+                                                            <span style="font-size:20px;font-weight: bold;">
+                                                                Hi,${object.env.context.get('case_tech_person')}
+                                                            </span>
+                                                            <br/>
+                                                        </td>
+                                                        <td valign="middle"
+                                                            align="right">
+                                                            <img src="/logo.png?company=${object.company_id.id}"
+                                                                 style="padding:0px;margin: 0px; height: auto; width: 80px;"
+                                                                 alt="${object.company_id.name}"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2"
+                                                            style="text-align:center;">
+                                                            <hr width="100%"
+                                                                style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <!-- CONTENT -->
+                                    <tr>
+                                        <td align="center"
+                                            style="min-width:590px;">
+                                            <table border="0"
+                                                   cellpadding="0"
+                                                   cellspacing="0"
+                                                   width="590"
+                                                   style="min-width:590px;background-color: white;padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td valign="top">
+                                                            <div>
+                                                                <b>A
+                                                                    Service
+                                                                    ticket
+                                                                    has
+                                                                    been
+                                                                    assigned
+                                                                    to
+                                                                    you.
+                                                                </b>
+                                                                <br/>
+                                                                <b>
+                                                                    <br/>
+                                                                </b>
+                                                                <div>
+                                                                    The
+                                                                    details
+                                                                    of
+                                                                    the
+                                                                    ticket
+                                                                    are
+                                                                    as
+                                                                    follows:
+                                                                </div>
+                                                                <div>
+                                                                    <b>Ticket
+                                                                    </b>
+                                                                    :${object.number}
+                                                                </div>
+                                                                <div>
+                                                                    <b>
+                                                                        Accounts Manager
+                                                                    </b>
+                                                                    :${object.partner_id.kam.first_name or ""} ${object.partner_id.kam.last_name or ""}
+                                                                </div>
+                                                                <div>
+                                                                    <b>
+                                                                        Description
+                                                                    </b>
+                                                                    :${object.env.context.get('case_description')}.
+                                                                </div>
+                                                                <div>
+                                                                    <br/>
+                                                                </div>
+
+                                                            </div>
+                                                            <!--                                                            <div-->
+                                                            <!--                                                                    style="font-size: 13px;" invisible="1">-->
+                                                            <!--                                                                <a href="${object.env.context.get('case_url')}"-->
+                                                            <!--                                                                   style="background-color:#689f38;display:inline-block;color:#fff;margin: 16px 0px 16px 0px;padding: 8px 16px 8px 16px;text-decoration:none;font-size: 15px;">-->
+                                                            <!--                                                                    View-->
+                                                            <!--                                                                    Ticket-->
+                                                            <!--                                                                </a>-->
+                                                            <!--                                                                <p style="font-size:14px;font-weight: bold;color: red;"></p>-->
+                                                            <!--                                                            </div>-->
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="text-align:center;">
+                                                            <hr width="100%"
+                                                                style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0;margin: 16px 0px 16px 0px;"/>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <!-- FOOTER -->
+                                    <tr>
+                                        <td align="center"
+                                            style="min-width:590px;">
+                                            <table border="0"
+                                                   cellpadding="0"
+                                                   cellspacing="0"
+                                                   width="590"
+                                                   style="min-width:590px;background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td valign="middle"
+                                                            align="left">
+                                                            ${object.company_id.name}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td valign="middle"
+                                                            align="left"
+                                                            style="opacity: 0.7;">
+                                                            ${object.company_id.phone}
+                                                            |
+                                                            <a href="'mailto:%s' % ${object.company_id.email}"
+                                                               style="text-decoration:none; color: #454748;">
+                                                                ${object.company_id.email}
+                                                            </a>
+                                                            |
+                                                            <a href="'%s' % ${object.company_id.website}"
+                                                               style="text-decoration:none; color: #454748;">
+                                                                ${object.company_id.website}
+                                                            </a>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </field>
+    </record>
+    <record id="case_management_case_created_notification_mail"
+            model="mail.template">
+        <field name="name">Case Management Case Created Notification Email
+        </field>
+        <field name="model_id"
+               ref="averigo_service_management.model_case_management"/>
+        <field name="email_from">support@grabscango.com</field>
+        <field name="partner_to"></field>
+        <field name="email_to">${object.env.context.get('case_mail_to')}</field>
+        <field name="subject">${object.company_id.name} - Service
+            Ticket ${object.number} Created
+        </field>
+        <field name="auto_delete" eval="True"/>
+        <field name="body_html" type="html">
+            <table border="0" cellpadding="0" cellspacing="0"
+                   style="padding-top:16px;background-color:#F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;">
+                <tbody>
+                    <tr>
+                        <td align="center">
+                            <table border="0" cellpadding="0"
+                                   cellspacing="0" width="590"
+                                   style="padding:16px;background-color: white; color: #454748; border-collapse:separate;">
+                                <tbody>
+                                    <tr>
+                                        <td align="center"
+                                            style="min-width:590px;">
+                                            <table border="0"
+                                                   cellpadding="0"
+                                                   cellspacing="0"
+                                                   width="590"
+                                                   style="min-width:590px;background-color: white;padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td valign="middle">
+                                                            <span style="font-size:10px;"></span>
+                                                            <span style="font-size:20px;font-weight: bold;">
+                                                                <b>Dear
+                                                                    ${object.partner_id.kam.first_name or ''} ${object.partner_id.kam.last_name or ''},
+                                                                </b>
+                                                            </span>
+                                                            <br/>
+                                                        </td>
+                                                        <td valign="middle"
+                                                            align="right">
+                                                            <img src="/logo.png?company=${object.company_id.id}"
+                                                                 style="padding:0px;margin: 0px; height: auto; width: 80px;"
+                                                                 alt="${object.company_id.name}"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2"
+                                                            style="text-align:center;">
+                                                            <hr width="100%"
+                                                                style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <!-- CONTENT -->
+                                    <tr>
+                                        <td align="center"
+                                            style="min-width:590px;">
+                                            <table border="0"
+                                                   cellpadding="0"
+                                                   cellspacing="0"
+                                                   width="590"
+                                                   style="min-width:590px;background-color: white;padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td valign="top">
+                                                            <div>
+                                                                <b>A New
+                                                                    Service
+                                                                    ticket
+                                                                    has
+                                                                    been
+                                                                    Created
+                                                                    .
+                                                                </b>
+                                                                <br/>
+                                                                <b>
+                                                                    <br/>
+                                                                </b>
+                                                                <div>
+                                                                    The
+                                                                    details
+                                                                    of
+                                                                    the
+                                                                    ticket
+                                                                    are
+                                                                    as
+                                                                    follows:
+                                                                </div>
+                                                                <div>
+                                                                    <b>Ticket
+                                                                    </b>
+                                                                    :${object.number}
+                                                                </div>
+                                                                <div>
+                                                                    <b>
+                                                                        Description
+                                                                    </b>
+                                                                    :${object.env.context.get('case_description')}.
+                                                                </div>
+                                                                <div>
+                                                                    <br/>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="text-align:center;">
+                                                            <hr width="100%"
+                                                                style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0;margin: 16px 0px 16px 0px;"/>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <!-- FOOTER -->
+                                    <tr>
+                                        <td align="center"
+                                            style="min-width:590px;">
+                                            <table border="0"
+                                                   cellpadding="0"
+                                                   cellspacing="0"
+                                                   width="590"
+                                                   style="min-width:590px;background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td valign="middle"
+                                                            align="left">
+                                                            ${object.company_id.name}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td valign="middle"
+                                                            align="left"
+                                                            style="opacity: 0.7;">
+                                                            ${object.company_id.phone}
+                                                            |
+                                                            <a href="'mailto:%s' % ${object.company_id.email}"
+                                                               style="text-decoration:none; color: #454748;">
+                                                                ${object.company_id.email}
+                                                            </a>
+                                                            |
+                                                            <a href="'%s' % ${object.company_id.website}"
+                                                               style="text-decoration:none; color: #454748;">
+                                                                ${object.company_id.website}
+                                                            </a>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </field>
+    </record>
+    <record id="case_management_closed_case_notification_mail"
+            model="mail.template">
+        <field name="name">Case Management Closed Case Notification Email
+        </field>
+        <field name="model_id"
+               ref="averigo_service_management.model_case_management"/>
+        <field name="email_from">support@grabscango.com</field>
+        <field name="partner_to"></field>
+        <field name="email_to">${object.env.context.get('email_to')}</field>
+        <field name="subject">The Ticket # ${object.number} is now resolved
+        </field>
+        <field name="auto_delete" eval="True"/>
+        <field name="body_html" type="html">
+            <table border="0" cellpadding="0" cellspacing="0"
+                   style="padding-top:16px;background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;">
+                <tbody>
+                    <tr>
+                        <td align="center">
+                            <table border="0" cellpadding="0"
+                                   cellspacing="0" width="900"
+                                   style="padding:16px;background-color: white; color: #454748; border-collapse:separate;">
+                                <tbody>
+                                    <!-- HEADER -->
+                                    <tr>
+                                        <td align="center"
+                                            style="min-width:900px;">
+                                            <table border="0"
+                                                   cellpadding="0"
+                                                   cellspacing="0"
+                                                   width="590"
+                                                   style="min-width:900px;background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td valign="middle">
+                                                            <br/>
+                                                            <span style="font-size:20px;">
+                                                                <b>Dear
+                                                                    ${object.partner_id.name},
+                                                                </b>
+                                                            </span>
+                                                        </td>
+                                                        <td valign="middle"
+                                                            align="right">
+                                                            <img src="/logo.png?company=${object.company_id.id}"
+                                                                 style="padding:0px;margin: 0px; height: auto; width: 80px;"
+                                                                 alt="${object.company_id.name}"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2"
+                                                            style="text-align:center;">
+                                                            <hr width="100%"
+                                                                style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;"/>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <!-- CONTENT -->
+                                    <tr>
+                                        <td align="center"
+                                            style="min-width:900px;">
+                                            <table border="0"
+                                                   cellpadding="0"
+                                                   cellspacing="0"
+                                                   width="590"
+                                                   style="min-width:900px;background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td valign="top">
+                                                            <div>We are
+                                                                writing
+                                                                to
+                                                                inform
+                                                                you that
+                                                                we have
+                                                                successfully
+                                                                resolved
+                                                                the
+                                                                issue
+                                                                described
+                                                                in
+                                                                ticket
+                                                                number
+                                                                <b>
+                                                                    ${object.number or ''}.
+                                                                </b>
+                                                                We
+                                                                are
+                                                                pleased
+                                                                to
+                                                                confirm
+                                                                that
+                                                                the
+                                                                problem
+                                                                has
+                                                                been
+                                                                Closed
+                                                                and
+                                                                you
+                                                                should
+                                                                no
+                                                                longer
+                                                                experience
+                                                                any
+                                                                difficulties.
+                                                                <div>
+                                                                    <div>
+                                                                        If
+                                                                        you
+                                                                        have
+                                                                        any
+                                                                        further
+                                                                        questions
+                                                                        or
+                                                                        concerns
+                                                                        related
+                                                                        to
+                                                                        this
+                                                                        specific
+                                                                        issue,
+                                                                        please
+                                                                        do
+                                                                        not
+                                                                        hesitate
+                                                                        to
+                                                                        reach
+                                                                        out
+                                                                        to
+                                                                        us.
+                                                                    </div>
+                                                                    <div>
+                                                                        Thank
+                                                                        you
+                                                                        for
+                                                                        your
+                                                                        patience
+                                                                        and
+                                                                        understanding
+                                                                        throughout
+                                                                        this
+                                                                        process.
+                                                                        We
+                                                                        value
+                                                                        your
+                                                                        business
+                                                                        and
+                                                                        appreciate
+                                                                        the
+                                                                        opportunity
+                                                                        to
+                                                                        have
+                                                                        resolved
+                                                                        this
+                                                                        matter
+                                                                        to
+                                                                        your
+                                                                        satisfaction.
+                                                                    </div>
+                                                                </div>
+                                                                <br/>
+                                                                Regards,
+                                                                <br/>
+                                                                --
+                                                                <br/>
+                                                                <div>
+                                                                    ${object.company_id.name}
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="text-align:center;">
+                                                            <hr width="100%"
+                                                                style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <!-- FOOTER -->
+                                    <tr>
+                                        <td align="center"
+                                            style="min-width:900px;">
+                                            <table border="0"
+                                                   cellpadding="0"
+                                                   cellspacing="0"
+                                                   width="590"
+                                                   style="min-width:900px;background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td valign="middle"
+                                                            align="left">
+                                                            ${object.company_id.name}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td valign="middle"
+                                                            align="left"
+                                                            style="opacity: 0.7;">
+                                                            ${object.company_id.phone}
+                                                            |
+                                                            <a href="'mailto:%s' % ${object.company_id.email}"
+                                                               style="text-decoration:none; color: #454748;">
+                                                                ${object.company_id.email}
+                                                            </a>
+                                                            |
+                                                            <a href="'%s' % ${object.company_id.website}"
+                                                               style="text-decoration:none; color: #454748;">
+                                                                ${object.company_id.website}
+                                                            </a>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- POWERED BY -->
+                    <tr>
+                        <td align="center" style="min-width:590px;">
+                            <table border="0" cellpadding="0"
+                                   cellspacing="0" width="900"
+                                   style="min-width:900px;background-color: #F1F1F1; color: #454748;padding: 8px; border-collapse:separate;">
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align:center;font-size: 13px;">
+                                            Powered by
+                                            <a target="_blank"
+                                               href="https://www.averigo.com/"
+                                               style="color:#689f38;">
+                                                AveriGo LLC
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </field>
+    </record>
+</odoo>

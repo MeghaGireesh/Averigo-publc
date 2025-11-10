@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_ir_image_read,access.ir.image.read,model_ir_image,base_averigo.admin_user_home_screen_image_read,1,0,0,0
+access_ir_image_write,access.ir.image.write,model_ir_image,base_averigo.admin_user_home_screen_image_write,0,1,0,0
+access_ir_image_create,access.ir.image.create,model_ir_image,base_averigo.admin_user_home_screen_image_create,0,0,1,0
+access_ir_image_unlink,access.ir.image.unlink,model_ir_image,base_averigo.admin_user_home_screen_image_unlink,0,0,0,1

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    Record rules for restrict featured product access    -->
+    <record model="ir.module.category" id="module_featured_product">
+        <field name="name">Featured Product Rights</field>
+        <field name="sequence">11</field>
+    </record>
+    <record id="operator_featured_product_read" model="res.groups">
+        <field name="name">Quick Update Read Operator User</field>
+        <field name="category_id" ref="averigo_app_featured_products.module_featured_product"/>
+    </record>
+    <!-- Record rule for Featured Products -->
+    <record model="ir.rule" id="featured_product_operator_rule">
+        <field name="name">Featured Product rule</field>
+        <field name="model_id" ref="averigo_app_featured_products.model_featured_products"/>
+        <field name="domain_force">[('operator_id','in',company_ids)]</field>
+    </record>
+</odoo>

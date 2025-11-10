@@ -1,0 +1,2657 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="case_management_view_wizard_form" model="ir.ui.view">
+            <field name="name">case.management.view.form.wizard</field>
+            <field name="model">case.management</field>
+            <field name="arch" type="xml">
+                <form string="Case Management">
+                    <style>
+                        @media(min-width: 992px){
+                        <!--                        .modal-lg, .modal-xl{-->
+                        <!--                        max-width:80vw !important;-->
+                        <!--                        }-->
+                        }
+                        <!-- label -->
+                        .note-editor .note-editing-area {
+                        height: 150px !important;
+                        }
+
+                        .html_field_div {
+                        display: flex;
+                        flex-direction: column;
+                        }
+
+                        .o_form_view .o_group .o_form_label {
+                        font-weight: 900 !important;
+                        margin-right: 0px !important;
+                        margin-left: 10px;
+                        font-size:109%;
+                        }
+                        <!-- field-->
+                        td.td_fields {
+                        padding: 0px 10px !important;
+                        width: 110px !important;
+                        min-width: 110px !important;
+                        max-width: 110px !important;
+
+                        }
+
+                        .o_action_manager {
+                        overflow-y: hidden !important;
+                        }
+                        <!-- external link button icon-->
+                        .o_field_widget.o_field_many2one .o_external_button {
+                        font-size: 14px !important;
+                        }
+                        .note-editing-area{
+                        word-break: break-all;
+
+                        }
+                        div[name="case_description"] p {
+                        word-break: break-all;
+                        }
+                        div[name="case_description"] p {
+                        word-break: break-all;
+                        }
+                        div[name="case_description"] p {
+                        word-break: break-all;
+                        }
+                        <!-- label-->
+                        .td_label {
+                        <!-- background: #f5f5f5e0; -->
+                        border-right: 1px solid #0000002b;
+                        border-radius: 2px;
+                        width: 80px;
+                        min-width: 80px;
+                        max-width: 80px;
+                        font-size:109%;
+                        padding-bottom:1% !important;
+                        }
+
+                        .o_form_uri .o_field_widget .o_required_modifier .w-100
+                        span {
+                        color: #800000 !important;
+                        }
+
+                        .oe_form_field.oe_form_field_html.o_field_widget {
+                        height: 200px !important;
+                        overflow: auto;
+                        border: 1px solid #b9b3b3;
+                        padding-left: 5px;
+                        border-radius: 5px;
+                        word-break:break-all;
+                        }
+                        .row.field_color {
+                        margin-right: 0px !important;
+                        margin-left: 0px !important;
+                        }
+
+                        .o_field_many2manytags {
+                        max-height: 7vh;
+                        overflow: auto;
+                        }
+
+                        .col-4 {
+                        min-height: 50px;
+                        }
+
+                        textarea {
+                        padding-left: 10px !important;
+                        padding-top: 2px !important;
+                        }
+
+                        button.fa.fa-external-link.btn.btn-secondary.o_external_button
+                        {
+                        padding-left: 1.5%;
+                        padding-right: 0;
+                        background: Transparent;
+                        }
+                        /*btn*/
+                        .o_form_view
+                        .oe_form_case_book
+                        .btn.oe_stat_button
+                        > .o_stat_info
+                        .o_stat_value,
+                        .o_form_view .oe_form_case_book .btn.oe_stat_button >
+                        span .o_stat_value {
+                        font-weight: 700;
+                        color: #f2f2f2 !important;
+                        line-height: 1.2;
+                        font-size: 13px !important;
+                        text-align: center !important;
+                        }
+
+                        i.fa.fa-fw.o_button_icon.fa-pencil-square-o {
+                        padding-left: 8%;
+                        padding-right: 2%;
+                        }
+
+                        .o_form_view
+                        .oe_form_case_book
+                        .btn.oe_stat_button
+                        > .o_stat_info
+                        .o_stat_value,
+                        .o_form_view .oe_form_case_book .btn.oe_stat_button >
+                        span .o_stat_value {
+                        font-weight: 700;
+                        color: #f2f2f2;
+                        line-height: 1.2;
+                        font-size: 15px;
+                        text-align: center !important;
+                        }
+
+                        .o_form_view .oe_form_case_book .btn.oe_stat_button >
+                        .o_stat_info .o_stat_text,
+                        .o_form_view .oe_form_case_book .btn.oe_stat_button >
+                        span .o_stat_text {
+                        line-height: 1.2;
+                        text-align: center !important;
+                        }
+
+                        .o_form_view .oe_form_case_book .btn.oe_stat_button >
+                        .o_stat_info,
+                        .o_form_view .oe_form_case_book .btn.oe_stat_button >
+                        span {
+                        display: inline-block;
+                        vertical-align: middle;
+                        font-weight: 500;
+                        max-width: 100% !important;
+                        padding-right: 0px !important;
+                        line-height: 1.3;
+                        width: 100% !important;
+                        }
+
+                        .o_form_view .oe_inline,
+                        .o_form_view .oe_left,
+                        .o_form_view .oe_right,
+                        .o_form_view .o_group.o_inner_group.oe_subtotal_footer {
+                        width: 100% !important;
+                        }
+
+                        .o_form_view .oe_form_case_book .btn.oe_stat_button {
+                        color: #f2f2f2;
+                        height: 44px;
+                        padding: 0 0px 0 0 !important;
+                        text-align: left;
+                        white-space: nowrap;
+                        background-color: transparent;
+                        opacity: 1 !important;
+                        border-radius: 0px;
+                        margin-bottom: 0;
+                        }
+
+                        .btn.oe_stat_button {
+                        background-color: #0b5d74 !important;
+                        }
+
+                        .o_form_view .oe_form_case_book .btn.oe_stat_button {
+                        color: #fff;
+                        }
+
+                        .o_stat_text:hover {
+                        color: #eae6e6 !important;
+                        }
+
+                        .btn.oe_stat_button:hover {
+                        color: #eceaea !important;
+                        }
+
+                        .o_form_view
+                        .oe_form_case_book
+                        .btn.oe_stat_button
+                        > .o_stat_info
+                        .o_stat_value,
+                        .o_form_view .oe_form_case_book .btn.oe_stat_button >
+                        span .o_stat_value {
+                        color: #fff !important;
+                        }
+
+                        .oe_form_case_book .fa {
+                        color: #fff !important;
+                        }
+
+                        .o_field_widget.o_field_monetary.o_input {
+                        width: 100%;
+                        }
+
+                        .o_not_full .oe_form_case_book {
+                        position: absolute;
+                        display: flex;
+                        flex-direction: column;
+                        width: 15%;
+                        height: 100%;
+                        left: -15%;
+                        }
+                        <!--Button position change  code-->
+                        .o_form_view
+                        .oe_form_case_book
+                        .btn.oe_stat_button {
+                        color: #fff;
+                        margin: 0.2rem 0;
+                        width: 100%;
+                        }
+
+                        .o_form_view .oe_form_case_book {
+                        position: unset !important;
+                        left: 30px;
+                        width: 13%;
+                        height: 10% !important;
+                        overflow-y: scroll;
+                        }
+
+                        .o_form_view .o_form_sheet_bg > .o_form_sheet {
+                        margin-left: 15%;
+                        }
+
+                        .o_form_view .oe_form_case_book .btn.oe_stat_button >
+                        .o_stat_info {
+                        padding: 5%;
+                        }
+
+                        .o_form_view.oe_form_case_book.btn.oe_stat_button>
+                        .o_stat_info.o_stat_value,
+                        .o_form_view .oe_form_case_book .btn.oe_stat_button >
+                        span .o_stat_value {
+                        display: inline-block;
+                        margin-right: 2%;
+                        }
+
+                        .o_form_view .oe_form_case_book .btn.oe_stat_button >
+                        .o_stat_info .o_stat_text,
+                        .o_form_view .oe_form_case_book .btn.oe_stat_button >
+                        span .o_stat_text {
+                        display: inline-block;
+                        }
+
+                        .o_field_widget o_stat_info {
+                        display: inline-block;
+                        padding: 5%;
+                        }
+                        <!--                        .o_form_sheet{-->
+                        <!--                        width : 80vw !important;-->
+                        <!--                        max-width:80vw !important;-->
+                        <!--                        }-->
+                        .o_field_widget {
+                        white-space: initial;
+                        word-wrap: break-word;
+                        }
+                        <!--                        .o_form_view .o_form_sheet_bg {-->
+                        <!--                        }-->
+                        <!--  Media Query -->
+                        <!--                        @media (min-width: 1900px) {-->
+                        <!--                        .description_information {-->
+                        <!--                        width: 7% !important;-->
+                        <!--                        }-->
+
+                        <!--                        .o_form_view .oe_chatter {-->
+                        <!--                        background-color: white;-->
+                        <!--                        right: 0.5%;-->
+                        <!--                        height: 85vh !important;-->
+                        <!--                        margin-top: 2%;-->
+                        <!--                        top: 17%;-->
+                        <!--                        position: fixed;-->
+                        <!--                        max-width: 24% !important;-->
+                        <!--                        min-width: 24% !important;-->
+                        <!--                        overflow-y: scroll;-->
+                        <!--                        overflow-x: hidden;-->
+                        <!--                        }-->
+
+                        .o_form_view .oe_form_case_book {
+                        position: unset !important;
+                        height: 30% !important;
+                        left: 1%;
+                        overflow-x: hidden;
+                        }
+
+                        .position-relative {
+                        position: initial !important;
+                        }
+
+                        <!--                        .o_chatter .o_chatter_topbar {-->
+                        <!--                        display: flex;-->
+                        <!--                        flex-wrap: wrap;-->
+                        <!--                        }-->
+                        <!--                        }-->
+
+                        <!--                        @media (max-width: 1900px) {-->
+                        <!--                        .position-relative {-->
+                        <!--                        position: initial !important;-->
+                        <!--                        }-->
+
+                        .o_form_view .oe_form_case_book {
+                        position: absolute !important;
+                        left: 10px;
+                        width: 13%;
+                        height: 50% !important;
+                        overflow-y: scroll;
+                        }
+                        <!--                        }-->
+
+                        <!--                        @media (max-width: 900px) {-->
+                        <!--                        .o_form_view .oe_form_case_book .btn.oe_stat_button {-->
+                        <!--                        margin-top: 1%;-->
+                        <!--                        margin-right: 2%;-->
+                        <!--                        }-->
+
+                        .o_form_view .o_form_sheet_bg > .o_form_sheet {
+                        margin: 5%;
+                        }
+
+                        .o_form_view .oe_form_case_book {
+                        position: initial !important;
+                        display: flex;
+                        flex-direction: row;
+                        width: 100%;
+                        }
+
+                        .o_field_widget.checkbox {
+                        max-height: 7vh;
+                        overflow: scroll;
+                        padding-left: 10px;
+                        }
+
+                        .o_field_many2manytags {
+                        max-height: 7vh;
+                        overflow: scroll;
+                        }
+
+                        .col-4 {
+                        min-height: 50px;
+                        }
+
+                        textarea {
+                        padding-left: 10px !important;
+                        padding-top: 2px !important;
+                        }
+
+                        .o_form_view .oe_chatter {
+                        right: 2%;
+                        }
+                        }
+
+                    </style>
+                    <header>
+                        <field name="closed" invisible="1"/>
+                        <field name="created_invoice" invisible="1"/>
+                        <field name="cancelled_case" invisible="1"/>
+                        <field name="in_progress" invisible="1"/>
+                        <field name="is_opend_case" invisible="1"/>
+                        <button name="start_case" type="object"
+                                class="btn btn-warning o_form_button_save"
+                                string="Start"
+                                attrs="{'invisible': ['|',('closed', '=', True),('in_progress','=',True)]}"/>
+                        <button name="start_case" type="object"
+                                class=" btn btn-primary"
+                                string="Retun to In progress"
+                                invisible="1"/>
+                        <button name="close_case" type="object"
+                                class="btn btn-primary o_form_button_edit"
+                                string="Close Case"
+                                attrs="{'invisible': ['|',('closed', '=', True),('in_progress','=',False)]}"/>
+                        <button name="cancel_case" type="object"
+                                class="btn btn-danger o_form_button_cancel"
+                                string="Cancel Case"
+                                attrs="{'invisible': ['|',('closed', '=', True)]}"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_machine_button" name="button_box">
+                            <button type="object" name="action_view_invoice"
+                                    class="oe_stat_button"
+                                    attrs="{'invisible':[('invoice_count', '=', 0)]}">
+                                <div class="o_field_widget o_stat_info"
+                                     style="display:flex">
+                                    <span class="o_stat_value">
+                                        <i class="fa fa-fw o_button_icon fa-pencil-square-o"></i>
+                                    </span>
+                                    <span style="display:flex">
+                                        <field name="invoice_count"
+                                               widget="statinfo" nolabel="1"
+                                               options="{'reload_on_button': true}"/>
+                                        <span class="o_stat_text">Invoice</span>
+                                    </span>
+                                </div>
+                            </button>
+                            <button type="object" name="action_view_picking"
+                                    class="oe_stat_button"
+                                    icon="fa-truck"
+                                    attrs="{'invisible':[('picking_count', '=', 0)]}">
+                                <field name="picking_count" widget="statinfo"
+                                       string="Delivery"/>
+                                <field name="picking_ids" invisible="1"/>
+                            </button>
+                            <button name="open_notes" class="oe_stat_button"
+                                    type="object"
+                                    attrs="{'invisible':[('id','=',False)]}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <i class="fa fa-fw o_button_icon fa-file-text-o"></i>
+                                    </span>
+                                    <span class="o_stat_text">Notes</span>
+                                </div>
+                            </button>
+                            <button name="open_activities"
+                                    class="oe_stat_button"
+                                    type="object"
+                                    attrs="{'invisible':[('id','=',False)]}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <i class="fa fa-fw o_button_icon fa-calendar"></i>
+                                        <!--                                        <i class="fa-solid fa-calendar"></i>-->
+                                    </span>
+                                    <span class="o_stat_text">Activities</span>
+                                </div>
+                            </button>
+                            <button name="action_get_attachment_view"
+                                    class="oe_stat_button"
+                                    type="object"
+                                    attrs="{'invisible':[('id','=',False)]}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <i class="fa fa-fw o_button_icon fa-file-text-o"></i>
+                                        <!--                                        <field name="attachment_number" widget="statinfo" nolabel="1"-->
+                                        <!--                                               options="{'reload_on_button': true}"/>-->
+                                    </span>
+                                    <span class="o_stat_text">Attachments</span>
+                                </div>
+                            </button>
+                        </div>
+                        <!--                        <widget name="web_ribbon" title="Archived"-->
+                        <!--                                bg_color="bg-danger"-->
+                        <!--                                attrs="{'invisible': [('active', '=', True)]}"/>-->
+                        <!--                        <group class="overview_items">-->
+                        <group string="Case Details" class="oe_read_only"
+                               invisible="1">
+                            <h1>
+                                <field name="number" style="font-size:35px;"
+                                       class="oe_read_only"/>
+                            </h1>
+                        </group>
+                        <field name="created_picking" invisible="1"/>
+                        <!--                            <group name="overview" class="oe_read_only">-->
+                        <div class="oe_read_only">
+                            <table
+                                    class="table table-bordered overview_table center w-100 oe_read_only">
+                                <tr style="color:#800000 !important;font-weight: bold !important;">
+                                    <td rowspan="2"
+                                        style="width:30% !important;">
+                                        <div>
+                                            <center>
+                                                <h5 style="margin-top:10%;">
+                                                    <label for="number"
+                                                           string="Case Details"
+                                                           class="w-100 "
+                                                           style="margin:0;"/>
+                                                </h5>
+                                                <h1 style="color:#4c4c4c;">
+                                                    <field name="number"
+                                                           style="font-size:35px;"
+                                                           class="oe_read_only"/>
+                                                </h1>
+                                            </center>
+                                        </div>
+                                    </td>
+
+                                    <td style="display:flex;justify-content:center">
+                                        <div class="col-4 pt-2">
+                                            <center>
+                                                <h5>
+                                                    <label for="stage_id"
+                                                           string="Status"
+                                                           class="w-100 "
+                                                           style="margin:0;"/>
+                                                    <field name="stage_id"
+                                                           class="w-100 status_field"
+                                                           placeholder="State"
+                                                           widget="employee_completion_wizard"
+                                                           required="1"
+                                                           options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
+                                                           style="display:flex;justify-content:center"
+                                                           context="{'country_id': country_id, 'zip': zip}"
+                                                           attrs="{'readonly': [('closed', '=', True)]}"/>
+                                                </h5>
+                                            </center>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <center>
+                                            <h5>
+                                                <label for="open_from"
+                                                       string="Open From"
+                                                       class="w-100"/>
+                                                <field name="open_from"
+                                                       readonly="1"
+                                                       style="color:#800000 !important"/>
+                                            </h5>
+                                        </center>
+                                    </td>
+                                </tr>
+                                <tr style="color:#800000 !important;font-weight: bold !important;">
+                                    <td>
+                                        <center>
+                                            <h5>
+                                                <label for="account_open_case"
+                                                       string="Account Open Case"
+                                                       class="w-100"/>
+                                                <field name="account_open_case"
+                                                       readonly="1"
+                                                       style="color:#800000 !important"/>
+                                            </h5>
+                                        </center>
+                                    </td>
+                                    <td>
+                                        <center>
+                                            <h5>
+                                                <label for="account_close_case"
+                                                       string="Account Closed Case"
+                                                       class="w-100"/>
+                                                <field name="account_close_case"
+                                                       readonly="1"
+                                                       style="color:#800000 !important"/>
+                                            </h5>
+                                        </center>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!--                            </group>-->
+                        <!--                        </group>-->
+                        <group string="Account" name="account" class=""
+                               invisible="1"/>
+                        <div class="row pt-2">
+                            <div class="col-3 mb-3">
+                                <label for="partner_id"
+                                       string="Customer"
+                                       class="w-100"/>
+                                <field name="partner_id"
+                                       required="1"
+                                       class="w-100"
+                                       attrs="{'readonly': [('closed', '=', True)]}"
+                                       context="{'default_is_customer':True}"
+                                       widget="res_partner_many2one"
+                                       create="False" edit="False"
+                                       options="{'no_create': True, 'no_create_edit':True,'no_open': True}"
+                                       nolabel="1"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="partner_name"
+                                       string="Contact Name"
+                                       class="w-100"/>
+                                <field name="partner_name"
+                                       attrs="{'readonly': [('closed', '=', True)]}"
+                                       class="w-100"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="mobile" string="Mobile"
+                                       class="w-100"/>
+                                <field name="mobile" readonly="1"
+                                       attrs="{'readonly': [('closed', '=', True)]}"
+                                       class="w-100"
+                                />
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="partner_address"
+                                       string="Customer Address"
+                                       class="w-100"/>
+                                <field name="partner_address" readonly="1"
+                                       attrs="{'readonly': [('closed', '=', True)]}"
+                                       class="w-100"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="nick_name"
+                                       string="Nick Name"
+                                       class="w-100"/>
+                                <field name="nick_name"
+                                       class="w-100" nolabel="1"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="partner_email"
+                                       string="Email"
+                                       class="w-100"/>
+                                <field name="partner_email"
+                                       attrs="{'readonly': [('closed', '=', True)]}"
+                                       class="w-100"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="phone" string="Phone"
+                                       class="w-100"/>
+                                <field name="phone" readonly="1"
+                                       attrs="{'readonly': [('closed', '=', True)]}"
+                                       class="w-100"
+
+                                />
+                            </div>
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-12 hr_class">
+                                <hr/>
+                            </div>
+                        </div>
+                        <group string="Reported Information"/>
+                        <div class="row pt-2">
+                            <div class="col-3 mb-3">
+                                <label for="channel_id"
+                                       string="Case Origin"
+                                       class="w-100"/>
+                                <field name="channel_id"
+                                       class="w-100"
+                                       attrs="{'readonly': [('closed', '=', True)]}"/>
+
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="reported_phone"
+                                       string="Reported Phone"
+                                       class="w-100"
+                                       widget="phone"/>
+                                <field name="reported_phone"
+                                       attrs="{'readonly': [('closed', '=', True)]}"
+                                       class="w-100"
+                                       widget="phone"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="reported_by"
+                                       string="Reported By"
+                                       class="w-100"/>
+                                <field name="reported_by"
+                                       attrs="{'readonly': [('closed', '=', True)]}"
+                                       class="w-100"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="reported_email"
+                                       string="Email"
+                                       class="w-100"/>
+                                <field name="reported_email"
+                                       attrs="{'readonly': [('closed', '=', True)]}"
+                                       class="w-100"/>
+                            </div>
+                            <div class="col-3 mb-3" invisible="1">
+                                <label for="subject"
+                                       string="Subject"
+                                       class="w-100" invisible="1"/>
+                                <field name="subject"
+                                       attrs="{'readonly': [('closed', '=', True)]}"
+                                       class="w-100" invisible="1"/>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 hr_class">
+                                <hr/>
+                            </div>
+                        </div>
+                        <group string="Case Information's"/>
+                        <div class="row pt-2">
+                            <div class="col-3 mb-3">
+                                <label for="employee_ids"
+                                       string="Assigned To"
+                                       class="w-100"/>
+                                <field name="employee_ids"
+                                       options='{"always_reload": True,"no_create":True,"no_create_edit":True,"no_open":True}'
+                                       class="w-100"
+                                       widget="many2many_tags"
+                                       context="{'tree_view_ref': 'averigo_case_management.hr_employee_tree_Case'}"
+                                       attrs="{'readonly': [('closed', '=', True)]}"/>
+                                <!--                                <field name="active" invisible="1"/>-->
+                            </div>
+                            <div class="col-3 mb-3 oe_edit_only">
+                                <label for="stage_id"
+                                       string="Status"
+                                       class="w-100 oe_edit_only"/>
+                                <field name="hide_close_btn" invisible="1"/>
+                                <field name="stage_id"
+                                       widget="employee_completion_wizard"
+                                       class="oe_edit_only w-100"
+                                       attrs="{'readonly':[('hide_close_btn','=',True)]}"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="category_id"
+                                       string="Case Category"
+                                       class="w-100"/>
+                                <field name="category_id"
+                                       required="1" class="w-100"
+                                       attrs="{'readonly': [('closed', '=', True)]}"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="type_id" string="Type"
+                                       class="w-100"/>
+                                <field name="type_id" required="1"
+                                       attrs="{'readonly': [('closed', '=', True)]}"
+                                       options="{'no_open': True,}"
+                                       class="w-100"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="route_id" string="Route"
+                                       class="w-100"/>
+                                <field name="route_id" class="w-100"
+                                       attrs="{'readonly': [('closed', '=', True)]}"/>
+                            </div>
+
+                            <div class="col-3 mb-3" invisible="1">
+                                <label for="issue_type_ids"
+                                       string="Issue Type"
+                                       class="w-100"/>
+                                <field name="issue_type_ids"
+                                       widget="many2many_tags"
+                                       class="checkbox w-100"
+                                       domain="[('category_id', '=', category_id)]"
+                                       attrs="{'readonly': [('closed', '=', True)]}"
+                                       force_save="1"/>
+                            </div>
+
+                            <div class="col-3 mb-3" invisible="1">
+                                <label for="project_id"
+                                       string="Project"
+                                       class="w-100"/>
+                                <field name="project_id"
+                                       class="w-100 oe_inline"
+                                       attrs="{'readonly': [('closed', '=', True)]}"/>
+
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="is_billable"
+                                       string="Billable"
+                                       class="w-100"/>
+                                <field name="is_billable"
+                                       class="w-100"
+                                       attrs="{'readonly': [('closed', '=', True)]}"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="is_preventive"
+                                       string="Preventive"
+                                       class="w-100"/>
+                                <field name="is_preventive"
+                                       class="w-100"
+                                       attrs="{'readonly': [('closed', '=', True)]}"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="priority"
+                                       string="Priority"
+                                       class="w-100"/>
+                                <field name="priority"
+                                       widget="priority"
+                                       attrs="{'readonly': [('closed', '=', True)]}"
+                                       class="w-100"/>
+                                <field name="is_case_started" invisible="1"/>
+                            </div>
+                            <div class="col-3 mb-3" invisible="1">
+                                <label for="request_date"
+                                       string="Date/Time Opened"
+                                       class="w-100"/>
+                                <field name="request_date"
+                                       class="w-100" readonly="1"
+                                       widget="datetime"/>
+                            </div>
+                        </div>
+                        <group string="Address Information" invisible="1"/>
+                        <div class="row pt-2" invisible="1">
+                            <div class="col-3 mb-3">
+                                <field name="country_id"
+                                       placeholder="Country"
+                                       invisible="1"
+                                       class="o_address_country"
+                                       attrs="{'readonly': [('closed', '=', True)]}"
+                                       options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                <label for="zip" string="Zip"
+                                       class="w-100"/>
+                                <field name="zip" placeholder="ZIP"
+                                       required="1" class="w-100"
+                                       attrs="{'readonly': [('closed', '=', True)]}"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="street" string="Street"
+                                       class="w-100"/>
+                                <field name="street"
+                                       placeholder="Street"
+                                       class="w-100"
+                                       attrs="{'readonly': [('closed', '=', True)]}"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="street2"
+                                       string="Street 2"
+                                       class="w-100"/>
+                                <field name="street2" readonly="1"
+                                       placeholder="Street 2"
+                                       class="w-100"
+                                       attrs="{'readonly': [('closed', '=', True)]}"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="city" string="City"
+                                       class="w-100"/>
+                                <field name="city"
+                                       placeholder="City"
+                                       required="1" class="w-100"
+                                       attrs="{'readonly': [('closed', '=', True)]}"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="state_id" string="State"
+                                       class="w-100"/>
+                                <field name="state_id" class="w-100"
+                                       placeholder="State"
+                                       required="1"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
+                                       context="{'country_id': country_id, 'zip': zip}"
+                                       attrs="{'readonly': [('closed', '=', True)]}"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="county" string="County"
+                                       class="w-100"/>
+                                <field name="county"
+                                       placeholder="County"
+                                       class="w-100"
+                                       attrs="{'readonly': [('closed', '=', True)]}"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 hr_class">
+                                <hr/>
+                            </div>
+                        </div>
+                        <group string="Equipment Details"/>
+                        <div class="row pt-2">
+                            <div class="col-3 mb-3">
+                                <label for="machine_ids"
+                                       string="Equipment"
+                                       class="w-100"/>
+                                <field name="machine_ids"
+                                       domain="[('state', '=', 'open')]"
+                                       class="w-100"
+                                       options="{'no_open': True, 'no_create': True, 'no_edit': True}"
+                                       attrs="{'readonly': [('closed', '=', True)]}"
+                                       context="{'form_view_ref': 'account_asset_management.account_machine_view_form',
+                                           'tree_view_ref':'account_asset_management.account_machine_view_tree'}"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="serial_number"
+                                       string="Serial No"
+                                       class="w-100"/>
+                                <field name="serial_number"/>
+                            </div>
+                            <div class="col-3 mb-3" invisible="1">
+                                <label for="warehouse_id"
+                                       string="Parts Warehouse"
+                                       class="w-100"/>
+                                <field name="warehouse_id"
+                                       domain="[('is_parts_warehouse', '=', True)]"
+                                       string="Parts Warehouse"
+                                       attrs="{'readonly': [('closed', '=', True)]}"
+                                       options="{'no_create': True}"
+                                       class="w-100"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="location_dest_id"
+                                       string="Equipment Location"
+                                       class="w-100"/>
+                                <field name="destination_location_filter_ids"
+                                       options="{'no_open': True, 'no_create': True, 'no_edit': True}"
+                                       widget="many2many_tags"
+                                       invisible="1"/>
+                                <field name="location_dest_id"
+                                       options="{'no_open': True, 'no_create': True, 'no_edit': True}"
+                                       domain="[('id', 'in', destination_location_filter_ids)]"
+                                       context="{'form_view_ref':'account_asset_management.view_account_machine_location_form'}"
+                                       string="Equipment Location"
+                                       attrs="{'readonly': [('closed', '=', True)]}"
+                                       class="w-100"/>
+                            </div>
+                            <div class="col-3 mb-3" invisible="1">
+                                <label for="collected"
+                                       string="Collected"
+                                       class="w-100"/>
+                                <field name="collected"
+                                       string="Collected amount"
+                                       attrs="{'required': [('closed', '=', True)]}"/>
+                            </div>
+                            <div class="col-3 mb-3" invisible="1">
+                                <label for="refunded"
+                                       string="Refunded"
+                                       class="w-100"/>
+                                <field name="refunded"
+                                       string="Refunded"
+                                       attrs="{'required': [('closed', '=', True)]}"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 hr_class">
+                                <hr/>
+                            </div>
+                        </div>
+                        <group string="Description information"
+                               class="description_information oe_clear"
+                               style="width:100% !important;min-width:100% !important;max-width:100% !important;"/>
+                        <table style="width:100%">
+                            <tbody>
+                                <tr>
+                                    <div class="html_field_div">
+                                        <label for="case_description"
+                                               string="Case Description"/>
+                                        <field name="case_description"
+                                               attrs="{'readonly': [('closed', '=', True)]}"
+                                               required="1" nolabel="1"/>
+                                    </div>
+                                    <div class="html_field_div">
+                                        <label for="internal_comment"
+                                               string="Internal Comment"/>
+                                        <field name="internal_comment"
+                                               nolabel="1"
+
+                                        />
+                                    </div>
+                                    <div class="html_field_div"
+                                         attrs="{'invisible': [('is_case_started', '=', False)]}">
+                                        <label for="resolution"
+                                               string="Resolution Comment"/>
+                                        <field name="resolution" class="w-100"
+
+                                               nolabel="1"
+                                        />
+                                    </div>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        <notebook>
+                            <page string="Timesheets" id="timesheets_tab"
+                                  invisible="1">
+                                <div class="row field_color">
+                                    <div class="col-4 pt-2">
+                                        <label for="planned_hours"
+                                               string="Planned Hours"
+                                               class="w-100"/>
+                                        <field name="planned_hours"
+                                               widget="float_time" class="w-100"
+                                               attrs="{'readonly': [('closed', '=', True)]}"/>
+                                    </div>
+                                    <div class="col-4 pt-2">
+                                        <label for="progress" string="Progress"
+                                               class="w-100"/>
+                                        <field name="progress"
+                                               widget="progressbar"
+                                               attrs="{'readonly': [('closed', '=', True)]}"/>
+                                    </div>
+                                    <div class="col-4 pt-2">
+                                        <label for="send_email"
+                                               string="Send Notification Email"
+                                               class="w-100"
+                                               style="margin-bottom: 8px !important;"/>
+                                        <div class="checklist">
+                                            <field name="send_email"
+                                                   attrs="{'readonly': [('closed', '=', True)]}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <group name="timesheet_error" invisible="1">
+                                    <div class="alert alert-warning"
+                                         role="alert">
+                                        You can not log timesheets on this
+                                        project since is linked to an inactive
+                                        analytic account. Please change it, or
+                                        reactivate the current one to timesheet
+                                        on the project.
+                                    </div>
+                                </group>
+                                <field name="timesheet_ids" mode="tree,kanban"
+                                       attrs="{'readonly': [('closed', '=', True)]}">
+                                    <tree editable="bottom"
+                                          string="Timesheet Activities"
+                                          default_order="date">
+                                        <field name="date"/>
+                                        <field name="user_id" invisible="1"/>
+                                        <field name="employee_id" required="1"/>
+                                        <field name="name"/>
+                                        <field name="machine_filter_ids"
+                                               widget="many2many_tags"
+                                               invisible="1"/>
+                                        <field name="unit_amount"
+                                               string="Duration"
+                                               widget="timesheet_uom"/>
+                                        <field name="machine_id"
+                                               domain="[('id', 'in', machine_filter_ids)]"
+                                               options="{'no_create': True}"
+                                               invisible="1"/>
+                                        <field name="account_id" invisible="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="timesheet_amount"
+                                               string="Amount"/>
+                                        <field name="billable"/>
+                                    </tree>
+                                    <kanban class="o_kanban_mobile">
+                                        <field name="date"/>
+                                        <field name="user_id"/>
+                                        <field name="employee_id"/>
+                                        <field name="name"/>
+                                        <field name="unit_amount"/>
+                                        <field name="machine_id"/>
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <strong>
+                                                                <span>
+                                                                    <t t-esc="record.employee_id.value"/>
+                                                                </span>
+                                                            </strong>
+                                                        </div>
+                                                        <div class="col-6 pull-right text-right">
+                                                            <strong>
+                                                                <t t-esc="record.date.value"/>
+                                                            </strong>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 text-muted">
+                                                            <span>
+                                                                <t t-esc="record.name.value"/>
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <span class="pull-right text-right">
+                                                                <field name="unit_amount"
+                                                                       widget="float_time"/>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                    <form string="Timesheet Activities">
+                                        <sheet>
+                                            <group>
+                                                <field name="date"/>
+                                                <field name="user_id"
+                                                       invisible="1"/>
+                                                <field name="employee_id"
+                                                       required="1"/>
+                                                <field name="name"/>
+                                                <field name="unit_amount"
+                                                       string="Duration"
+                                                       widget="float_time"/>
+                                                <field name="machine_id"
+                                                       invisible="1"/>
+                                                <field name="company_id"
+                                                       invisible="1"/>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                                <group>
+                                    <group class="oe_subtotal_footer oe_right"
+                                           name="project_hours">
+                                        <field name="effective_hours"
+                                               widget="float_time"/>
+                                        <field name="total_hours_spent"
+                                               widget="float_time"
+                                               class="oe_subtotal_footer_separator"
+                                               invisible="1"/>
+                                        <field name="remaining_hours"
+                                               widget="float_time"
+                                               class="oe_subtotal_footer_separator"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="parts_consumed" string="Parts Consumed">
+                                <field name="created_picking" invisible="1"/>
+                                <field name="location_id" invisible="1"/>
+                                <field name="destination_location_filter_ids"
+                                       widget="many2many_tags" invisible="1"
+                                />
+                                <field name="parts_line_ids"
+                                       options="{'reload_on_button': true}"
+                                       context="{'default_location_dest_id': location_dest_id,'default_machine_id':machine_ids,'default_parts_move':'out'}"
+                                       attrs="{'readonly': [('closed', '=', True)]}"
+                                       domain="[('parts_move','=','out')]">
+                                    <tree editable="bottom">
+                                        <field name="machine_id"
+                                               domain="[('id', 'in', machine_domain_ids)]"
+                                               required="1"
+                                               options="{'no_create': True}"
+                                               invisible="1"/>
+                                        <field name="machine_parts_ids"
+                                               widget="many2many_tags"
+                                               invisible="1"/>
+                                        <field name="product_id"
+                                               options="{'no_create': True}"
+                                               domain="[('is_machine_part', '=', True), ('id', 'in', machine_parts_ids),('product_type', '=', 'product')]"
+                                               context="{'form_view_ref' : 'account_asset_management.machine_parts_form_view', 'tree_view_ref' : 'account_asset_management.machine_parts_tree_view', 'default_is_machine_part':True}"/>
+                                        <field name="warehouse_id"
+                                               domain="[('is_parts_warehouse', '=', True)]"
+                                               invisible="1"/>
+                                        <field name="location_id"
+                                               invisible="1"/>
+                                        <field name="location_dest_id"
+                                               options="{'no_create': True}"
+                                               invisible="1"/>
+                                        <field name="quantity"/>
+                                        <field name="uom_id" string="Unit of Measure"/>
+                                        <field name="machine_domain_ids"
+                                               widget="many2many_tags"
+                                               invisible="1"/>
+                                        <field name="unit_price" invisible="1"/>
+                                        <field name="move_id" invisible="1"/>
+                                        <field name="case_id" invisible="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="parts_move" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="damaged_or_return"
+                                  string="Damaged or Return Products">
+                                <!--                                <field name="created_picking" invisible="1"/>-->
+                                <!--                                <field name="location_id" invisible="1"/>-->
+                                <!--                                <field name="destination_location_filter_ids" widget="many2many_tags" invisible="1"/>-->
+                                <field name="damaged_parts_line_ids"
+                                       context="{'default_location_dest_id': location_dest_id,'default_machine_id':machine_ids,'default_parts_move':'in'}"
+                                       String="Damaged or Return"
+                                       attrs="{'readonly': [('closed', '=', True)]}"
+                                       domain="[('parts_move','=','in')]">
+                                    <tree editable="bottom">
+                                        <field name="machine_id"
+                                               domain="[('id', 'in', machine_domain_ids)]"
+                                               required="1"
+                                               options="{'no_create': True}"
+                                               invisible="1"/>
+                                        <!--                                        <field name="machine_parts_ids" widget="many2many_tags" invisible="1"/>-->
+                                        <field name="product_id"
+                                               options="{'no_create': True}"
+                                               domain="[('is_machine_part', '=', True)]"
+                                               context="{'form_view_ref' : 'account_asset_management.machine_parts_form_view', 'tree_view_ref' : 'account_asset_management.machine_parts_tree_view', 'default_is_machine_part':True}"/>
+                                        <field name="warehouse_id"
+                                               domain="[('is_parts_warehouse', '=', True)]"
+                                               invisible="1"/>
+                                        <field name="location_id"
+                                               invisible="1"/>
+                                        <field name="location_dest_id"
+                                               options="{'no_create': True}"
+                                               invisible="1"/>
+                                        <field name="quantity"/>
+                                        <field name="uom_id" string="Unit of Measure"/>
+                                        <field name="machine_domain_ids"
+                                               widget="many2many_tags"
+                                               invisible="1"/>
+                                        <field name="unit_price" invisible="1"/>
+                                        <field name="move_id" invisible="1"/>
+                                        <field name="case_id" invisible="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="parts_move" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <!--                    <div class="oe_chatter">-->
+                    <!--                        <field name="message_follower_ids" widget="mail_followers"/>-->
+                    <!--                        <field name="activity_ids" widget="mail_activity"/>-->
+                    <!--                        <field name="message_ids" widget="mail_thread"-->
+                    <!--                                                   options="{'post_refresh': 'recipients', 'open_attachments': True}"/>-->
+                    <!--                    </div>-->
+                </form>
+            </field>
+        </record>
+        <record id="case_management_wizard_view_tree" model="ir.ui.view">
+            <field name="name">Case Management Tree view Attachhment</field>
+            <field name="model">case.management</field>
+            <field name="arch" type="xml">
+                <tree string="case attachment">
+                    <field name="attachment_ids" class='attach_id'
+                           string="Proposals"
+                           filename="name"
+                           widget="Upload_skim_pdf"/>
+                    <!--                    <field name="date"/>-->
+
+                </tree>
+            </field>
+        </record>
+        <record id="action_proposal_wizard" model="ir.actions.act_window">
+            <field name="name">Case Attacgment wizard</field>
+            <field name="res_model">case.management</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="case_management_wizard_view_tree"/>
+            <field name="target">new</field>
+            <field name="domain">[('id','=',active_id)]</field>
+            <!--            <field name="help" type="html">-->
+            <!--            <p class="o_view_nocontent_empty_folder">-->
+            <!--                Create New Case-->
+            <!--            </p>-->
+            <!--        </field>-->
+        </record>
+        <record id="Case_management_form_style" model="ir.ui.view">
+            <field name="name">case.management.style.form</field>
+            <field name="model">case.management</field>
+            <field name="inherit_id"
+                   ref="averigo_service_management.case_management_view_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/style" position="replace">
+                    <style>
+                        .html_field_div {
+                        display: flex;
+                        flex-direction: column;
+                        }
+                        .oe_form_field.oe_form_field_html.o_field_widget {
+                        height: 200px !important;
+                        overflow: auto;
+                        border: 1px solid #b9b3b3;
+                        padding-left: 5px;
+                        border-radius: 5px;
+                        word-break:break-all;
+                        }
+                        .o_field_many2manytags {
+                        max-height: 7vh;
+                        overflow: auto;
+                        }
+
+                        .o_field_many2manytags {
+                        max-height: 7vh;
+                        overflow: auto;
+                        }
+                        .col-4 {
+                        min-height: 50px;
+                        }
+                        textarea {
+                        padding-left: 10px !important;
+                        padding-top: 2px !important;
+                        }
+                        .col-12 {
+                        padding: 10px !important;
+                        }
+                        button.fa.fa-external-link.btn.btn-secondary.o_external_button{
+                        padding-left:1.5%;
+                        padding-right:0;
+                        }
+                        .hr_class{
+                        padding: 0px 10px 0px 10px !important;
+                        height:15px;
+                        }
+
+                        /*btn*/
+                        .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                        .o_stat_info .o_stat_value,
+                        .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                        span .o_stat_value {
+                        font-weight: 700;
+                        color: #f2f2f2 !important;
+                        line-height: 1.2;
+                        font-size: 13px !important;
+                        text-align: center !important;
+                        }
+                        .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                        .o_stat_info .o_stat_value,
+                        .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                        span .o_stat_value {
+                        font-weight: 700;
+                        color: #f2f2f2;
+                        line-height: 1.2;
+                        font-size: 15px;
+                        text-align: center !important;
+                        }
+                        .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                        .o_stat_info .o_stat_text,
+                        .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                        span .o_stat_text {
+                        line-height: 1.2;
+                        text-align: center !important;
+                        }
+                        .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                        .o_stat_info,
+                        .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                        span {
+                        display: inline-block;
+                        vertical-align: middle;
+                        font-weight: 500;
+                        max-width: 100% !important;
+                        padding-right: 0px !important;
+                        line-height: 1.3;
+                        width: 100% !important;
+                        }
+                        .o_form_view .oe_machine_button .btn.oe_stat_button {
+                        color: #f2f2f2;
+                        height: 44px;
+                        padding: 0 0px 0 0 !important;
+                        text-align: left;
+                        white-space: nowrap;
+                        background-color: transparent;
+                        opacity: 1 !important;
+                        border-radius: 0px;
+                        margin-bottom: 0;
+                        display:flex;
+                        }
+
+                        .btn.oe_stat_button {
+                        background-color: #0b5d74 !important;
+                        }
+
+                        .o_form_view .oe_machine_button .btn.oe_stat_button {
+                        color: #fff;
+                        }
+
+                        .o_stat_text:hover {
+                        color: #eae6e6 !important;
+                        }
+
+                        .btn.oe_stat_button:hover {
+                        color: #eceaea !important;
+                        }
+
+                        .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                        .o_stat_info .o_stat_value,
+                        .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                        span .o_stat_value {
+                        color: #fff !important;
+                        }
+
+                        .oe_machine_button .fa {
+                        color: #fff !important;
+                        }
+                        .o_field_widget.o_field_monetary.o_input {
+                        width: 100%;
+                        }
+                        .o_not_full .oe_machine_button {
+                        position: absolute;
+                        display: flex;
+                        flex-direction: column;
+                        width: 15%;
+                        height: 100%;
+                        left: -15%;
+                        }
+
+                        .o_form_view .oe_machine_button .btn.oe_stat_button {
+                        color: #fff;
+                        margin: 0.2rem 0;
+                        width: 100%;
+                        }
+                        .o_form_view .oe_machine_button {
+                        position: absolute;
+                        display: flex;
+                        flex-direction: column;
+
+                        left: -14vw !important;
+                        width: 12vw !important;
+                        <!--                    height: 30% !important;-->
+                        <!--                    overflow-y: scroll;-->
+                        }
+                        .o_form_view .o_form_sheet_bg > .o_form_sheet {
+                        overflow : visible !important;
+                        <!--                    margin-left: 15%;-->
+                        }
+                        .o_form_view .oe_machine_button .btn.oe_stat_button >
+                        .o_stat_info {
+                        padding: 5%;
+                        }
+
+                        .o_form_view
+                        .oe_machine_button
+                        .btn.oe_stat_button
+                        > .o_stat_info
+                        .o_stat_value,
+                        .o_form_view .oe_machine_button .btn.oe_stat_button >
+                        span
+                        .o_stat_value {
+                        display: inline-block;
+                        margin-right: 2%;
+                        }
+                        .o_form_view .oe_machine_button .btn.oe_stat_button >
+                        .o_stat_info .o_stat_text,
+                        .o_form_view .oe_machine_button .btn.oe_stat_button >
+                        span
+                        .o_stat_text {
+                        display: inline-block;
+                        }
+                        .o_field_widget o_stat_info {
+                        display: inline-block;
+                        padding: 5%;
+                        }
+                        <!--                    New chnage-->
+                        .table_div{
+                        display:table;
+
+                        }
+                        .row_div{
+                        display:table-row !important;
+                        }
+                        .col_div{
+                        display: table-cell;
+
+                        }
+                        .td_label {
+                        border-right: 1px solid #0000002b;
+                        border-radius: 2px;
+                        width: 100px;
+                        min-width: 100px;
+                        max-width: 100px;
+                        font-size: 109%;
+                        line-height: 1.6;
+                        white-space: initial;
+                        word-wrap: break-word;
+
+                        }
+                        .td_fields.col_div{
+                        padding:0px 10px !important;
+                        padding-right:30px !important;
+                        }
+                        .o_field_widget {
+                        white-space: initial;
+                        word-wrap: break-word;
+                        }
+                        .o_form_view .o_group .o_form_label {
+                        font-weight: 900 !important;
+                        margin-right: 0px !important;
+                        padding-right:0.2vw !important;
+                        margin-left: 0px;
+                        font-size: 109%;
+                        margin:0px !important;
+                        width:100
+                        }
+                        .td_label {
+                        border-right: 1px solid #0000002b;
+                        border-radius: 2px;
+                        width: 100px;
+                        min-width: 100px;
+                        max-width: 100px;
+                        }
+                        td.td_fields {
+                        padding: 0px 10px !important;
+                        width: 150px !important;
+                        min-width: 150px !important;
+                        max-width: 150px !important;
+                        padding-right:30px !important;
+                        }
+                        <!--                        .modal-dialog.modal-lg {-->
+                        <!--                        max-width: 80vw !important;-->
+                        <!--                        }-->
+                        .o_field_widget {
+                        white-space: initial;
+                        word-wrap: break-word;
+                        }
+
+                        .o_chatter .o_chatter_topbar {
+                        display: flex;
+                        flex-wrap: wrap;
+                        }
+                        .o_form_sheet
+                        {
+                        min-width:auto !important;
+                        }
+
+                        }
+                        @media (max-width: 1700px) {
+                        .o_action_manager{
+                        overflow-y: none !important;
+                        }
+                        .o_form_view .oe_machine_button {
+                        position: absolute;
+                        display: flex;
+                        flex-direction: column;
+                        left: -16%;
+                        top: 0%;
+                        width: 15%;
+                        height: auto;
+                        overflow-y: scroll;
+                        }
+                        }
+                        @media (max-width: 1590px) {
+                        .o_form_view .oe_machine_button .btn.oe_stat_button {
+                        margin-top: 1%;
+                        margin-right: 2%;
+                        padding-right: 2% !important;
+                        }
+                        .o_form_view .oe_machine_button{
+                        width:100% !important;
+                        }
+                        .o_field_widget.o_stat_info{
+                        display:flex !important;
+                        }
+                        .o_form_view .o_form_sheet_bg > .o_form_sheet {
+                        margin: 5%;
+                        overflow:none !important;
+                        margin-top:1% !important;
+                        }
+                        .o_form_view .oe_machine_button {
+                        position: initial;
+                        display: flex;
+                        flex-direction: row;
+                        width: 100%;
+                        margin-bottom: 2%;
+                        }
+                        .o_field_widget.o_stat_info.o_readonly_modifier
+                        {
+                        padding-right:5px;
+                        }
+                        }
+                        .image-dontainer{
+                        display:flex;
+                        }
+                        .o_form_view .o_group{
+                        margin:0px !important;
+
+                        }
+                    </style>
+                </xpath>
+            </field>
+        </record>
+        <record id="Case_management_form_buttons" model="ir.ui.view">
+            <field name="name">Case.management.form.buttons</field>
+            <field name="model">case.management</field>
+            <field name="inherit_id"
+                   ref="averigo_service_management.case_management_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/header" position="inside">
+                    <field name="in_progress" invisible="1"/>
+                    <field name="is_opend_case" invisible="1"/>
+                    <button name="start_case" type="object"
+                            class="btn btn-warning o_form_button_save oe_read_only"
+                            string="Start"
+                            groups="base.group_no_one"
+                            attrs="{'invisible': ['|',('closed', '=', True),('in_progress','=',True)]}"/>
+                    <button name="start_case" type="object"
+                            class=" btn btn-primary"
+                            string="Retun to In progress"
+                            invisible="1"/>
+                    <button name="close_case" type="object"
+                            class="btn btn-primary o_form_button_edit"
+                            groups="averigo_service_management.res_groups_service_management_data"
+                            string="Close Case"
+                            attrs="{'invisible': True}"/>
+                    <button name="cancel_case" type="object"
+                            class="btn btn-danger o_form_button_cancel oe_read_only"
+                            groups="averigo_service_management.res_groups_service_management_data"
+                            string="Cancel Case"
+                            invisible="1"
+                    />
+                </xpath>
+            </field>
+        </record>
+        <record id="Case_management_form_inherit" model="ir.ui.view">
+            <field name="name">case.management.form</field>
+            <field name="model">case.management</field>
+            <field name="inherit_id"
+                   ref="averigo_service_management.case_management_view_form"/>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="delete">false</attribute>
+                </xpath>
+                <xpath expr="//form/sheet" position="replace">
+                    <sheet>
+                        <div class="oe_machine_button" name="button_box">
+                            <button type="object" name="action_view_invoice"
+                                    class="oe_stat_button"
+                                    attrs="{'invisible':[('invoice_count', '=', 0)]}">
+                                <div class="o_field_widget o_stat_info"
+                                     style="display:flex">
+                                    <span class="o_stat_value">
+                                        <i class="fa fa-fw o_button_icon fa-pencil-square-o"></i>
+                                    </span>
+                                    <span style="display:flex">
+                                        <field name="invoice_count"
+                                               widget="statinfo" nolabel="1"
+                                               options="{'reload_on_button': true}"/>
+                                        <span class="o_stat_text">Invoice</span>
+                                    </span>
+                                </div>
+                            </button>
+                            <button type="object" name="action_view_picking"
+                                    class="oe_stat_button"
+                                    attrs="{'invisible':[('picking_count', '=', 0)]}">
+                                <div class="o_field_widget o_stat_info"
+                                     style="display:flex">
+                                    <span class="o_stat_value">
+                                        <i class="fa fa-fw o_button_icon fa-truck"></i>
+                                    </span>
+                                    <span style="display:flex">
+                                        <field name="picking_count"
+                                               widget="statinfo" nolabel="1"
+                                               options="{'reload_on_button': true}"/>
+                                        <span class="o_stat_text">Delivery
+                                        </span>
+                                    </span>
+                                </div>
+                            </button>
+                            <button name="open_notes" class="oe_stat_button"
+                                    type="object"
+                                    attrs="{'invisible':[('id','=',False)]}">
+                                <div class="o_field_widget o_stat_info"
+                                     style="display:flex">
+                                    <span class="o_stat_value">
+                                        <i class="fa fa-fw o_button_icon fa-file-text-o"></i>
+                                    </span>
+                                    <span style="display:flex">
+                                        <field name="case_notes_count"
+                                               widget="statinfo" nolabel="1"
+                                               options="{'reload_on_button': true}"/>
+                                        <span class="o_stat_text">Notes
+                                        </span>
+                                    </span>
+                                </div>
+                            </button>
+                            <button name="open_activities"
+                                    class="oe_stat_button"
+                                    type="object"
+                                    attrs="{'invisible':[('id','=',False)]}">
+                                <div class="o_field_widget o_stat_info"
+                                     style="display:flex">
+                                    <span class="o_stat_value">
+                                        <i class="fa fa-fw o_button_icon fa-calendar"></i>
+                                        <!--                                        <i class="fa-solid fa-calendar"></i>-->
+                                    </span>
+                                    <span style="display:flex">
+                                        <field name="activities_count"
+                                               widget="statinfo" nolabel="1"
+                                               options="{'reload_on_button': true}"/>
+                                        <span class="o_stat_text">Activities
+                                        </span>
+                                    </span>
+                                </div>
+                            </button>
+                            <button name="action_get_attachment_view"
+                                    class="oe_stat_button"
+                                    type="object"
+                                    attrs="{'invisible':[('id','=',False)]}">
+                                <div class="o_field_widget o_stat_info"
+                                     style="display:flex">
+                                    <span class="o_stat_value">
+                                        <i class="fa fa-fw o_button_icon fa-file-text-o"></i>
+                                    </span>
+                                    <span style="display:flex">
+                                        <field name="attachment_count"
+                                               widget="statinfo" nolabel="1"
+                                               options="{'reload_on_button': true}"/>
+                                        <span class="o_stat_text">Attachments
+                                        </span>
+                                    </span>
+                                </div>
+                            </button>
+                            <button name="action_open_descriptions"
+                                    class="oe_stat_button"
+                                    type="object"
+                                    attrs="{'invisible':[('id','=',False)]}">
+                                <div class="o_field_widget o_stat_info"
+                                     style="display:flex">
+                                    <span class="o_stat_value">
+                                        <i class="o_button_icon fa fa-comments"></i>
+                                    </span>
+                                    <span style="display:flex">
+                                        <field name="internal_comment_count"
+                                               widget="statinfo" nolabel="1"
+                                               options="{'reload_on_button': true}"/>
+                                        <span class="o_stat_text">Internal
+                                            Comments
+                                        </span>
+                                    </span>
+                                </div>
+                            </button>
+                            <button name="action_open_resolution"
+                                    class="oe_stat_button"
+                                    type="object"
+                                    attrs="{'invisible':[('id','=',False)]}">
+                                <div class="o_field_widget o_stat_info"
+                                     style="display:flex">
+                                    <span class="o_stat_value">
+                                        <i class="o_button_icon fa fa-sticky-note"></i>
+                                    </span>
+                                    <span style="display:flex">
+                                        <field name="case_resolution_count"
+                                               widget="statinfo" nolabel="1"
+                                               options="{'reload_on_button': true}"/>
+                                        <span class="o_stat_text">Resolution
+                                            Comments
+                                        </span>
+                                    </span>
+                                </div>
+                            </button>
+
+                            <button name="close_case_btn"
+                                    class="oe_stat_button close_case_button"
+                                    type="object"
+                                    attrs="{'invisible':['|','|',('id','=',False),('closed','=',True),('hide_close_btn','=',True)]}">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <i class="o_button_icon fa fa-cogs"></i>
+                                    </span>
+                                    <span class="o_stat_text">Close Case</span>
+                                </div>
+                            </button>
+                            <!--                            <button name="test_mail_send"-->
+                            <!--                                    type="object">Send Mail</button>-->
+                        </div>
+                        <!--                        <widget name="web_ribbon" title="Archived"-->
+                        <!--                                bg_color="bg-danger"-->
+                        <!--                                attrs="{'invisible': [('active', '=', True)]}"/>-->
+                        <!--                        <group class="overview_items">-->
+                        <group string="Case Details" class="oe_read_only"
+                               invisible="1">
+                            <h1>
+                                <field name="number" style="font-size:35px;"
+                                       class="oe_read_only"/>
+                            </h1>
+                        </group>
+                        <field name="hide_close_btn" invisible="1"/>
+                        <field name="created_picking" invisible="1"/>
+                        <!--                            <group name="overview" class="oe_read_only">-->
+                        <div class="oe_read_only">
+                            <table
+                                    class="table table-bordered overview_table center w-100 oe_read_only">
+                                <tr style="color:#800000 !important;font-weight: bold !important;">
+                                    <td rowspan="2"
+                                        style="width:30% !important;">
+                                        <div>
+                                            <center>
+                                                <h5 style="margin-top:10%;">
+                                                    <label for="number"
+                                                           string="Case Details"
+                                                           class="w-100 "
+                                                           style="margin:0;"/>
+                                                </h5>
+                                                <h1 style="color:#4c4c4c;">
+                                                    <field name="number"
+                                                           style="font-size:35px;"
+                                                           class="oe_read_only"/>
+                                                </h1>
+                                            </center>
+                                        </div>
+                                    </td>
+
+                                    <td style="display:flex;justify-content:center">
+                                        <div class="col-4 pt-2">
+                                            <center>
+                                                <h5>
+                                                    <label for="stage_id"
+                                                           string="Status"
+                                                           class="w-100 "
+                                                           style="margin:0;"/>
+                                                    <field name="stage_id"
+                                                           class="w-100 status_field"
+                                                           placeholder="State"
+                                                           widget="employee_completion_wizard"
+                                                           required="1"
+                                                           options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
+                                                           style="display:flex;justify-content:center"
+                                                           context="{'country_id': country_id, 'zip': zip}"
+                                                           attrs="{'readonly': [('closed', '=', True)]}"/>
+                                                </h5>
+                                            </center>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <center>
+                                            <h5>
+                                                <label for="open_from"
+                                                       string="Open From"
+                                                       class="w-100"/>
+                                                <field name="open_from"
+                                                       readonly="1"
+                                                       style="color:#800000 !important"/>
+                                            </h5>
+                                        </center>
+                                    </td>
+                                </tr>
+                                <tr style="color:#800000 !important;font-weight: bold !important;">
+                                    <td>
+                                        <center>
+                                            <h5>
+                                                <label for="account_open_case"
+                                                       string="Account Open Case"
+                                                       class="w-100"/>
+                                                <field name="account_open_case"
+                                                       readonly="1"
+                                                       style="color:#800000 !important"/>
+                                            </h5>
+                                        </center>
+                                    </td>
+                                    <td>
+                                        <center>
+                                            <h5>
+                                                <label for="account_close_case"
+                                                       string="Account Closed Case"
+                                                       class="w-100"/>
+                                                <field name="account_close_case"
+                                                       readonly="1"
+                                                       style="color:#800000 !important"/>
+                                            </h5>
+                                        </center>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!--                            </group>-->
+                        <!--                        </group>-->
+                        <group string="Account" name="account" class=""/>
+                        <div class="row pt-2">
+                            <div class="col-3 mb-3">
+                                <field name="is_tech_user" invisible="1"/>
+                                <label for="partner_id"
+                                       string="Customer"
+                                       class="w-100"/>
+                                <field name="partner_id"
+                                       required="1"
+                                       class="w-100"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"
+                                       context="{'default_is_customer':True}"
+                                       widget="res_partner_many2one"
+                                       create="False" edit="False"
+                                       options="{ 'no_create': True, 'no_edit': True}"
+                                       nolabel="1"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="partner_name"
+                                       string="Contact Name"
+                                       class="w-100"/>
+                                <field name="partner_name"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"
+                                       class="w-100"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="mobile" string="Mobile"
+                                       class="w-100"/>
+                                <field name="mobile" readonly="1"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"
+                                       class="w-100"
+                                />
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="partner_address"
+                                       string="Customer Address"
+                                       class="w-100"/>
+                                <field name="partner_address" readonly="1"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"
+                                       class="w-100"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="nick_name"
+                                       string="Nick Name"
+                                       class="w-100"/>
+                                <field name="nick_name"
+                                       class="w-100" nolabel="1"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="partner_email"
+                                       string="Email"
+                                       class="w-100"/>
+                                <field name="partner_email"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"
+                                       class="w-100"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="phone" string="Phone"
+                                       class="w-100"/>
+                                <field name="phone" readonly="1"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"
+                                       class="w-100"
+
+                                />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 hr_class">
+                                <hr/>
+                            </div>
+                        </div>
+                        <group string="Reported Information"/>
+                        <div class="row pt-2">
+                            <div class="col-3 mb-3">
+                                <label for="channel_id"
+                                       string="Case Origin"
+                                       class="w-100"/>
+                                <field name="channel_id"
+                                       class="w-100"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"/>
+
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="reported_phone"
+                                       string="Reported Phone"
+                                       class="w-100"
+                                       widget="phone"/>
+                                <field name="reported_phone"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"
+                                       class="w-100"
+                                       widget="phone"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="reported_by"
+                                       string="Reported By"
+                                       class="w-100"/>
+                                <field name="reported_by"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"
+                                       class="w-100"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="reported_email"
+                                       string="Email"
+                                       class="w-100"/>
+                                <field name="reported_email"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"
+                                       class="w-100"/>
+                            </div>
+                            <div class="col-3 mb-3" invisible="1">
+                                <label for="subject"
+                                       string="Subject"
+                                       class="w-100" invisible="1"/>
+                                <field name="subject"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"
+                                       class="w-100" invisible="1"/>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 hr_class">
+                                <hr/>
+                            </div>
+                        </div>
+                        <group string="Case Information's"/>
+                        <div class="row pt-2">
+                            <div class="col-3 mb-3">
+                                <label for="employee_ids"
+                                       string="Assigned To"
+                                       class="w-100"/>
+                                <!--                                <field name="case_employee_ids"-->
+                                <!--                                       context="{'form_view_ref': 'averigo_case_management.case_management_completion_form'}"-->
+                                <!--                                       invisible="0"/>-->
+                                <field name="employee_ids"
+                                       options='{"always_reload": True,"no_create":True,"no_create_edit":True,"no_open":True}'
+                                       class="w-100"
+                                       widget="many2many_tags"
+                                       context="{'tree_view_ref': 'averigo_case_management.hr_employee_tree_Case'}"
+                                       attrs="{'readonly': [('closed', '=', True)]}"/>
+                                <!--                                <field name="active" invisible="1"/>-->
+                            </div>
+                            <div class="col-3 mb-3 oe_edit_only">
+                                <label for="stage_id"
+                                       string="Status"
+                                       class="w-100 oe_edit_only"/>
+                                <field name="hide_close_btn" invisible="1"/>
+                                <field name="stage_id"
+                                       widget="employee_completion_wizard"
+                                       class="oe_edit_only w-100"
+                                       attrs="{'readonly':[('hide_close_btn','=',True)]}"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                                <field name="is_case_started" invisible="1"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="category_id"
+                                       string="Case Category"
+                                       class="w-100"/>
+                                <field name="category_id"
+                                       required="1" class="w-100"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="type_id" string="Case Type"
+                                       class="w-100"/>
+                                <field name="type_id" required="1"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"
+                                       options="{'no_open': True,}"
+                                       class="w-100"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="route_id" string="Route"
+                                       class="w-100"/>
+                                <field name="route_id" class="w-100"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"/>
+                            </div>
+
+                            <div class="col-3 mb-3" invisible="1">
+                                <label for="issue_type_ids"
+                                       string="Issue Type"
+                                       class="w-100"/>
+                                <field name="issue_type_ids"
+                                       widget="many2many_tags"
+                                       class="checkbox w-100"
+                                       domain="[('category_id', '=', category_id)]"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"
+                                       force_save="1"/>
+                            </div>
+
+                            <div class="col-3 mb-3" invisible="1">
+                                <label for="project_id"
+                                       string="Project"
+                                       class="w-100"/>
+                                <field name="project_id"
+                                       class="w-100 oe_inline"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"/>
+
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="is_billable"
+                                       string="Billable"
+                                       class="w-100"/>
+                                <field name="is_billable"
+                                       class="w-100"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="is_preventive"
+                                       string="Preventive"
+                                       class="w-100"/>
+                                <field name="is_preventive"
+                                       class="w-100"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="priority"
+                                       string="Priority"
+                                       class="w-100"/>
+                                <field name="priority"
+                                       widget="priority"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"
+                                       class="w-100"/>
+                            </div>
+                            <div class="col-3 mb-3" invisible="1">
+                                <label for="request_date"
+                                       string="Date/Time Opened"
+                                       class="w-100"/>
+                                <field name="request_date"
+                                       class="w-100" readonly="1"
+                                       widget="datetime"/>
+                            </div>
+                        </div>
+                        <group string="Address Information" invisible="1"/>
+                        <div class="row pt-2" invisible="1">
+                            <div class="col-3 mb-3">
+                                <field name="country_id"
+                                       placeholder="Country"
+                                       invisible="1"
+                                       class="o_address_country"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"
+                                       options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                <label for="zip" string="Zip"
+                                       class="w-100"/>
+                                <field name="zip" placeholder="ZIP"
+                                       required="1" class="w-100"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="street" string="Street"
+                                       class="w-100"/>
+                                <field name="street"
+                                       placeholder="Street"
+                                       class="w-100"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="street2"
+                                       string="Street 2"
+                                       class="w-100"/>
+                                <field name="street2" readonly="1"
+                                       placeholder="Street 2"
+                                       class="w-100"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="city" string="City"
+                                       class="w-100"/>
+                                <field name="city"
+                                       placeholder="City"
+                                       required="1" class="w-100"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="state_id" string="State"
+                                       class="w-100"/>
+                                <field name="state_id" class="w-100"
+                                       placeholder="State"
+                                       required="1"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
+                                       context="{'country_id': country_id, 'zip': zip}"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="county" string="County"
+                                       class="w-100"/>
+                                <field name="county"
+                                       placeholder="County"
+                                       class="w-100"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 hr_class">
+                                <hr/>
+                            </div>
+                        </div>
+                        <group string="Equipment Details"/>
+                        <div class="row pt-2">
+                            <div class="col-3 mb-3">
+                                <label for="machine_ids"
+                                       string="Equipment"
+                                       class="w-100"/>
+                                <field name="equipment_ids" invisible="1"/>
+                                <field name="machine_ids"
+                                       domain="[('state', '=', 'open'),('id','in',equipment_ids)]"
+                                       class="w-100"
+                                       options="{'no_create': True, 'no_edit': True}"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"
+                                       context="{'form_view_ref': 'account_asset_management.account_machine_view_form',
+                                           'tree_view_ref':'account_asset_management.account_machine_view_tree'}"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="serial_number"
+                                       string="Serial No"
+                                       class="w-100"/>
+                                <field name="serial_number"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="asset_no"
+                                       string="Asset No"
+                                       class="w-100"/>
+                                <field name="asset_no"/>
+                            </div>
+                            <div class="col-3 mb-3" invisible="0">
+                                <label for="warehouse_id"
+                                       string="Parts Warehouse"
+                                       class="w-100"/>
+                                <field name="warehouse_id"
+                                       domain="[('is_parts_warehouse', '=', True)]"
+                                       string="Parts Warehouse"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"
+                                       options="{'no_create': True}"
+                                       class="w-100"/>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="location_dest_id"
+                                       string="Equipment Location"
+                                       class="w-100"/>
+                                <field name="destination_location_filter_ids"
+                                       options="{'no_open': True, 'no_create': True, 'no_edit': True}"
+                                       widget="many2many_tags"
+                                       invisible="1"/>
+                                <field name="location_dest_id"
+                                       options="{'no_open': True, 'no_create': True, 'no_edit': True}"
+                                       domain="[('id', 'in', destination_location_filter_ids)]"
+                                       context="{'form_view_ref':'account_asset_management.view_account_machine_location_form'}"
+                                       string="Equipment Location"
+                                       attrs="{'readonly': ['|',('is_tech_user','=',True),('closed', '=', True)]}"
+                                       class="w-100"/>
+                            </div>
+                            <div class="col-3 mb-3" invisible="1">
+                                <label for="collected"
+                                       string="Collected"
+                                       class="w-100"/>
+                                <field name="collected"
+                                       string="Collected amount"
+                                       attrs="{'required': ['|',('is_tech_user','=',True),('closed', '=', True)]}"/>
+                            </div>
+                            <div class="col-3 mb-3" invisible="1">
+                                <label for="refunded"
+                                       string="Refunded"
+                                       class="w-100"/>
+                                <field name="refunded"
+                                       string="Refunded"
+                                       attrs="{'required': ['|',('is_tech_user','=',True),('closed', '=', True)]}"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 hr_class">
+                                <hr/>
+                            </div>
+                        </div>
+                        <group string="Description information"
+                               class="description_information oe_clear"
+                               style="width:100% !important;min-width:100% !important;max-width:100% !important;"/>
+                        <table style="width:100%">
+                            <tbody>
+                                <tr>
+                                    <div class="html_field_div">
+                                        <label for="case_description"
+                                               string="Case Description"/>
+                                        <field name="case_description"
+                                               attrs="{'readonly': ['|',('closed', '=', True),('hide_close_btn','=', True)]}"
+                                               required="1" nolabel="1"/>
+                                    </div>
+                                    <div class="html_field_div">
+                                        <label for="internal_comment"
+                                               string="Internal Comment"/>
+                                        <field name="internal_comment"
+                                               attrs="{'readonly':[('hide_close_btn','=', True)]}"
+                                               nolabel="1"
+                                        />
+                                    </div>
+                                    <div class="html_field_div"
+                                         invisible="1">
+                                        <label for="resolution"
+                                               string="Resolution Comment"/>
+                                        <field name="resolution" class="w-100"
+                                               nolabel="1"
+                                        />
+                                    </div>
+                                    <div class="html_field_div"
+                                         invisible="1">
+                                        <label for="cancel_reason"
+                                               string="Cancel Reason"/>
+                                        <field name="cancel_reason"
+                                               class="w-100"
+                                               nolabel="1"
+                                        />
+                                    </div>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        <notebook>
+                            <page string="Timesheets" id="timesheets_tab"
+                                  invisible="1">
+                                <div class="row field_color">
+                                    <div class="col-4 pt-2">
+                                        <label for="planned_hours"
+                                               string="Planned Hours"
+                                               class="w-100"/>
+                                        <field name="planned_hours"
+                                               widget="float_time" class="w-100"
+                                               attrs="{'readonly': [('closed', '=', True)]}"/>
+                                    </div>
+                                    <div class="col-4 pt-2">
+                                        <label for="progress" string="Progress"
+                                               class="w-100"/>
+                                        <field name="progress"
+                                               widget="progressbar"
+                                               attrs="{'readonly': [('closed', '=', True)]}"/>
+                                    </div>
+                                    <div class="col-4 pt-2">
+                                        <label for="send_email"
+                                               string="Send Notification Email"
+                                               class="w-100"
+                                               style="margin-bottom: 8px !important;"/>
+                                        <div class="checklist">
+                                            <field name="send_email"
+                                                   attrs="{'readonly': [('closed', '=', True)]}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <group name="timesheet_error" invisible="1">
+                                    <div class="alert alert-warning"
+                                         role="alert">
+                                        You can not log timesheets on this
+                                        project since is linked to an inactive
+                                        analytic account. Please change it, or
+                                        reactivate the current one to timesheet
+                                        on the project.
+                                    </div>
+                                </group>
+                                <field name="timesheet_ids" mode="tree,kanban"
+                                       attrs="{'readonly': [('closed', '=', True)]}">
+                                    <tree editable="bottom"
+                                          string="Timesheet Activities"
+                                          default_order="date">
+                                        <field name="date"/>
+                                        <field name="user_id" invisible="1"/>
+                                        <field name="employee_id" required="1"/>
+                                        <field name="name"/>
+                                        <field name="machine_filter_ids"
+                                               widget="many2many_tags"
+                                               invisible="1"/>
+                                        <field name="unit_amount"
+                                               string="Duration"
+                                               widget="timesheet_uom"/>
+                                        <field name="machine_id"
+                                               domain="[('id', 'in', machine_filter_ids)]"
+                                               options="{'no_create': True}"
+                                               invisible="1"/>
+                                        <field name="account_id" invisible="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="timesheet_amount"
+                                               string="Amount"/>
+                                        <field name="billable"/>
+                                    </tree>
+                                    <kanban class="o_kanban_mobile">
+                                        <field name="date"/>
+                                        <field name="user_id"/>
+                                        <field name="employee_id"/>
+                                        <field name="name"/>
+                                        <field name="unit_amount"/>
+                                        <field name="machine_id"/>
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <strong>
+                                                                <span>
+                                                                    <t t-esc="record.employee_id.value"/>
+                                                                </span>
+                                                            </strong>
+                                                        </div>
+                                                        <div class="col-6 pull-right text-right">
+                                                            <strong>
+                                                                <t t-esc="record.date.value"/>
+                                                            </strong>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6 text-muted">
+                                                            <span>
+                                                                <t t-esc="record.name.value"/>
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <span class="pull-right text-right">
+                                                                <field name="unit_amount"
+                                                                       widget="float_time"/>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                    <form string="Timesheet Activities">
+                                        <sheet>
+                                            <group>
+                                                <field name="date"/>
+                                                <field name="user_id"
+                                                       invisible="1"/>
+                                                <field name="employee_id"
+                                                       required="1"/>
+                                                <field name="name"/>
+                                                <field name="unit_amount"
+                                                       string="Duration"
+                                                       widget="float_time"/>
+                                                <field name="machine_id"
+                                                       invisible="1"/>
+                                                <field name="company_id"
+                                                       invisible="1"/>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                                <group>
+                                    <group class="oe_subtotal_footer oe_right"
+                                           name="project_hours">
+                                        <field name="effective_hours"
+                                               widget="float_time"/>
+                                        <field name="total_hours_spent"
+                                               widget="float_time"
+                                               class="oe_subtotal_footer_separator"
+                                               invisible="1"/>
+                                        <field name="remaining_hours"
+                                               widget="float_time"
+                                               class="oe_subtotal_footer_separator"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="parts_consumed" string="Parts Consumed"
+                                  attrs="{'invisible': [('is_case_started','=',False)]}">
+                                <field name="created_picking" invisible="1"/>
+                                <field name="location_id" invisible="1"/>
+                                <field name="destination_location_filter_ids"
+                                       widget="many2many_tags" invisible="1"
+                                />
+                                <field name="parts_line_ids"
+                                       options="{'reload_on_button': true}"
+                                       context="{'default_location_dest_id': location_dest_id,'default_machine_id':machine_ids,'default_parts_move':'out'}"
+                                       attrs="{'readonly': ['|',('closed', '=', True),('hide_close_btn','=',True)]}"
+                                       domain="[('parts_move','=','out')]">
+                                    <tree editable="bottom">
+                                        <field name="machine_id"
+                                               domain="[('id', 'in', machine_domain_ids)]"
+                                               required="1"
+                                               options="{'no_create': True}"
+                                               invisible="1"/>
+                                        <field name="machine_parts_ids"
+                                               widget="many2many_tags"
+                                               invisible="1"/>
+                                        <field name="product_id"
+                                               options="{'no_create': True}"
+                                               domain="[('is_machine_part', '=', True), ('id', 'in', machine_parts_ids),('product_type', '=', 'product')]"
+                                               context="{'form_view_ref' : 'account_asset_management.machine_parts_form_view', 'tree_view_ref' : 'account_asset_management.machine_parts_tree_view', 'default_is_machine_part':True}"/>
+                                        <field name="warehouse_id"
+                                               domain="[('is_parts_warehouse', '=', True)]"
+                                               invisible="1"/>
+                                        <field name="location_id"
+                                               invisible="1"/>
+                                        <field name="location_dest_id"
+                                               options="{'no_create': True}"
+                                               invisible="1"/>
+                                        <field name="quantity"/>
+                                        <field name="uom_id" string="Unit of Measure"/>
+                                        <field name="machine_domain_ids"
+                                               widget="many2many_tags"
+                                               invisible="1"/>
+                                        <field name="unit_price" invisible="1"/>
+                                        <field name="move_id" invisible="1"/>
+                                        <field name="case_id" invisible="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="parts_move" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="damaged_or_return"
+                                  attrs="{'invisible': [('is_case_started','=',False)]}"
+                                  string="Damaged or Return Products">
+                                <!--                                <field name="created_picking" invisible="1"/>-->
+                                <!--                                <field name="location_id" invisible="1"/>-->
+                                <!--                                <field name="destination_location_filter_ids" widget="many2many_tags" invisible="1"/>-->
+                                <field name="damaged_parts_line_ids"
+                                       context="{'default_location_dest_id': location_dest_id,'default_machine_id':machine_ids,'default_parts_move':'in'}"
+                                       String="Damaged or Return"
+                                       attrs="{'readonly': ['|',('closed', '=', True),('hide_close_btn','=',True)]}"
+                                       domain="[('parts_move','=','in')]">
+                                    <tree editable="bottom">
+                                        <field name="machine_id"
+                                               domain="[('id', 'in', machine_domain_ids)]"
+                                               required="1"
+                                               options="{'no_create': True}"
+                                               invisible="1"/>
+                                        <!--                                        <field name="machine_parts_ids" widget="many2many_tags" invisible="1"/>-->
+                                        <field name="product_id"
+                                               options="{'no_create': True}"
+                                               domain="[('is_machine_part', '=', True)]"
+                                               context="{'form_view_ref' : 'account_asset_management.machine_parts_form_view', 'tree_view_ref' : 'account_asset_management.machine_parts_tree_view', 'default_is_machine_part':True}"/>
+                                        <field name="warehouse_id"
+                                               domain="[('is_parts_warehouse', '=', True)]"
+                                               invisible="1"/>
+                                        <field name="location_id"
+                                               invisible="1"/>
+                                        <field name="location_dest_id"
+                                               options="{'no_create': True}"
+                                               invisible="1"/>
+                                        <field name="quantity"/>
+                                        <field name="uom_id" string="Unit of Measure"/>
+                                        <field name="machine_domain_ids"
+                                               widget="many2many_tags"
+                                               invisible="1"/>
+                                        <field name="unit_price" invisible="1"/>
+                                        <field name="move_id" invisible="1"/>
+                                        <field name="case_id" invisible="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="parts_move" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="employee_completion"
+                                  groups="base.group_no_one"
+                                  string="Employee Completion">
+                                <field name="completion_ids"
+                                       widget="one2many">
+                                    <tree>
+                                        <field name="employee_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </xpath>
+            </field>
+        </record>
+        <record id="case_management_descriptions_form" model="ir.ui.view">
+            <field name="name">case.management.description.form</field>
+            <field name="model">case.management</field>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <form>
+                    <style>
+                        .o_form_view.o_form_nosheet{
+                        padding-bottom:0;
+                        padding-right:0;
+                        padding-right:0;
+                        padding-top:0;
+                        }
+                        @media (min-width: 992px){
+                        .modal-lg, .modal-xl {
+                        max-width: 1200px !important;
+                        }}
+                        th.o_column_sortable[data-name='description'] {
+                        width: 80% !important;
+                        background: red !important;
+                        max-width: 80% !important;
+                        min-width: 80% !important;
+                        }
+                        .o_data_row{
+                        pointer-events:none;
+                        }
+                    </style>
+                    <field name="case_description_ids" widget="one2many">
+                        <tree editable="bottom" delete="false">
+                            <field name="description" required="1"/>
+                            <field name="create_uid" readonly="1"
+                                   widget="many2one_avatar_user"/>
+                            <field name="create_date" readonly="1"/>
+                        </tree>
+                    </field>
+
+                    <footer>
+                        <button string="Save" special="save"
+                                class="oe_highlight"/>
+                        <button string="Discard" special="cancel"
+                                class="btn btn btn btn o_form_button_cancel btn-secondary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="case_management_resolution_form" model="ir.ui.view">
+            <field name="name">case.management.resolution.form</field>
+            <field name="model">case.management</field>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <form>
+                    <style>
+                        .o_form_view.o_form_nosheet{
+                        padding-bottom:0;
+                        padding-right:0;
+                        padding-right:0;
+                        padding-top:0;
+                        }
+                        @media (min-width: 992px){
+                        .modal-lg, .modal-xl {
+                        max-width: 1200px !important;
+                        }}
+                        th.o_column_sortable[data-name='resolution'] {
+                        width: 80% !important;
+                        background: red !important;
+                        max-width: 80% !important;
+                        min-width: 80% !important;
+                        }
+                        .o_data_row{
+                        pointer-events:none;
+                        }
+
+                    </style>
+                    <field name="case_resolution_ids" widget="one2many">
+                        <tree editable="bottom" delete="false">
+                            <field name="resolution" required="1"/>
+                            <field name="create_uid" readonly="1"
+                                   widget="many2one_avatar_user"/>
+                            <field name="create_date" readonly="1"/>
+                        </tree>
+                    </field>
+                    <footer>
+                        <button string="Save" special="save"
+                                class="oe_highlight"/>
+                        <button string="Discard" special="cancel"
+                                class="btn o_form_button_cancel btn-secondary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="case_management_completion_form" model="ir.ui.view">
+            <field name="name">case.employee.completion.form</field>
+            <field name="model">case.employee</field>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <form>
+                    <div class="row pt-2">
+                        <div class="col-12 mb-12">
+                            <field name="origin_id" invisible="1"/>
+                            <label for="employee_id" class="w-100"/>
+                            <field name="employee_ids" invisible="1"/>
+                            <field name="employee_id"
+                                   options='{"no_create": True,"no_edit": True}'
+                                   domain="[('id','in',employee_ids)]"/>
+                            <br/>
+                            <label for="internal_comment" class="w-100"/>
+                            <field name="internal_comment"
+                                   class="w-100" required="1"/>
+                            <label for="resolution_comment" class="w-100"/>
+                            <field name="resolution_comment"
+                                   class="w-100" required="1"/>
+                        </div>
+                    </div>
+                    <footer>
+                        <button name="close_case_employee" type="object"
+                                string="Submit"/>
+                        <button string="Discard" special="cancel"
+                                class="btn btn btn btn o_form_button_cancel btn-secondary"/>
+                    </footer>
+
+
+                </form>
+            </field>
+        </record>
+        <record id="case_management_cancel_comment_form" model="ir.ui.view">
+            <field name="name">case.management.cancel.form</field>
+            <field name="model">case.management</field>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <form>
+                    <div>
+                        <label for="cancel_reason"/>
+                        <field name="cancel_reason" widget="html"
+                               string="Case Cancel Reason" required="1"/>
+                    </div>
+
+                    <footer>
+                        <button name="confirm_cancel_case" type="object"
+                                string="Confirm"
+                                confirm="Are you sure want to cancel this case ?"
+                                class="btn btn-primary"/>
+                        <button string="Discard" special="cancel"
+                                class="btn btn o_form_button_cancel btn-secondary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <!--        <record id="averigo_service_management.case_management_action" model="ir.actions.act_window">-->
+        <!--        <field name="name">Cases</field>-->
+        <!--        <field name="type">ir.actions.act_window</field>-->
+        <!--        <field name="res_model">case.management</field>-->
+        <!--        <field name="view_mode">tree,kanban,form</field>-->
+        <!--        <field name="context">{'search_default_group_employee': 1}</field>-->
+        <!--        <field name="domain">-->
+        <!--            ['|',('portal_state', '=', 'draft'),('portal_state', 'in', ['open','closed'])]-->
+        <!--        </field>-->
+        <!--        <field name="search_view_id" ref="averigo_service_management.case_management_view_search"/>-->
+        <!--        <field name="help" type="html">-->
+        <!--            <p class="o_view_nocontent_empty_folder">-->
+        <!--                Create New Case-->
+        <!--            </p>-->
+        <!--        </field>-->
+        <!--        <field name="view_ids" eval="[(5, 0, 0),-->
+        <!--            (0, 0, {'view_mode': 'tree', 'view_id': ref('averigo_service_management.case_management_tree')}),-->
+        <!--            (0, 0, {'view_mode': 'kanban', 'view_id': ref('averigo_service_management.view_case_management_kanban')}),-->
+        <!--            (0, 0, {'view_mode': 'form', 'view_id': ref('averigo_service_management.case_management_view_form')})]"/>-->
+        <!--    </record>-->
+        <record id="view_case_management_tree_inherit_asset" model="ir.ui.view">
+            <field name="name">case.management.view.tree.asset.inherit</field>
+            <field name="model">case.management</field>
+            <field name="inherit_id" ref="averigo_service_management.case_management_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="asset_no" string="Asset No"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

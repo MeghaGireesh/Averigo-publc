@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="assets_backend" name="number assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script src="/averigo_case_management_api/static/src/js/number_valid.js" type="text/javascript"/>
+        </xpath>
+    </template>
+
+</odoo>

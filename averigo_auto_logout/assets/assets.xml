@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <template id="assets_backend" name="Averigo Auto Logout" inherit_id="web.assets_backend">
+            <xpath expr=".">
+                <script type="application/javascript" src="/averigo_auto_logout/static/src/js/auto_logout.js"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

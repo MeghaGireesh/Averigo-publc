@@ -1,0 +1,11 @@
+<template id="template" xml:space="preserve">
+    <t t-name="averigo_case_report.html_field_show_more">
+        <div class="html" style="pointer-events:none;">
+        </div>
+    </t>
+    <t t-name="FieldInteger">
+        <span class="case_records">
+            <t t-esc="widget.value"/>
+        </span>
+    </t>
+</template>

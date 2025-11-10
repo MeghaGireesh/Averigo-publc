@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="case_detailed_report" model="ir.ui.view">
+        <field name="name">case.detailed.form.report</field>
+        <field name="model">case.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <style>
+
+                    .o_control_panel{display: none;}
+                    .oe_search_btn{height: 25px; background-color: #3d9bbb;
+                    color: #fff !important;
+                    padding: 1px 14px;margin-left: 5px;}
+                    .oe_search_btn:hover{background-color: #1790b9;}
+                    .o_form_view .o_group{margin: 4px 0;}
+                    .oe_generate{float: right; border: 1px solid #3d9bbb;}
+                    .oe_flex{display: flex;}
+                    .o_field_many2manytags{max-height: 20vh; overflow: scroll;}
+                    .o_result{background-color: #3d9bbb; margin: 0px 0px;
+                    border-radius: 5px;
+                    padding: 5px 5px 1px 5px; color: #fff; font-weight: 900;}
+                    .table_row tbody tr:nth-child(even){background-color:
+                    rgba(0, 0, 0, 0.1); color: #4c4c4c;
+                    }
+                    html body .o_action_manager .o_view_controller
+                    .o_cp_controller .o_control_panel {
+                    display: none;
+                    }
+                    .oe_search_btn{height: 25px; background-color: #3d9bbb;
+                    color: #fff !important;
+                    padding: 1px 14px;margin-left: 5px;}
+                    .oe_search_btn:hover{background-color: #1790b9;}
+                    .o_form_view .o_group{margin: 4px 0;}
+                    .oe_generate{float: right; border: 1px solid #3d9bbb;}
+                    .oe_flex{display: flex;}
+                    .o_field_many2manytags{max-height: 20vh; overflow: scroll;}
+                    .o_result{background-color: #3d9bbb; margin: 0px 0px;
+                    border-radius: 5px;
+                    padding: 5px 5px 1px 5px; color: #fff; font-weight: 900;}
+                    .table_row tbody tr:nth-child(even){background-color:
+                    rgba(0, 0, 0, 0.1); color: #4c4c4c;
+                    .o_field_one2many .o_list_view .table-responsive
+                    {
+                    max-height:80vh !important;
+                    }
+                    <!--                    .disable_open tbody {pointer-events: none;}-->
+                    <!--                    .o_data_row{pointer-events:none;-->
+                </style>
+                <div class="row">
+                    <h1 style="color: #3d9bbb !important; margin-left: 20px;height:3%;position: relative;">
+                        Case Detailed Report
+                    </h1>
+                    <div class="sub_container right" align="right"
+                         style="width:100%;height:3%;top:0px;position: relative;">
+                        <div class="report_print">
+                            <button name="pdf_export"
+                                    class="btn btn btn-primary report_button"
+                                    type="object"
+                                    style="position: relative;height:25px; padding-left:10px; padding-right:10px; padding-bottom:20px; margin-right:12px;margin-top:-66px;"
+                            >PDF
+                            </button>
+                            <button name="action_export_xlsx"
+                                    class="btn btn o_button_import"
+                                    type="object"
+                                    style="position: relative;height:25px; padding-left:10px; padding-right:10px; padding-bottom:20px; margin-right:12px;margin-top:-66px;">
+                                Export
+                            </button>
+                            <button name="reset_filter"
+                                    class="btn btn o_form_button_cancel"
+                                    type="object"
+                                    style="position: relative;height:25px; padding-left:10px; padding-right:10px; padding-bottom:20px; margin-right:12px;margin-top:-66px;">
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <group>
+                    <group class="col-3">
+                        <field name="is_reported" string="Reported"/>
+                        <br/>
+                        <field name="is_closed" string="Closed"/>
+                        <br/>
+                        <field name="stage_ids" placeholder="All"
+                               widget="many2many_tags" string="Case Stage"
+                               options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+
+                    </group>
+                    <group class="col-3">
+                        <field name="reported_from"
+                               attrs="{'readonly': [('is_reported', '=', False)]}"/>
+                        <br/>
+                        <field name="close_from"
+                               attrs="{'readonly': [('is_closed', '=', False)]}"/>
+                        <br/>
+                        <field name="subject_id" invisible="1"/>
+                        <field name="account_id"
+                               options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                        <br/>
+                        <field name="any_stage" invisible="1"/>
+                    </group>
+                    <group class="col-3">
+                        <field name="reported_to"
+                               attrs="{'readonly': [('is_reported', '=', False)]}"/>
+                        <br/>
+                        <field name="close_to"
+                               attrs="{'readonly': [('is_closed', '=', False)]}"/>
+                        <br/>
+                        <field name="assigned_ids" placeholder="All"
+                               widget="many2many_tags"
+                               options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                    </group>
+                </group>
+                <group colspan="3">
+                    <div>
+                        <button string=" Generate" name="action_generate_report"
+                                type="object"
+                                style="border: solid 3px #34c38f !important;background-color:#34c38f !important;"
+                                class="btn fa fa-gear oe_inline btn-primary oe_generate"/>
+                    </div>
+                </group>
+                <div class="row o_result">
+                    <div class="col-xs-12 col-sm-12 col-4 col-md-4 col-lg-4">
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-4 col-md-4 col-lg-4">
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-4 col-md-4 col-lg-4 pull-right text-right">
+                        <field name="report_length" class="oe_inline"
+                               readonly="1"/>
+                        <span style="padding:5px">Record Found</span>
+                    </div>
+                </div>
+                <field name="line_ids" nolabel="1"
+                       class="disable_open"
+                       widget="one2manyFieldClickReport"
+                       context="{'form_view_ref': 'averigo_case_management.case_management_view_wizard_form'}">
+                    <tree create="0" delete="0" edit="0" open="false"
+                          class="table_row">
+                        <field name="number" string="Case No"
+                               style="pointer-events:none;"/>
+                        <field name="partner_id" string="Account Name"
+                               style="pointer-events:none;"/>
+                        <field name="machine_ids" string="Equipment"
+                               style="pointer-events:none;" invisible="1"/>
+                        <field name="location_dest_id" string="Location"
+                               style="pointer-events:none;"/>
+                        <field name="reported_by" string="Reported By"
+                               style="pointer-events:none;"/>
+                        <field name="request_date" string="Reported Date"
+                               style="pointer-events:none;"/>
+                        <!--                        <field name="subject_id" string="Subject"/>-->
+                        <field name="case_description" string="Description"
+                               widget="html_show_more"
+                               style="white-space: normal;word-break: break-word;width:500px;max-width:500px;display:flex;"/>
+                        <field name="employee_ids" widget="many2many_tags"
+                               string="Tech"
+                               style="overflow:hidden !important" invisible="1"/>
+                        <field name="employee_visible_ids" widget="many2many_tags"
+                               string="Tech"
+                               style="overflow:hidden !important"/>
+                        <field name="internal_comment"
+                               string="Internal Comments"
+                               widget="html_show_more"
+                               style="white-space: normal;word-break: break-word;width:500px;max-width:500px;"
+                               invisible="1"/>
+                        <field name="resolution" string="Resolution"
+                               widget="html_show_more"
+                               style="white-space: normal;word-break: break-word;width:500px;max-width:500px;display:flex;"
+                               invisible="1"/>
+                        <field name="internal_comment_count" invisible="1"/>
+                        <field name="case_resolution_count" invisible="1"/>
+
+                        <field name="case_description_ids"
+                               string="Internal Comments"
+                               widget="many2many_description_dialog"
+                               invisible="1"/>
+                        <field name="all_internal_comments"
+                               widget="html_show_more"
+                               style="white-space: normal;word-break: break-word;width:500px;max-width:500px;display:flex;"/>
+                        <field name="all_resolution_comments"
+                               widget="html_show_more"
+                               style="white-space: normal;word-break: break-word;width:500px;max-width:500px;display:flex;"/>
+                        <field name="case_resolution_ids"
+                               string="Resolution Comments"
+                               widget="many2many_resolution_dialog"
+                               invisible="1"/>
+                        <field name="stage_id" string="Case Stage"
+                               style="pointer-events:none;"/>
+                        <field name="currency_id" invisible="1"
+                               style="pointer-events:none;"/>
+                        <field name="collected" string="Collected"
+                               invisible="1" style="pointer-events:none;"/>
+                        <field name="refunded" string="Refund" invisible="1"
+                               style="pointer-events:none;"/>
+                        <field name="closed_user_id" string="Closed By"
+                               style="pointer-events:none;"/>
+                        <field name="closed_date" string="Closed Date"
+                               style="pointer-events:none;"/>
+                        <field name="machine_cases"
+                               widget="field_integer_clickable"
+                               class="btn btn-link"
+                               string="Account Prior cases"/>
+                        <field name="case_notes" invisible="1"
+                               style="pointer-events:none;"/>
+                        <field name="message_ids" invisible="1"
+                               widget="many2many_tags"
+                               style="pointer-events:none;"/>
+                        <field name="history_message_ids" invisible="1"
+                               widget="many2many_tags"
+                               style="pointer-events:none;"/>
+                        <!--                        <field name="case_history_count" string="History"-->
+                        <!--                               class="btn btn-link"-->
+                        <!--                               widget="field_integer_clickable" invisible="1"/>-->
+                        <field name="company_id" groups="base.group_no_one"/>
+                        <button name="open_history_case" string="X"
+                                type="object"/>
+                        <!--                        <button name="open_comments" type="object" string="Comments" class="fa fa-comments"/>-->
+                    </tree>
+                </field>
+            </form>
+        </field>
+    </record>
+    <!--    <report-->
+    <!--            id="report_case_management_report"-->
+    <!--            model="case.report"-->
+    <!--            string="Case Management Report"-->
+    <!--            report_type="qweb-pdf"-->
+    <!--            name="averigo_service_management.report_case_management"-->
+    <!--            file="averigo_service_management.report_case_management"-->
+    <!--            menu="False"-->
+    <!--    />-->
+
+    <record id="chatter_view_case_report" model="ir.ui.view">
+        <field name="name">chatter.view.case.reports.form</field>
+        <field name="model">case.management</field>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <form create="0" edit="0">
+                <style>
+                    .o_mail_chatter_attachments
+                    {
+                    display:none;
+                    }
+                    .o_chatter_button_new_message
+                    {
+                    display:none;
+                    }
+                    .o_chatter_button_log_note
+                    {
+                    display:none;
+                    }
+                    .o_chatter_topbar
+                    {
+                    display:none;
+                    }
+                    .o_chatter_button_attachment
+                    {
+                    display:none;
+                    }
+                </style>
+                <div class="oe_chatter">
+                    <field name="message_ids" widget="mail_thread"
+                           options="{'post_refresh': 'recipients', 'open_attachments': True}"
+                           readonly="1"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="report_case_management_report" model="ir.actions.report">
+        <field name="show_in_report_menu" eval="True"/>
+        <field name="show_in_portal" eval="False"/>
+        <field name="name">Case Detailed Report</field>
+        <field name="model">case.report</field>
+        <field name="report_group"
+               ref="report_group_case_management"/>
+        <field name="report_name">averigo_case_report</field>
+        <field name="action_type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="case_detailed_report"/>
+        <field name="target">current</field>
+    </record>
+
+    <record id="averigo_menu_case_management_report_action"
+            model="ir.actions.act_window">
+        <field name="name">Case Management Report</field>
+        <field name="res_model">averigo.reports</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="averigo_reports.view_averigo_reports"/>
+        <field name="context">{'default_group_name': 'Case Management Report'}
+        </field>
+    </record>
+
+    <menuitem id="averigo_menu_case_management_report_menu"
+              name="Case Management" sequence="16"
+              groups="base_averigo.hide_critical_menu"
+              parent="base_averigo.menu_action_reports_operator"
+              action="averigo_menu_case_management_report_action"/>
+
+
+</odoo>

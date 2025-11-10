@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="case_management_Report_inherit_view" model="ir.ui.view">
+            <field name="name">case detailed report</field>
+            <field name="model">case.management</field>
+            <field name="inherit_id" ref="averigo_service_management.case_detailed_report"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/field[@name='line_ids']/tree/field[@name='number']">
+                    <field name="case_notes" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

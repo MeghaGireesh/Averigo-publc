@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- form view  -->
+        <record model="ir.ui.view" id="res_users_form_featured_product">
+            <field name="name">Res Users Featured Product</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base_averigo.view_res_users_form_operator"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//label[@for='group_hr']" position="before">
+                        <label for="group_featured_product" string="Featured Product" invisible="1"/>
+                        <div class="group_featured_product" invisible="1">
+                            <field name="group_featured_product" class="oe_inline" widget="boolean_toggle"/>
+                        </div>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</odoo>

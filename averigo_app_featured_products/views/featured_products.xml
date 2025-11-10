@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <record id="product_discount_tree_view" model="ir.ui.view">
+            <field name="name">product.discount.tree</field>
+            <field name="model">product.discount</field>
+            <field eval="7" name="priority"/>
+            <field name="arch" type="xml">
+                <tree editable="bottom"
+                      create="0" edit="1">
+                    <field name="special_id" invisible="1"/>
+                    <field name="mm_ids" invisible="1"/>
+                    <field name="product_id" options="{'no_create': True, 'no_open': True}"/>
+                    <field name="categ_id"/>
+                    <field name="price" readonly="1" force_save="1"/>
+                    <field name="discount_percentage"/>
+                    <field name="discount_amount"/>
+                    <field name="sale_price" readonly="1" force_save="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="featured_products_form" model="ir.ui.view">
+            <field name="name">featured.products.form</field>
+            <field name="model">featured.products</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet string="Specials">
+                        <div class="oe_title">
+                            <field name="active" invisible="1"/>
+                            <widget name="web_ribbon" text="Archived" bg_color="bg-danger"
+                                    attrs="{'invisible': [('active', '=', True)]}"/>
+                        </div>
+                        <group string="Specials">
+                            <group>
+                                <br/>
+                                <field name="start_date" required="1"/>
+                                <field name="end_date" required="1"/>
+                                <field name="start_time" widget="float_time" required="1"/>
+                                <field name="end_time" widget="float_time" required="1"/>
+                                <field name="discount_percentage" required="1"/>
+                                <field name="send_notification"/>
+                                <field name="notification" invisible="1"/>
+                                <field name="send_title"
+                                       attrs="{'invisible': [('send_notification','=',False)],'required': [('send_notification','=',True)]}"/>
+                                <field name="avail_all_products"/>
+
+                            </group>
+                            <group>
+                                <br/>
+                                <field name="location" widget="many2many_tags" style="max-width: 245px;"
+                                       options="{'no_create': True, 'no_open': True}" string="Customer" required="1"/>
+                                <field name="customer_ids" invisible="1"/>
+                                <field name="micro_market_id" widget="many2many_tags" style="max-width: 245px;"
+                                       options="{'no_create': True, 'no_open': True}" invisible="1"/>
+                                <field name="market_ids" invisible="1"/>
+                                <field name="market_id" options="{'no_create': True, 'no_open': True}"
+                                       domain="[('id', 'in', market_ids)]" required="1"/>
+                                <field name="categ_ids" invisible="1"/>
+                                <field name="categ_id" domain="[('id', '=', categ_ids)]" placeholder="Default All..."
+                                       invisible="1"/>
+                                <field name="category_ids" domain="[('id', '=', categ_ids)]"
+                                       options="{'no_create': True, 'no_open': True}"
+                                       attrs="{'invisible': ['|', ('avail_all_products','=',True)]}"
+                                       placeholder="Select Category" widget="many2many_tags"/>
+<!--                                <br/>-->
+<!--                                <div class="alert alert-warning" role="alert" name="test_warning"-->
+<!--                                     attr="{'invisible': [('is_category', '=', False)]}">-->
+<!--                                    <b>Note</b><br/><br/>-->
+<!--                                    All the <b>Products</b> in the selected <b>Categories</b> will be included for the Discount.-->
+<!--                                </div>-->
+                                <field name="avail_new_catg_products" string="Include New Products"
+                                       attrs="{'invisible': ['|', ('avail_all_products','=',True), ('is_category', '!=', True)]}"/>
+                                <br/>
+                                <div class="alert alert-warning" role="alert" name="test_warning"
+                                     attrs="{'invisible': ['|', ('avail_all_products','=',True), ('is_category', '!=', True)]}">
+                                    <b>Note</b><br/><br/>
+                                    By enable <b>Include New Products</b> will Automatically include newly added products in the selected categories to this Special Discount
+                                </div>
+
+                                <field name="is_category" force_save="1" invisible="1"/>
+                                <field name="offer_mm_products_ids" force_save="1" invisible="1" widget="many2many_tags"/>
+
+                                <field name="banner_text" style="height: 50px;" required="1"/>
+                                <field name="image_notification" widget="image" width="100" height="100"
+                                       attrs="{'invisible': [('send_notification','=',False)],'required': [('send_notification','=',True)]}"/>
+
+                            </group>
+                            <group class="oe_edit_only" attrs="{'invisible': ['|', ('avail_all_products','=',True), ('is_category', '=', True)]}">
+                                <field name="dynamic_product_ids" string="Add Products" invisible="1"/>
+                                <group>
+                                <div class="oe_inline">
+                                    <h3>Products</h3>
+                                    <field name="select_product_ids" string="Products"
+                                           domain="[('id', 'in', dynamic_product_ids)]"
+                                           widget="many2many_tags"
+                                           style="width:70%;"/>
+                                    <label for="add_button" string="Add"
+                                           class="o_form_button_edit"
+                                           style="margin-left: 8px;height: 25px;font-weight: bold !important;color:black !important; "/>
+                                    <field name="add_button" invisible="1"/>
+                                </div>
+                                </group>
+                            </group>
+                        </group>
+                        <group attrs="{'invisible': [('avail_all_products','=',True)]}" invisible="1">
+                            <group col="9"/>
+                            <group col="3">
+                                <button name="add_discount_line" type="object" string="Add All Products"
+                                        class="btn btn-primary oe_right"/>
+                            </group>
+                        </group>
+                        <field name="product_line" attrs="{'invisible': ['|', ('avail_all_products','=',True), ('is_category', '=', True)]}"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="featured_products_tree" model="ir.ui.view">
+            <field name="name">featured.products.tree</field>
+            <field name="model">featured.products</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Specials">
+                    <!--                    <field name="product_ids" widget="many2many_tags"/>-->
+                    <!--                    <field name="discount"/>-->
+                    <field name="market_id"/>
+                    <field name="location" optional="show" widget="many2many_tags" string="Customer"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="start_time" optional="hide"/>
+                    <field name="end_time" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+        <record id="featured_products_search" model="ir.ui.view">
+            <field name="name">featured.products.search</field>
+            <field name="model">featured.products</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="product_ids" string="Product" filter_domain="[('product_ids.name', 'ilike', self)]"/>
+                    <field name="market_id" string="Micro Market"
+                           filter_domain="[('market_id.name', 'ilike', self)]"/>
+                    <field name="location" string="Location" filter_domain="[('location.name', 'ilike', self)]"/>
+                    <field name="start_date" string="Start Date" filter_domain="[('start_date', '=', self)]"/>
+                    <field name="end_date" string="End Date" filter_domain="[('end_date', '=', self)]"/>
+                    <field name="start_time" string="Start Time" filter_domain="[('start_time', 'ilike', self)]"/>
+                    <field name="end_time" string="End Time" filter_domain="[('end_time', 'ilike', self)]"/>
+                    <!--                    <field name="discount" string="Discount Above" filter_domain="[('discount', '&gt;=', self)]"/>-->
+                    <!--                    <field name="discount" string="Discount Below" filter_domain="[('discount', '&lt;=', self)]"/>-->
+                    <separator/>
+                    <filter string="Start Today" name="start_date"
+                            domain="[('start_date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                    <filter string="End Today" name="end_date"
+                            domain="[('end_date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_start_date" string="Start Date" context="{'group_by': 'start_date'}"/>
+                        <filter name="group_end_date" string="End Date" context="{'group_by': 'end_date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="ir_action_featured_products" model="ir.actions.act_window">
+            <field name="name">Specials</field>
+            <field name="res_model">featured.products</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+        <menuitem name="Specials" id="ir_menu_featured_products" sequence="5"
+                  parent="micro_market.vending_main_menu"
+                  action="averigo_app_featured_products.ir_action_featured_products"
+                  groups="base_averigo.hide_critical_menu"/>
+        <!--        groups="averigo_app_featured_products.operator_featured_product_read"-->
+    </data>
+
+</odoo>

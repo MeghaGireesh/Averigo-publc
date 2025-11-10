@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+
+        <record id="note_wizard_case_tree_view_report" model="ir.ui.view">
+            <field name="name">case.note.report</field>
+            <field name="model">casemanagement.notes</field>
+            <field name="arch" type="xml">
+                <tree string="note_tree" create="false" edit="false" >
+                    <field name="message"/>
+                    <field name="created_on" readonly="1"/>
+                    <field name="create_uid" string="Created By" readonly="1" widget="many2one_avatar_user"/>
+                    <field name="origin_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

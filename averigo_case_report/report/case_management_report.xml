@@ -1,0 +1,208 @@
+<odoo>
+
+    <data noupdate="1">
+        <record id="action_case_report" model="ir.actions.report">
+            <field name="name">Case Management Report</field>
+            <field name="model">case.report</field>
+            <field name="paperformat_id"
+                   ref="equipment_activity_report.equipment_activity_paperformat"/>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">averigo_case_report.report_case_management</field>
+            <field name="report_file">averigo_case_report.report_case_management</field>
+            <field name="print_report_name">'Case Detail Report - %s' %
+                (fields.Date.today())
+            </field>
+        </record>
+    </data>
+    <template id="report_case_management">
+        <t t-call="web.html_container">
+            <t t-esc="docs"/>
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.internal_layout">
+                    <style>
+                        thead,tfoot{
+                        display:table-row-group;
+                        },
+                        tr{
+                        page-break-inside:avoid;
+                        }
+                    </style>
+                    <div class="page">
+                        <h2 class="text-center">Case Detailed Report</h2>
+                        <br/>
+                        <table class="table" style="width:50%;">
+                            <tr>
+                                <td>
+                                    <t t-if="o.is_reported and o.reported_from">
+                                        Reported From :
+                                        <strong>
+                                            <t t-esc="(o.reported_from).strftime('%m-%d-%Y')"/>
+                                        </strong>
+                                    </t>
+                                    <t t-if="o.is_closed and o.close_from">
+                                        Closed From :
+                                        <strong>
+                                            <t t-esc="(o.close_from).strftime('%m-%d-%Y')"/>
+                                        </strong>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="o.is_reported and o.reported_to">
+                                        Reported To :
+                                        <strong>
+                                            <t t-esc="(o.reported_to).strftime('%m-%d-%Y')"/>
+                                        </strong>
+
+                                    </t>
+                                    <t t-if="o.is_closed and o.close_to">
+                                        Closed To :
+                                        <strong>
+                                            <t t-esc="(o.close_to).strftime('%m-%d-%Y')"/>
+                                        </strong>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="o.account_id">
+                                        Account :
+                                        <strong>
+                                            <t t-esc="o.account_id.name"/>
+                                        </strong>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <t t-if="o.stage_ids">
+                                        Stage :
+                                        <strong>
+                                            <ul t-foreach="o.stage_ids"
+                                                t-as="stage">
+                                                <li t-esc="stage.name"/>
+                                            </ul>
+                                        </strong>
+                                    </t>
+                                </td>
+                                <td style="margin:0px !important;padding:0px !important;">
+                                    <t t-if="o.assigned_ids">
+                                        Assigned To :
+                                        <strong>
+                                            <ul t-foreach="o.assigned_ids"
+                                                t-as="tech">
+                                                <li t-esc="tech.name"/>
+                                            </ul>
+                                        </strong>
+                                    </t>
+                                </td>
+
+                            </tr>
+                        </table>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="width:80px;min-width:80px;">
+                                        Case No
+                                    </th>
+                                    <th
+                                            style="width:100px;min-width:100px;max-width:100px">
+                                        Account Name
+                                    </th>
+                                    <th
+                                            style="width:100px;min-width:100px;max-width:100px">
+                                        Location
+                                    </th>
+                                    <th
+                                            style="width:110px;min-width:110px;max-width:110px">
+                                        Reported By
+                                    </th>
+                                    <th style="width:100px;min-width:100px;max-width:100px">
+                                        Reported Date
+                                    </th>
+                                    <th
+                                            style="width:200px;min-width:200px;max-width:200px">
+                                        Description
+                                    </th>
+                                    <th
+                                            style="width:90px;min-width:90px;max-width:90px">
+                                        Tech
+                                    </th>
+                                    <th
+                                            style="width:200px;min-width:200px;max-width:200px">
+                                        Internal Comments
+                                    </th>
+                                    <th
+                                            style="width:200px;min-width:200px;max-width:200px">
+                                        Resolution Comments
+                                    </th>
+                                    <th style="width:100px;min-width:100px;max-width:100px">
+                                        Case Status
+                                    </th>
+                                    <th style="width:120px;min-width:120px;max-width:120px">
+                                        Closed By
+                                    </th>
+                                    <th style="width:120px;min-width:120px;max-width:120px">
+                                        Closed Date
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.line_ids" t-as="line">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="line.number"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.partner_id.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.sudo().machine_ids.equipment_location"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.reported_by"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="(line.request_date).strftime('%m-%d-%Y')"/>
+                                        </td>
+                                        <td
+                                                style="width:190px;min-width:190px;max-width:190px">
+                                            <t t-esc="line.case_description"/>
+                                        </td>
+                                        <td>
+                                            <t t-foreach="line.employee_visible_ids"
+                                               t-as="tech"
+                                               style="margin:0px !important;">
+                                                <b>*</b>
+                                                <span t-esc="tech.name"/>
+                                                <br/>
+                                            </t>
+                                        </td>
+                                        <td
+                                                style="width:190px;min-width:190px;max-width:190px">
+                                            <t t-esc="line.cleanhtml(line.all_internal_comments)"/>
+                                        </td>
+                                        <td
+                                                style="width:190px;min-width:190px;max-width:190px">
+                                            <t t-esc="line.cleanhtml(line.all_resolution_comments)"/>
+                                        </td>
+
+                                        <td>
+                                            <t t-esc="line.stage_id.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.closed_user_id.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-if="line.closed_date">
+
+                                                <t t-esc="(line.closed_date).strftime('%m-%d-%Y %H:%M:%S')"/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

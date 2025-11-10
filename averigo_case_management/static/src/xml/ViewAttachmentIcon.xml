@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+<div t-name="ViewAttachmentIcon" t-attf-class="oe_fileupload #{widget.attrs.class ? widget.attrs.class :''}"
+     aria-atomic="true">
+        <i class="fa fa-eye" aria-hidden="true"></i>
+</div>
+</templates>

@@ -1,0 +1,35 @@
+<odoo>
+    <record id="case_management_wizard" model="ir.ui.view">
+        <field name="name">Case Wizard</field>
+        <field name="model">case.management</field>
+        <field name="arch" type="xml">
+            <form>
+                <style>
+                    .o_form_sheet{
+                        width:100% !important;
+                        min-width:100% !important;
+                    }
+
+                </style>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="hide_fields" invisible="1"/>
+                            <field name="collected"/>
+                            <field name="confirm_without_parts" attrs="{'invisible': [('hide_fields', '=', True)]}"/>
+                        </group>
+                        <group>
+                            <field name="refunded"/>
+                            <field name="confirm_without_return" attrs="{'invisible': [('hide_fields', '=', True)]}"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="confirm_case_close" string="Confirm" type="object" class="btn-primary"/>
+                    <button name="cancel" string="Discard" special="cancel"
+                            class="btn btn-secondary o_form_button_cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
