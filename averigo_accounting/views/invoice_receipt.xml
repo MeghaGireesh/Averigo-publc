@@ -1,0 +1,322 @@
+<odoo>
+
+    <record id="view_invoice_receipt_tree" model="ir.ui.view">
+        <field name="name">invoice.receipt.tree</field>
+        <field name="model">invoice.receipt</field>
+        <field name="arch" type="xml">
+            <tree string="Invoice Receipt">
+                <field name="receipt_date"/>
+                <field name="name"/>
+                <field name="journal_id" invisible="1"/>
+                <field name="payment_mode_id"/>
+                <field name="partner_id" string="Customer"/>
+                <field name="amount" sum="Amount"/>
+                <field name="state"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="currency_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_invoice_receipt_form" model="ir.ui.view">
+        <field name="name">view.invoice.receipt.form</field>
+        <field name="model">invoice.receipt</field>
+        <field name="arch" type="xml">
+            <form string="Invoice Receipt">
+                <style>
+                    .o_field_many2manytags{max-height: 7vh; overflow: scroll;}
+                    .o_field_widget.o_field_radio.o_vertical .o_radio_item {
+                    margin-bottom: 22px;
+                    }
+                    .col-4 {
+                    min-height: 50px;
+                    }
+                    textarea {
+                    padding-left: 10px !important;
+                    padding-top: 2px !important;
+                    }
+                </style>
+                <header>
+                    <button name="post" class="oe_highlight" states="draft"
+                            string="Confirm" type="object"/>
+                    <button name="cancel" states="draft" string="Cancel"
+                            type="object"
+                            class="btn btn o_form_button_cancel"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,done,cancelled"/>
+                </header>
+                <sheet>
+                    <div class="row field_color">
+                        <field name="advance_move_line_ids"
+                               widget="many2many_tags" invisible="1"/>
+                        <field name="currency_id"
+                               options="{'no_create': True, 'no_open': True}"
+                               groups="base.group_multi_currency"/>
+                        <field name="company_id"
+                               groups="base.group_multi_company" required="1"
+                               invisible="1"/>
+                        <field name="user_id" string="Owner" invisible="1"
+                               attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="account_dom_ids" widget="many2many_tags"
+                               invisible="1"/>
+                        <field name="invoice_ids_len" invisible="1"/>
+                        <field name="is_advance" invisible="1"/>
+                        <field name="is_bank" invisible="1"/>
+                        <field name="is_check" invisible="1"/>
+                        <field name="is_credit_card" invisible="1"/>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('name', '=', False)]}">
+                            <label for="name" string="Receipt No"
+                                   class="w-100"/>
+                            <field name="name" readonly="1" force_save="1"/>
+                        </div>
+                        <div class="col-3 pt-2">
+                            <label for="partner_id" string="Customer"
+                                   class="w-100"/>
+                            <field name="partner_id"
+                                   options="{'no_create': True}" required="1"
+                                   domain="[('is_customer', '=', True),('type', 'in', ('contact','portal'))]"
+                                   context="{'default_is_company': True}"
+                                   class="w-100"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </div>
+                        <div class="col-3 pt-2">
+                            <label for="receipt_date" string="Receipt Date"
+                                   class="w-100"/>
+                            <field name="receipt_date" class="w-100"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </div>
+                        <div class="col-3 pt-2">
+                            <label for="phone" string="Phone" class="w-100"/>
+                            <field name="phone" class="w-100"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </div>
+                        <div class="col-3 pt-2">
+                            <label for="amount" string="Amount" class="w-100"/>
+                            <field name="amount"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"
+                                   class="w-100"/>
+                        </div>
+                        <div class="col-3 pt-2">
+                            <label for="invoice_balance"
+                                   string="Invoice Balance" class="w-100"/>
+                            <field name="invoice_balance" class="w-100"
+                                   readonly="1"/>
+                        </div>
+                        <div class="col-3 pt-2">
+                            <label for="cust_advance_balance"
+                                   string="Advance Balance" class="w-100"/>
+                            <field name="cust_advance_balance" class="w-100"/>
+                        </div>
+                        <div class="col-3 pt-2">
+                            <label for="payment_mode_id"
+                                   string="Mode Of Payment" class="w-100"/>
+                            <field name="payment_mode_id" required="1"
+                                   widget="selection" string="Mode Of Payment"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"
+                                   class="w-100"/>
+                        </div>
+                        <div class="col-3 pt-2" invisible="1">
+                            <label for="journal_id" string="Mode of Payment"
+                                   class="w-100"/>
+                            <field name="journal_id" widget="selection"
+                                   class="w-100"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </div>
+                        <!--                        <div class="col-4 pt-2">-->
+                        <!--                            <label for="partner_bank_account_id" string="Customer Bank Account" class="w-100"/>-->
+                        <!--                            <field name="partner_bank_account_id" class="w-100"-->
+                        <!--                                   domain="[('is_vendor', '=', True)]"-->
+                        <!--                                   context="{'default_partner_id': partner_id,'default_is_vendor': True}"-->
+                        <!--                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>-->
+                        <!--                        </div>-->
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible': [('is_check', '=', False)]}">
+                            <label for="partner_bank_name"
+                                   string="Customer Bank Name" class="w-100"/>
+                            <field name="partner_bank_name"
+                                   string="Customer Bank Name" class="w-100"
+                                   attrs="{'invisible': [('is_check', '=', False)], 'readonly': [('state', '!=', 'draft')]}"/>
+                        </div>
+                        <!--                        <div class="col-3 pt-2" attrs="{'invisible': [('is_check', '=', False)]}">-->
+                        <!--                            <label for="check_no" string="Check/Reference # " class="w-100"/>-->
+                        <!--                            <field name="check_no" class="w-100"-->
+                        <!--                                   attrs="{'readonly': [('state', '!=', 'draft')], 'invisible': [('is_check', '=', False)]}"/>-->
+                        <!--                        </div>-->
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible': [('is_check', '=', False)]}">
+                            <label for="check_id" string="Check" class="w-100"/>
+                            <field name="check_id" string="Check" class="w-100"
+                                   attrs="{'required': [('is_check', '=', True)],
+                                   'invisible': [('is_check', '=', False)], 'readonly': [('state', '!=', 'draft')]}"
+                                   context="{'default_check_amount': amount}"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible': [('is_credit_card', '=', False)]}">
+                            <label for="card_type" string="Credit Card Type"
+                                   class="w-100"/>
+                            <field name="is_credit_card" invisible="1"/>
+                            <field name="card_type" string="Credit Card Type"
+                                   class="w-100"
+                                   attrs="{'invisible': [('is_credit_card', '=', False)], 'readonly': [('state', '!=', 'draft')]}"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible': [('is_credit_card', '=', False)]}">
+                            <label for="card_number" string="Credit Card #"
+                                   class="w-100"/>
+                            <field name="card_number" string="Credit Card #"
+                                   class="w-100"
+                                   attrs="{'invisible': [('is_credit_card', '=', False)], 'readonly': [('state', '!=', 'draft')]}"/>
+                        </div>
+                        <div class="col-3 pt-2" name="deposit_to">
+                            <label for="account_id" string="Deposit To"
+                                   class="w-100"/>
+                            <field name="account_id" widget="selection"
+                                   class="w-100"
+                                   domain="[('id', 'in', account_dom_ids)]"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </div>
+                        <!--                        <div class="col-4 pt-2">-->
+                        <!--                            <label for="partner_card_id" string="Customer Credit Card" class="w-100"/>-->
+                        <!--                            <field name="partner_card_id" class="w-100"-->
+                        <!--                                   domain="[('is_customer', '=', True)]"-->
+                        <!--                                   attrs="{'readonly': [('state', '!=', 'draft')], 'required': [('is_credit_card', '=', True)]}"-->
+                        <!--                                   context="{'default_partner_id': partner_id, 'default_card_type': 'credit','default_is_customer': True}"/>-->
+                        <!--                        </div>-->
+                    </div>
+                    <div class="row pt-2"
+                         attrs="{'invisible':[('invoice_ids_len', '!=', 0)]}">
+                        <div class="col-12">
+                            <button name="fetch_invoice"
+                                    string="Fetch Pending Invoices"
+                                    type="object"
+                                    class="btn btn-primary o_list_button_add"/>
+                        </div>
+                    </div>
+                    <notebook>
+                        <page name="invoice_details" string="Invoice Details"
+                              attrs="{'invisible':[('invoice_ids_len', '=', 0)]}">
+                            <h5 class="oe_right">
+                                <button name="auto_apply" string="Auto Apply"
+                                        type="object"/>
+                            </h5>
+                            <field name="invoice_ids">
+                                <tree editable="bottom"
+                                      decoration-danger="amount_residual_changed == True"
+                                      create="0"
+                                      delete="0">
+                                    <field name="invoice_receipt_id"
+                                           invisible="1"/>
+                                    <field name="invoice_id" invisible="1"/>
+                                    <field name="name" string="Invoice No"/>
+                                    <field name="partner_id" invisible="1"/>
+                                    <field name="amount_total_view"
+                                           string="Amount" sum="Total"/>
+                                    <field name="invoice_date_due"/>
+                                    <field name="amount_adjusted"
+                                           string="Adjusted" sum="Total"/>
+                                    <field name="amount_residual"
+                                           string="Balance" sum="Total"
+                                           readonly="1"
+                                           force_save="1"/>
+                                    <button name="update_amount_residual"
+                                            type="object"
+                                            attrs="{'invisible':[('amount_residual_changed', '=', False)]}"
+                                            class="fa fa-refresh refresh_btn"/>
+                                    <field name="invoice_amount_residual"
+                                           invisible="1"/>
+                                    <field name="amount_residual_changed"
+                                           invisible="1"/>
+                                    <field name="filter_advance_move_line_ids"
+                                           invisible="1"/>
+                                    <field name="have_advance_value"
+                                           invisible="1"/>
+                                    <field name="advance_move_line_id"
+                                           context="{'advance_payment' : 1}"
+                                           domain="[('id', 'in', filter_advance_move_line_ids)]"
+                                           attrs="{'readonly':[('parent.state', '!=', 'draft')]}"
+                                           options="{'no_create': True, 'no_open': True}"/>
+                                    <field name="advance_amount"
+                                           string="Advance Applied" sum="Total"
+                                           attrs="{'readonly':['|', ('parent.state', '!=', 'draft'), ('have_advance_value', '=', False)]}"/>
+                                    <field name="amount_received" sum="Total"
+                                           attrs="{'readonly':[('parent.state', '!=', 'draft')], 'column_invisible': [('parent.is_advance', '=', True)]}"/>
+                                    <field name="due_amount" sum="Total"/>
+                                    <field name="unapplied_amount"
+                                           invisible="1"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="name"
+                                                   string="Invoice No"/>
+                                            <field name="amount_total_view"
+                                                   string="Amount" sum="Total"/>
+                                            <field name="invoice_date_due"/>
+                                        </group>
+                                        <group>
+                                            <field name="amount_adjusted"
+                                                   string="Adjusted"
+                                                   sum="Total"/>
+                                            <field name="amount_residual"
+                                                   string="Balance" sum="Total"
+                                                   readonly="1"
+                                                   force_save="1"/>
+                                            <field name="due_amount"
+                                                   sum="Total"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                            <group>
+                                <group>
+                                    <field name="narration"
+                                           placeholder="Add an internal note..."
+                                           nolabel="1"
+                                           height="50"/>
+                                </group>
+                                <group class="oe_subtotal_footer">
+                                    <field name="unapplied_amount"
+                                           string="Unapplied Amount"
+                                           attrs="{'invisible': [('is_advance', '=', True)}"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="o_attachment_preview"/>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"
+                           groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_invoice_receipt" model="ir.actions.act_window">
+        <field name="name">Invoice Receipt</field>
+        <field name="res_model">invoice.receipt</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Register a receipt
+            </p>
+            <p>
+                Payments are used to register liquidity movements. You can
+                process those payments by your own means or
+                by
+                using installed facilities.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_invoice_receipt" name="Invoice Receipt"
+              action="action_invoice_receipt"
+              parent="averigo_accounting.menu_accounts_receivable"
+              groups="base_averigo.hide_critical_menu"
+              sequence="2"/>
+
+
+</odoo>

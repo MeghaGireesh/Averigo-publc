@@ -1,0 +1,143 @@
+<odoo>
+    <record id="receipt_list_report" model="ir.ui.view">
+        <field name="name">receipt.list.report.form</field>
+        <field name="model">receipt.list</field>
+        <field name="arch" type="xml">
+            <form>
+                <style>
+                    html body .o_action_manager .o_view_controller
+                    .o_cp_controller .o_control_panel {
+                    display: none;
+                    }
+                    .disable_open tbody {pointer-events: none;}
+                    .oe_search_btn{height: 25px; background-color: #3d9bbb;
+                    color: #fff !important;
+                    padding: 1px 14px;margin-left: 5px;}
+                    .oe_search_btn:hover{background-color: #1790b9;}
+                    .o_form_view .o_group{margin: 4px 0;}
+                    .oe_generate{float: right; border: 1px solid #3d9bbb;}
+                    .oe_flex{display: flex;}
+                    .o_field_many2manytags{max-height: 20vh; overflow: scroll;}
+                    .o_result{background-color: #3d9bbb; margin: 0px 0px;
+                    border-radius: 5px;
+                    padding: 5px 5px 1px 5px; color: #fff; font-weight: 900;}
+                    .table_row tbody tr:nth-child(even){background-color:
+                    rgba(0, 0, 0, 0.1); color: #4c4c4c;
+                    .o_action_manager{
+                    overflow-y:hidden !important;
+                    }
+                    .overflow{
+                    overflow-y:hidden !important;
+                    }
+                </style>
+                <div class="row">
+                    <h1 style="color: #3d9bbb !important; margin-left: 20px;height:3%;position: relative;">
+                        Receipt List Report
+                    </h1>
+                    <div class="sub_container right" align="right"
+                         style="width:100%;height:3%;top:0px;position: relative;">
+                        <div class="report_print">
+                            <button type="object"
+                                    name="pdf_export"
+                                    class="btn btn-primary report_button"
+                                    style="position: relative;height:25px; padding-left:10px; padding-right:10px; padding-bottom:20px; margin-right:12px;margin-top:-66px;">
+                                PDF
+                            </button>
+                            <button type="object"
+                                    name="action_export_xlsx"
+                                    class="btn o_button_import"
+                                    style="position: relative;height:25px; padding-left:10px; padding-right:10px; padding-bottom:20px; margin-right:12px;margin-top:-66px;">
+                                Export
+                            </button>
+                            <button type="object"
+                                    name="reset_filter"
+                                    class="btn o_form_button_cancel"
+                                    style="position: relative;height:25px; padding-left:10px; padding-right:10px; padding-bottom:20px; margin-right:12px;margin-top:-66px;">
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <group>
+                    <group class="col-3">
+                        <field name="partner_id"
+                               string="Customer"
+                               domain="[('is_customer', '=', True), ('parent_id', '=', False), ('type', '=', 'contact')]"
+                               options="{'no_create': True, 'no_create_edit':True}"/>
+                        <!--                        <field name="show_warning" invisible="1"/>-->
+                        <br/>
+                        <field name="account_ids" invisible="1"/>
+                        <field name="account_id" widget="selection"
+                               class="w-100"
+                               domain="[('id', 'in', account_ids)]"/>
+                    </group>
+                    <group class="col-3">
+                        <field name="payment_mode_id" string="Mode of Payment" widget="selection"/>
+                        <br/>
+
+                    </group>
+                    <group class="col-3">
+                        <field name="start_date" string="Start Date" requird="1"/>
+                        <br/>
+                        <field name="end_date" string="End Date"/>
+                    </group>
+                </group>
+                <group colspan="3">
+                    <div class="oe_right" style="display:flex">
+                        <button name="action_generate_report" string=" Generate"
+                                type="object"
+                                attrs="{'invisible':[('report_length','!=', 0)]}"
+                                class="fa fa-gear oe_inline btn-primary oe_generate"
+                                style="border: solid 3px #34c38f !important;background-color:#34c38f !important;"/>
+                    </div>
+                </group>
+
+                <div class="row o_result">
+                    <div class="col-xs-12 col-sm-12 col-4 col-md-4 col-lg-4">
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-4 col-md-4 col-lg-4">
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-4 col-md-4 col-lg-4 pull-right text-right">
+                        <field name="report_length" class="oe_inline"
+                               readonly="1"/>
+                        <span style="padding:5px">Record Found</span>
+                    </div>
+                </div>
+                <field name="line_ids" class="disable_open">
+                    <tree create="0" edit="0" delete="0">
+                        <field name="code" string="Customer #"/>
+                        <field name="partner_id" string="Customer"/>
+                        <field name="account_id" string="Account"/>
+                        <field name="receipt_id" string="Receipt"/>
+                        <field name="receipt_date" string="Date"/>
+                        <field name="mode_of_payment" string="Mode of Payment"/>
+                        <field name="check_no" string="Check / Reference No"/>
+                        <field name="amount" string="Amount" sum="Amount"/>
+                    </tree>
+                </field>
+            </form>
+        </field>
+    </record>
+
+    <record id="report_receipt_list" model="ir.actions.report">
+        <field name="show_in_report_menu" eval="True"/>
+        <field name="show_in_portal" eval="False"/>
+        <field name="name">Receipt List Report</field>
+        <field name="model">receipt.list</field>
+        <field name="report_group" ref="averigo_reports.report_group_accounting_receivable"/>
+        <field name="report_name">averigo_receipt_list</field>
+        <field name="action_type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="receipt_list_report"/>
+        <field name="paperformat_id" ref="customer_aging_report.customer_aging_paperformat"/>
+        <field name="target">current</field>
+    </record>
+    <record id="report_averigo_receipt_list" model="ir.actions.report">
+        <field name="name">Receipt List</field>
+        <field name="model">receipt.list</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="paperformat_id" ref="customer_aging_report.customer_aging_paperformat"/>
+        <field name="report_name">averigo_accounting_reports.report_receipt_list_template</field>
+        <field name="report_file">averigo_accounting_reports.report_receipt_list_template</field>
+    </record>
+</odoo>

@@ -1,0 +1,13 @@
+<odoo>
+    <template id="assets_backend" name="one2many_button_widget"
+              inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+<!--            <link rel="stylesheet" type="text/scss"-->
+<!--                  href="/averigo_accounting_updt/static/src/scss/advance.css"/>-->
+            <script type="text/javascript"
+                    src="/averigo_accounting_updt/static/src/js/multi_advance_payment.js"/>
+            <script type="text/javascript"
+                    src="/averigo_accounting_updt/static/src/js/button.js"/>
+        </xpath>
+    </template>
+</odoo>

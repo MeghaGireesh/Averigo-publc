@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+<!--    Added Button inside the Action -->
+        <record model="ir.actions.server" id="add_product_to_locations">
+            <field name="name">Update Product Price</field>
+            <field name="model_id" ref="single_product_master.model_product_template"/>
+            <field name="binding_model_id" ref="single_product_master.model_product_template"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = records.add_product_to_locations()
+            </field>
+        </record>
+    </data>
+</odoo>

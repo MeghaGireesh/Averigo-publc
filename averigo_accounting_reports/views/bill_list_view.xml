@@ -1,0 +1,151 @@
+<odoo>
+    <record id="bill_list_report" model="ir.ui.view">
+        <field name="name">bill.list.report.form</field>
+        <field name="model">bill.list.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <style>
+                    html body .o_action_manager .o_view_controller
+                    .o_cp_controller .o_control_panel {
+                    display: none;
+                    }
+                    .disable_open tbody {pointer-events: none;}
+                    .oe_search_btn{height: 25px; background-color: #3d9bbb;
+                    color: #fff !important;
+                    padding: 1px 14px;margin-left: 5px;}
+                    .oe_search_btn:hover{background-color: #1790b9;}
+                    .o_form_view .o_group{margin: 4px 0;}
+                    .oe_generate{float: right; border: 1px solid #3d9bbb;}
+                    .oe_flex{display: flex;}
+                    .o_field_many2manytags{max-height: 20vh; overflow: scroll;}
+                    .o_result{background-color: #3d9bbb; margin: 0px 0px;
+                    border-radius: 5px;
+                    padding: 5px 5px 1px 5px; color: #fff; font-weight: 900;}
+                    .table_row tbody tr:nth-child(even){background-color:
+                    rgba(0, 0, 0, 0.1); color: #4c4c4c;
+                    .o_action_manager{
+                    overflow-y:hidden !important;
+                    }
+                    .overflow{
+                    overflow-y:hidden !important;
+                    }
+                </style>
+                <div class="row">
+                    <h1 style="color: #3d9bbb !important; margin-left: 20px;height:3%;position: relative;">
+                        Vendor Invoice Report
+                    </h1>
+                    <div class="sub_container right" align="right"
+                         style="width:100%;height:3%;top:0px;position: relative;">
+                        <div class="report_print">
+                            <button type="object"
+                                    name="pdf_export"
+                                    class="btn btn-primary report_button"
+                                    style="position: relative;height:25px; padding-left:10px; padding-right:10px; padding-bottom:20px; margin-right:12px;margin-top:-66px;">
+                                PDF
+                            </button>
+                            <button type="object"
+                                    name="action_export_xlsx"
+                                    class="btn o_button_import"
+                                    style="position: relative;height:25px; padding-left:10px; padding-right:10px; padding-bottom:20px; margin-right:12px;margin-top:-66px;">
+                                Export
+                            </button>
+                            <button type="object"
+                                    name="reset_filter"
+                                    class="btn o_form_button_cancel"
+                                    style="position: relative;height:25px; padding-left:10px; padding-right:10px; padding-bottom:20px; margin-right:12px;margin-top:-66px;">
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <group>
+                    <group class="col-3">
+                        <field name="partner_id"
+                               string="Vendor"
+                               domain="[('is_vendor', '=', True), ('parent_id', '=', False), ('type', '=', 'contact')]"
+                               context="{'tree_view_ref': 'averigo_purchase.view_vendor_tree', 'search_view_ref': 'averigo_purchase.view_res_vendor_search'}"
+                               options="{'no_create': True, 'no_create_edit':True}"/>
+                        <br/>
+                        <field name="type" invisible="1"/>
+                        <br/>
+                        <field name="report_mode" requird="1" string="Report Type"/>
+                    </group>
+                    <group class="col-3">
+                        <field name="bill_status" />
+                        <br/>
+                    </group>
+                    <group class="col-3">
+                        <field name="date_from" string="Start Date"/>
+                        <br/>
+                        <field name="date_to" string="End Date"/>
+                    </group>
+                </group>
+                <group colspan="3">
+                    <div class="oe_right" style="display:flex">
+                        <button name="action_generate_report" string=" Generate"
+                                type="object"
+                                attrs="{'invisible':[('report_length','!=', 0)]}"
+                                class="fa fa-gear oe_inline btn-primary oe_generate"
+                                style="border: solid 3px #34c38f !important;background-color:#34c38f !important;"/>
+                    </div>
+                </group>
+
+                <div class="row o_result">
+                    <div class="col-xs-12 col-sm-12 col-4 col-md-4 col-lg-4">
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-4 col-md-4 col-lg-4">
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-4 col-md-4 col-lg-4 pull-right text-right">
+                        <field name="report_length" class="oe_inline"
+                               readonly="1"/>
+                        <span style="padding:5px">Record Found</span>
+                    </div>
+                </div>
+                <field name="line_ids" class="disable_open">
+                    <tree create="0" edit="0" delete="0">
+<!--                        <field name="report_mode" />-->
+                        <field name="sap_vendor" string="SAP Vendor #" readonly="1"/>
+                        <field name="vendor_id" string="Vendor" readonly="1" />
+                        <field name="vendor_code" string="Vendor #" readonly="1" attrs="{'column_invisible':[('parent.report_mode','=', 'summary')]}"/>
+                        <field name="date" string="Invoice Date" readonly="1"/>
+                        <field name="vendor_invoice" string="Vendor Invoice #" readonly="1"/>
+                        <field name="vendor_type" string="Vendor Type" readonly="1" invisible="1" attrs="{'column_invisible':[('parent.report_mode','=', 'summary')]}"/>
+                        <field name="po_id" string="PO.TRN #" readonly="1" attrs="{'column_invisible':[('parent.report_mode','=', 'summary')]}"/>
+                        <field name="trans_id" string="Trans #" readonly="1" attrs="{'column_invisible':[('parent.report_mode','=', 'summary')]}"/>
+                        <field name="type" string="Type" readonly="1" attrs="{'column_invisible':[('parent.report_mode','=', 'summary')]}" invisible="1"/>
+
+                        <field name="ref_no" string="Ref. No" readonly="1" attrs="{'column_invisible':[('parent.report_mode','=', 'summary')]}"/>
+                        <field name="status" string="Status" readonly="1" attrs="{'column_invisible':[('parent.report_mode','=', 'summary')]}"/>
+                        <field name="amount" string="Invoice Total" readonly="1" sum="Amount"/>
+                        <field name="balance" string="Balance" readonly="1" attrs="{'column_invisible':[('parent.report_mode','=', 'summary')]}" sum="Balance"/>
+
+                    </tree>
+                </field>
+            </form>
+        </field>
+    </record>
+
+    <record id="report_bill_list" model="ir.actions.report">
+        <field name="show_in_report_menu" eval="True"/>
+        <field name="show_in_portal" eval="False"/>
+        <field name="name">Vendor Invoice Report</field>
+        <field name="model">bill.list.report</field>
+        <field name="report_group" ref="averigo_reports.report_group_accounting_payable"/>
+        <field name="report_name">averigo_bill_list</field>
+        <field name="action_type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="bill_list_report"/>
+        <field name="paperformat_id" ref="customer_aging_report.customer_aging_paperformat"/>
+        <field name="target">current</field>
+    </record>
+
+
+    <record id="report_averigo_bill_list" model="ir.actions.report">
+        <field name="name">Vendor Invoice Report</field>
+        <field name="model">bill.list.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="paperformat_id" ref="customer_aging_report.customer_aging_paperformat"/>
+        <field name="report_name">averigo_accounting_reports.report_bill_list_template</field>
+        <field name="report_file">averigo_accounting_reports.report_bill_list_template</field>
+    </record>
+</odoo>

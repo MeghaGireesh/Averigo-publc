@@ -1,0 +1,72 @@
+<odoo>
+    <record id="account_setup_customer_view" model="ir.ui.view">
+        <field name="name">account.setup</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base_averigo.view_res_customers_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='internal_notes']" position="after">
+                <page string="Account Setup" name="account_setup">
+                    <group>
+                        <group name="account_setup_01">
+                            <field name="property_account_receivable_id" string="Control"
+                                   options="{'no_create': True}"/>
+                            <field name="control_account_id" string="Control" options="{'no_create': True}"
+                                   invisible="1"/>
+                            <field name="sales_discount_account_id" string="Sales Discount"
+                                   options="{'no_create': True}"/>
+                            <field name="advance_account_id" string="Advance" options="{'no_create': True}"/>
+                            <field name="insurance_account_id" string="Insurance" options="{'no_create': True}"/>
+                        </group>
+                        <group name="account_setup_02">
+                            <field name="sales_tax_liability_account_id" string="Sales Tax Liability"
+                                       options="{'no_create': True}"/>
+                            <field name="terms_discount_account_id" string="Terms Discount"
+                                   options="{'no_create': True}"/>
+                            <field name="shipping_handling_account_id" string="Shipping Handling"
+                                   options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                    <group string="Bank Accounts" name="banks">
+                        <field name="bank_ids" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="bank_id"/>
+                                <field name="acc_number"/>
+                                <field name="acc_holder_name" invisible="1"/>
+                            </tree>
+                        </field>
+                        <button type="action" class="btn-link" name="65"
+                                context="{'search_default_partner_id': active_id, 'default_partner_id': active_id, 'form_view_ref': 'account.view_company_partner_bank_form'}"
+                                string="View accounts detail" colspan="2"/>
+                    </group>
+                    <group string="Card Details" name="cards">
+                        <field name="card_ids" nolabel="1" context="{'default_is_customer':True}">
+                            <tree editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="bank_id"/>
+                                <field name="card_number"/>
+                                <field name="card_type" string="Type"/>
+                                <field name="card_name" string="Name on the Card"/>
+                                <field name="card_expiry" string="Card Expiry Date"/>
+                                <field name="is_customer" invisible="1"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group string="Check Details" name="check">
+                        <field name="check_ids" nolabel="1" context="{'default_is_customer':True}">
+                            <tree editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="check_number"/>
+                                <field name="check_date"/>
+                                <field name="check_amount" required="1"/>
+                                <field name="check_bank_id"/>
+                                <field name="is_advance" string="Is Advance Check"/>
+                                <field name="is_customer" invisible="1"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

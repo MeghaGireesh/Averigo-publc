@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="check_sequence" model="ir.sequence">
+            <field name="name">Check Sequence</field>
+            <field name="code">res.partner.check</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">CHK/</field>
+            <field name="padding">3</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+    <record id="account.action_account_invoice_from_list" model="ir.actions.server">
+        <field name="name">Payment Receipt</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.action_payment_receipt(records)
+        </field>
+    </record>
+    <record id="action_account_bill_from_list" model="ir.actions.server">
+        <field name="name">Bill Payment</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.action_bill_payment(records)
+        </field>
+    </record>
+</odoo>

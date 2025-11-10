@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="account.report_payment_receipt_document">
+        <td t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)"/>
+            <div class="page">
+                <div class="row">
+                    <t t-set="date_format" t-value="'%m/%d/%Y'"/>
+                    <t t-set="date_format"
+                       t-value="docs.company_id.date_format"
+                       t-if="docs.company_id.date_format"/>
+                    <t t-set="time_format" t-value="'%H:%M:%S'"/>
+                    <t t-set="time_format"
+                       t-value="docs.company_id.time_format"
+                       t-if="docs.company_id.time_format"/>
+                    <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                        <strong style="padding-left:20%;">
+                            ADVANCE PAYMENT
+                        </strong>
+                        <table class="table table-sm table-bordered"
+                               style="border:1px solid black; border-collapse: collapse;">
+                            <thead>
+                                <th style="border:1px solid black; border-collapse: collapse;"
+                                    class="text-center">
+                                    <t>Date</t>
+                                </th>
+                                <th style="border:1px solid black; border-collapse: collapse;"
+                                    class="text-center">
+                                    <t>
+                                        <span>Advance Payment #</span>
+                                    </t>
+                                </th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <span t-esc="o.payment_date.strftime(date_format)"/>
+                                    </td>
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <span t-field="o.name"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                            <t t-if="o.partner_type == 'customer'">
+                                <th style="border:1px solid black; border-collapse: collapse;"
+                                    class="text-center">
+                                    Customer
+                                </th>
+                            </t>
+                            <t t-if="o.partner_type == 'supplier'">
+                                <th style="border:1px solid black; border-collapse: collapse;"
+                                    class="text-center">
+                                    Vendor
+                                </th>
+                            </t>
+
+                            <t t-if="o.customer_no">
+                                <th style="border:1px solid black; border-collapse: collapse;"
+                                    class="text-center">
+                                    Customer No
+                                </th>
+                            </t>
+                            <t t-if="o.customer_debit and o.partner_type == 'customer'">
+                                <th style="border:1px solid black; border-collapse: collapse;"
+                                    class="text-center">
+                                    Balance
+                                </th>
+                            </t>
+                            <t t-if="o.vendor_no">
+                                <th style="border:1px solid black; border-collapse: collapse;"
+                                    class="text-center">
+                                    Vendor No
+                                </th>
+                            </t>
+                            <t t-if="o.vendor_debit and o.partner_type == 'supplier'">
+                                <th style="border:1px solid black; border-collapse: collapse;"
+                                    class="text-center">
+                                    Balance
+                                </th>
+                            </t>
+                        </thead>
+                        <tbody>
+                            <tr style="height:1cm !important;">
+                                <t t-if="o.partner_type == 'customer'">
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <span t-field="o.partner_id.name"/>
+
+                                    </td>
+                                </t>
+                                <t t-if="o.partner_type == 'supplier'">
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <span t-field="o.partner_id.name"/>
+                                    </td>
+                                </t>
+                                <t t-if="o.customer_no">
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <span t-field="o.customer_no"/>
+                                    </td>
+                                </t>
+                                <t t-if="o.customer_debit and o.partner_type == 'customer'">
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        $
+                                        <span t-field="o.customer_debit"/>
+                                    </td>
+                                </t>
+                                <t t-if="o.vendor_no">
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <span t-field="o.vendor_no"/>
+                                    </td>
+                                </t>
+                                <t t-if="o.vendor_debit and o.partner_type == 'supplier'">
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <span t-field="o.vendor_debit"/>
+                                    </td>
+                                </t>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                            <t t-if="o.amount">
+                                <th style="border:1px solid black; border-collapse: collapse;"
+                                    class="text-center">
+                                    Amount
+                                </th>
+                            </t>
+                            <t t-if="o.check_no">
+                                <th style="border:1px solid black; border-collapse: collapse;"
+                                    class="text-center">
+                                    Check No
+                                </th>
+                            </t>
+                            <t t-if="o.payment_mode_id">
+                                <th style="border:1px solid black; border-collapse: collapse;"
+                                    class="text-center">
+                                    Mode of Payment
+                                </th>
+                            </t>
+                            <t t-if="o.check_id">
+                                <th style="border:1px solid black; border-collapse: collapse;"
+                                    class="text-center">
+                                    Check No
+                                </th>
+                            </t>
+                            <t t-if="o.account_id">
+                                <th style="border:1px solid black; border-collapse: collapse;"
+                                    class="text-center">
+                                    <t t-if="o.partner_type == 'customer'">
+                                        Deposit To
+                                    </t>
+                                    <t t-if="o.partner_type == 'supplier'">
+                                        Account
+                                    </t>
+                                </th>
+                            </t>
+                            <t t-if="o.partner_bank_name">
+                                <th style="border:1px solid black; border-collapse: collapse;"
+                                    class="text-center">
+                                    Customer Bank Name
+                                </th>
+                            </t>
+                        </thead>
+                        <tbody>
+                            <tr style="height:1cm !important;">
+                                <t t-if="o.amount">
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <span t-field="o.amount"/>
+                                    </td>
+                                </t>
+                                <t t-if="o.check_no">
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <span t-field="o.check_no"/>
+                                    </td>
+                                </t>
+                                <t t-if="o.payment_mode_id">
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <span t-field="o.payment_mode_id"/>
+                                    </td>
+                                </t>
+                                <t t-if="o.check_id">
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <span t-field="o.check_id"/>
+                                    </td>
+                                </t>
+                                <t t-if="o.account_id">
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <span t-field="o.account_id"/>
+                                    </td>
+                                </t>
+                                <t t-if="o.partner_bank_name">
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <span t-field="o.partner_bank_name"/>
+                                    </td>
+                                </t>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <t t-if="o.reconciled_invoice_ids">
+                    <div class="row">
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <th name="th_inv_date" class="text-center"
+                                    style="border:1px solid black; border-collapse: collapse;">
+                                    Invoice Date
+                                </th>
+                                <th name="th_inv_number" class="text-center"
+                                    style="border:1px solid black; border-collapse: collapse;">
+                                    Invoice Number
+                                </th>
+                                <th name="th_ref" class="text-center"
+                                    style="border:1px solid black; border-collapse: collapse;">
+                                    Reference
+                                </th>
+
+                                <th name="th_original_amt" class="text-center"
+                                    style="border:1px solid black; border-collapse: collapse;">
+                                    Original Amount
+                                </th>
+                                <th name="th_paid" class="text-center"
+                                    style="border:1px solid black; border-collapse: collapse;">
+                                    Amount Paid
+                                </th>
+                                <th name="th_balance" class="text-center"
+                                    style="border:1px solid black; border-collapse: collapse;">
+                                    Balance
+                                </th>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.reconciled_invoice_ids"
+                                    t-as="inv">
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <t>
+                                            <span t-esc="inv.invoice_date.strftime(date_format)"/>
+                                        </t>
+                                    </td>
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <t>
+                                            <span t-field="inv.name"/>
+                                        </t>
+                                    </td>
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <t>
+                                            <span t-field="inv.ref"/>
+                                        </t>
+                                    </td>
+
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <t>
+                                            <span t-field="inv.amount_total"/>
+                                        </t>
+                                    </td>
+
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <t>
+                                            <span t-esc="o._get_invoice_payment_amount(inv)"
+                                                  t-options="{'widget': 'monetary', 'display_currency': inv.currency_id}"/>
+                                        </t>
+                                    </td>
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <t>
+                                            <span t-field="inv.amount_residual"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+                <div class="row">
+                    <table>
+                        <tr>
+                            <t t-if="o.notes">
+                                <td>
+                                    Notes:
+                                    <span t-field="o.notes"/>
+                                </td>
+                            </t>
+                        </tr>
+                        <tr>
+                            <t t-if="o.internal_notes">
+                                <td>
+                                    Internal Notes:
+                                    <span t-field="o.internal_notes"/>
+                                </td>
+                            </t>
+                        </tr>
+                        <tr>
+                            <t t-if="o.communication">
+                                <td>
+                                    Memo:
+                                    <span t-field="o.communication"/>
+                                </td>
+                            </t>
+                        </tr>
+                        <tr>
+                            <t t-if="o.revision_no">
+                                <td>
+                                    Revision No:
+                                    <span t-field="o.revision_no"/>
+                                </td>
+                            </t>
+                        </tr>
+                        <tr>
+                            <t t-if="o.revision_date">
+                                <td>
+                                    Revision Date:
+                                    <span t-esc="o.revision_date.strftime(date_format)"/>
+                                </td>
+                            </t>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </td>
+    </template>
+</odoo>

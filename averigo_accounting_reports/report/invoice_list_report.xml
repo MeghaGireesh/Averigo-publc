@@ -1,0 +1,304 @@
+<odoo>
+    <data>
+        <template id="report_invoice_list_template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+
+                    <page>
+                        <h3>Invoice list Report</h3>
+                        <table class='table table-borderless' style="border : none;">
+                            <tr>
+                                <th>
+                                    Customer :
+                                </th>
+                                <td>
+                                    <t t-esc="docs.partner_id.name" t-if="docs.partner_id"/>
+                                </td>
+                                <th>
+                                    Route :
+                                </th>
+                                <td>
+                                    <t t-esc="docs.route_id.name" t-if="docs.route_id"/>
+                                </td>
+                                <th>
+                                    Start Date :
+                                </th>
+                                <td>
+                                    <t t-esc="docs.date_from.strftime('%m/%d/%Y')" t-if="docs.date_from"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Invoice Type :
+                                </th>
+                                <td>
+                                    <!--                                    <t t-esc="docs.invoice_type" t-if="docs.invoice_type"/>-->
+                                    <t t-if="docs.invoice_type == 'direct_invoice'">
+                                        Direct Invoice
+                                    </t>
+                                    <t t-if="docs.invoice_type == 'sale_order_invoice'">
+                                        Sale Order Invoice
+                                    </t>
+                                    <t t-if="docs.invoice_type == 'pantry_invoice'">
+                                        Pantry Invoice
+                                    </t>
+                                </td>
+                                <th>
+                                    Status :
+                                </th>
+                                <td>
+                                    <t t-if="docs.status == 'not_paid'">
+                                        All
+                                    </t>
+                                    <t t-if="docs.status == 'paid'">
+                                        Closed
+                                    </t>
+                                    <t t-if="docs.status == 'not_paid'">
+                                        Open
+                                    </t>
+                                </td>
+                                <th>
+                                    End Date :
+                                </th>
+                                <td>
+                                    <t t-esc="docs.date_to.strftime('%m/%d/%Y')" t-if="docs.date_to"/>
+                                </td>
+
+                            </tr>
+
+                        </table>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="width:100px;min-width:100px;max-width:100px">Customer #</th>
+                                    <th scope="col" style="width:300px;min-width:300px;max-width:300px">Customer</th>
+                                    <th scope="col" style="width:100px;min-width:100px;max-width:100px">SAP Customer#</th>
+                                    <th scope="col" style="width:200px;min-width:200px;max-width:200px">Route</th>
+                                    <th scope="col" style="width:200px;min-width:200px;max-width:200px">Invoice No</th>
+                                    <th scope="col" style="width:200px;min-width:200px;max-width:200px">Invoice Date
+                                    </th>
+                                    <th scope="col" style="width:200px;min-width:200px;max-width:200px">Invoice Type
+                                    </th>
+                                    <th scope="col" style="width:150px;min-width:150px;max-width:150px">Status</th>
+                                    <th scope="col" style="width:100px;min-width:100px;max-width:100px">Amount</th>
+                                    <th scope="col">Amount Paid</th>
+                                    <th scope="col">Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="tot_amt" t-value="0"/>
+                                <t t-set="tot_amt_paid" t-value="0"/>
+                                <t t-set="tot_bal" t-value="0"/>
+                                <t t-foreach="docs.line_ids" t-as="line">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="line.customer_number"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.partner_id.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.sap_customer"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.route_id.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.invoice_id.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.invoice_date.strftime('%m/%d/%Y')"/>
+                                        </td>
+                                        <td>
+                                            <!--                                            <t t-esc="line.invoice_type"/>-->
+                                            <t t-if="line.invoice_type == 'direct_invoice'">
+                                                Direct Invoice
+                                            </t>
+                                            <t t-if="line.invoice_type == 'sale_order_invoice'">
+                                                Sale Order Invoice
+                                            </t>
+                                            <t t-if="line.invoice_type == 'pantry_invoice'">
+                                                Pantry Invoice
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="line.status == 'paid'">
+                                                Closed
+                                            </t>
+                                            <t t-if="line.status == 'not_paid'">
+                                                Open
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.amount"/>
+                                            <t t-set="tot_amt" t-value="tot_amt + line.amount"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.amount_paid"/>
+                                            <t t-set="tot_amt_paid" t-value="tot_amt_paid + line.amount_paid"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.balance"/>
+                                            <t t-set="tot_bal" t-value="tot_bal + line.balance"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>
+                                        <b>SUM</b>
+                                    </td>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td>
+                                        <b><t t-esc="('%.2f' % tot_amt)"/></b>
+                                    </td>
+                                    <td>
+                                        <b><t t-esc="('%.2f' % tot_amt_paid)"/></b>
+                                    </td>
+                                    <td>
+                                        <b><t t-esc="('%.2f' % tot_bal)"/></b>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </page>
+                </t>
+            </t>
+        </template>
+        <template id="report_invoice_export_template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+
+                    <page>
+                        <h3>Invoice Export</h3>
+                        <table class='table table-borderless' style="border : none;">
+                            <tr>
+                                <th>
+                                    Customer :
+                                </th>
+                                <td>
+                                    <t t-esc="docs.partner_id.name" t-if="docs.partner_id"/>
+                                </td>
+
+                                <th>
+                                    Start Date :
+                                </th>
+                                <td>
+                                    <t t-esc="docs.date_from.strftime('%m/%d/%Y')" t-if="docs.date_from"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Report Generation Date :
+                                </th>
+                                <td>
+                                    <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%m-%d-%Y')"/>
+                                </td>
+                                <!--                                <th>-->
+                                <!--                                    Status :-->
+                                <!--                                </th>-->
+                                <!--                                <td>-->
+                                <!--                                    <t t-if="docs.status == 'not_paid'">-->
+                                <!--                                        All-->
+                                <!--                                    </t>-->
+                                <!--                                    <t t-if="docs.status == 'paid'">-->
+                                <!--                                        Closed-->
+                                <!--                                    </t>-->
+                                <!--                                    <t t-if="docs.status == 'not_paid'">-->
+                                <!--                                        Open-->
+                                <!--                                    </t>-->
+                                <!--                                </td>-->
+                                <th>
+                                    End Date :
+                                </th>
+                                <td>
+                                    <t t-esc="docs.date_to.strftime('%m/%d/%Y')" t-if="docs.date_to"/>
+                                </td>
+
+                            </tr>
+
+                        </table>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="width:300px;min-width:300px;max-width:300px">SAP Customer #
+                                    </th>
+                                    <th scope="col" style="width:200px;min-width:200px;max-width:200px">Invoice Date
+                                    </th>
+                                    <th scope="col" style="width:200px;min-width:200px;max-width:200px">Invoice No</th>
+                                    <th scope="col">Generation Date</th>
+                                    <th scope="col" style="width:200px;min-width:200px;max-width:200px">Document Type
+                                    </th>
+                                    <th scope="col" style="width:100px;min-width:100px;max-width:100px">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="docs.line_ids" t-as="line">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="line.sap_customer"/>
+                                        </td>
+                                        <!--                                        <td>-->
+                                        <!--                                            <t t-esc="line.partner_id.name"/>-->
+                                        <!--                                        </td>-->
+                                        <!--                                        <td>-->
+                                        <!--                                            <t t-esc="line.route_id.name"/>-->
+                                        <!--                                        </td>-->
+                                        <td>
+                                            <t t-esc="line.invoice_date.strftime('%m/%d/%Y')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.invoice_id.name"/>
+                                        </td>
+
+                                        <!--                                        <td>-->
+                                        <!--                                            <t t-esc="line.invoice_type"/>-->
+                                        <!--                                        </td>-->
+                                        <!--                                        <td>-->
+                                        <!--                                            <t t-if="line.status == 'paid'">-->
+                                        <!--                                                Closed-->
+                                        <!--                                            </t>-->
+                                        <!--                                            <t t-if="line.status == 'not_paid'">-->
+                                        <!--                                                Open-->
+                                        <!--                                            </t>-->
+                                        <!--                                        </td>-->
+                                        <td>
+                                            <t t-esc="line.generation_date.strftime('%m/%d/%Y')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.document_type"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.amount"/>
+                                        </td>
+
+                                        <!--                                        <td>-->
+                                        <!--                                            <t t-esc="line.amount_paid"/>-->
+                                        <!--                                        </td>-->
+                                        <!--                                        <td>-->
+                                        <!--                                            <t t-esc="line.balance"/>-->
+                                        <!--                                        </td>-->
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </page>
+                </t>
+            </t>
+        </template>
+        <template id="report_multi_invoice_preview">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="lang"
+                       t-value="o.invoice_user_id.sudo().lang if o.type in ('in_invoice', 'in_refund') else o.partner_id.lang"/>
+                    <t t-call="averigo_portal_user.report_invoice_document_id_portal"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

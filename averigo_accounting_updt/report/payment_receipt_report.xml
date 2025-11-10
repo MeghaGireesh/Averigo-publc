@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            id="action_report_payment_receipt"
+            string="Payment Receipt"
+            model="invoice.receipt"
+            report_type="qweb-pdf"
+            file="averigo_accounting_updt.report_payment_receipt"
+            name="averigo_accounting_updt.report_payment_receipt"
+            print_report_name="'Payment Receipt'"
+        />
+    </data>
+</odoo>

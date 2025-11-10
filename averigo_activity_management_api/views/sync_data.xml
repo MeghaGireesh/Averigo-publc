@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="activity_sync_api_action_id" model="ir.actions.act_window">
+        <field name="name">Activity Event Sync from App</field>
+        <field name="res_model">sync.activity.events</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="activity_sync_api_form_view" model="ir.ui.view">
+        <field name="name">sync.activity.events.form</field>
+        <field name="model">sync.activity.events</field>
+        <field name="arch" type="xml">
+            <form string="Activity Event Sync from App">
+                <sheet>
+                    <group name="Sync input from App" string="Sync input from App">
+                        <group>
+                            <field name="json_data"/>
+                            <field name="date"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="activity_sync_api_tree_view" model="ir.ui.view">
+        <field name="name">sync.activity.events.tree</field>
+        <field name="model">sync.activity.events</field>
+        <field name="arch" type="xml">
+            <tree string="Activity Event Sync from App">
+                <field name="json_data" readonly="1"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+    <menuitem id="activity_event_sync_menu"
+              name="Activity Event Sync"
+              parent="crm.crm_menu_config"
+              action="activity_sync_api_action_id"
+              sequence="6" groups="base.group_no_one"/>
+</odoo>

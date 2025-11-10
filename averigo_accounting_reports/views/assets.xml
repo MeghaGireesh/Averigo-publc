@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="invoice_report_asset" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/averigo_accounting_reports/static/src/js/ListRender.js"/>
+<!--            <script type="text/javascript" src="/averigo_accounting_reports/static/src/js/action_manager.js"/>-->
+            <link rel="stylesheet" type="text/scss" href="/averigo_accounting_reports/static/src/css/style.css" />
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_default_receivable_form_inherit" model="ir.ui.view">
+            <field name="name">attr.default.receivable.form.inherit</field>
+            <field name="model">default.receivable</field>
+            <field name="inherit_id" ref="averigo_accounting.default_receivable_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@for='invoice_receipt_seq_id']" position="attributes">
+                    <attribute name="string">Payment Receipt</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

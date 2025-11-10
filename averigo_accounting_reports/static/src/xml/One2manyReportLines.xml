@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="X2ManyControlPanelInvoice">
+		<div class="o_x2m_control_panel_right">
+			<div class="button-right-section mt-2 mb-2">
+				<nav class="o_cp_buttons" aria-label="Control panel toolbar" role="toolbar"/>
+                <nav class="o_cp_pager" aria-label="Pager" role="toolbar"/>
+                <button
+                        style="display:none"
+                        class="button_preview_invoice_lines btn btn-warning-color mr-3"
+                        href="javascript:void(0)">
+						Preview <i class="fa fa-eye"></i>
+				</button>
+			</div>
+		</div>
+	</t>
+
+</templates>

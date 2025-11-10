@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_customer_adv_payment_form" model="ir.ui.view">
+        <field name="name">view.customer.advance.payment.form.inherit</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id"
+               ref="averigo_accounting.view_customer_adv_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='owner']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+    <record id="view_vendor_adv_payment_form" model="ir.ui.view">
+        <field name="name">view.vendor.advance.payment.form.inherit</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id"
+               ref="averigo_accounting.view_vendor_adv_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='owner']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

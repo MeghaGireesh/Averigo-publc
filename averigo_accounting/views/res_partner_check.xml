@@ -1,0 +1,66 @@
+<odoo>
+
+    <record id="view_partner_check_form" model="ir.ui.view">
+        <field name="name">res.partner.check.form</field>
+        <field name="model">res.partner.check</field>
+        <field name="arch" type="xml">
+            <form string="Check account">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="check_number"/>
+                            <field name="check_date"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="partner_id" string="Check Holder" invisible="1"/>
+                            <field name="check_amount" required="1"/>
+                            <field name="check_bank_id" invisible="1"/>
+                            <field name="is_advance" invisible="1"/>
+                            <field name="is_vendor" invisible="1"/>
+                            <field name="is_customer" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_partner_check_tree" model="ir.ui.view">
+        <field name="name">res.partner.check.tree</field>
+        <field name="model">res.partner.check</field>
+        <field name="arch" type="xml">
+            <tree string="Card Accounts">
+                <field name="check_number"/>
+                <field name="check_date"/>
+                <field name="check_bank_id"/>
+                <field name="partner_id" invisible="1"/>
+                <field name="company_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_partner_check_search" model="ir.ui.view">
+        <field name="name">res.partner.check.search</field>
+        <field name="model">res.partner.check</field>
+        <field name="arch" type="xml">
+            <search string="Card Accounts">
+                <field name="check_number" filter_domain="['|', ('check_number','ilike',self), ('check_number','ilike',self)]"
+                       string="Check Number"/>
+                <field name="company_id" invisible="context.get('company_hide', True)"/>
+                <field name="partner_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_res_partner_check" model="ir.actions.act_window">
+        <field name="name">Check</field>
+        <field name="res_model">res.partner.check</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a Check
+            </p>
+        </field>
+    </record>
+</odoo>

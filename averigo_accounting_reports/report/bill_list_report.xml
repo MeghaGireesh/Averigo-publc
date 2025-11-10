@@ -1,0 +1,183 @@
+<odoo>
+    <data>
+        <template id="report_bill_list_template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <page>
+                        <h3>Vendor Invoice Report</h3>
+                        <table class="table table-borderless">
+                            <tr>
+                                <td>
+                                    <strong>
+                                        Vendor :
+                                    </strong>
+                                </td>
+                                <td>
+                                    <t t-esc="docs.partner_id.display_name" t-if="docs.partner_id"/>
+                                </td>
+                                <td>
+                                    <strong>
+                                        Bill Status :
+                                    </strong>
+                                </td>
+                                <td>
+                                    <!--                                    <t t-if="docs.bill_status">-->
+                                    <!--                                        <t t-esc="docs.bill_status"/>-->
+                                    <t t-esc="f'Open'"
+                                       t-if="docs.bill_status == 'open'"/>
+                                    <t t-esc="f'Closed'" t-if="docs.bill_status == 'close'"/>
+                                    <!--                                    </t>-->
+                                </td>
+                                <td>
+                                    <strong>
+                                        Start Date :
+                                    </strong>
+                                </td>
+                                <td>
+                                    <t t-esc="docs.date_from.strftime('%m/%d/%Y')" t-if="docs.date_from"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        Report Type :
+                                    </strong>
+                                </td>
+                                <td>
+                                    <t t-if="docs.report_mode == 'detailed'">
+                                        Detail
+                                    </t>
+                                    <t t-if="docs.report_mode == 'summary'">
+                                        Summary
+                                    </t>
+                                </td>
+                                <td>
+                                    <strong>
+                                        Report Generation Date :
+                                    </strong>
+                                </td>
+                                <td>
+                                    <t t-esc="docs.generation_date.strftime('%m/%d/%Y')"/>
+                                </td>
+                                <td>
+                                    <strong>
+                                        End Date :
+                                    </strong>
+                                </td>
+                                <td>
+                                    <t t-esc="docs.date_to.strftime('%m/%d/%Y')" t-if="docs.date_to"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        SAP Vendor#
+                                    </th>
+                                    <th class="w-15">
+                                        Vendor
+                                    </th>
+                                    <th class="w-15" t-if="docs.report_mode == 'detailed'">
+                                        Vendor Code
+                                    </th>
+                                    <th>
+                                        Invoice Date
+                                    </th>
+                                    <th>
+                                        Vendor Invoice #
+                                    </th>
+                                    <th  t-if="docs.report_mode == 'detailed'">
+                                        PO.TRN #
+                                    </th>
+                                    <th  t-if="docs.report_mode == 'detailed'">
+                                       Trans #
+                                    </th>
+                                    <th  t-if="docs.report_mode == 'detailed'">
+                                       Ref. No
+                                    </th>
+                                    <th class="w-15"  t-if="docs.report_mode == 'detailed'">
+                                        Status
+                                    </th>
+                                    <th>
+                                        Invoice Total
+                                    </th>
+                                    <th  t-if="docs.report_mode == 'detailed'">
+                                        Balance
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="tot_amt" t-value="0"/>
+                                <t t-set="tot_bal" t-value="0"/>
+                                <t t-foreach="docs.line_ids" t-as="line">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="line.sap_vendor"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.vendor_id.sudo().display_name"/>
+                                        </td>
+                                        <td  t-if="docs.report_mode == 'detailed'">
+                                            <t t-esc="line.vendor_code"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.date.strftime('%m/%d/%Y')" t-if="line.date"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.vendor_invoice"/>
+                                        </td>
+<!--                                        <td>-->
+<!--                                            <t t-esc="line.type"/>-->
+<!--                                        </td>-->
+                                        <td  t-if="docs.report_mode == 'detailed'">
+                                            <t t-esc="line.po_id"/>
+                                        </td>
+                                        <td  t-if="docs.report_mode == 'detailed'">
+                                            <t t-esc="line.trans_id.sudo().name"/>
+                                        </td>
+                                        <td  t-if="docs.report_mode == 'detailed'">
+                                            <t t-esc="line.ref_no"/>
+                                        </td>
+                                        <td  t-if="docs.report_mode == 'detailed'">
+                                            <t t-esc="line.status"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="('%.2f' % line.amount)"/>
+                                            <t t-set="tot_amt" t-value="tot_amt + line.amount"/>
+                                        </td>
+                                        <td  t-if="docs.report_mode == 'detailed'">
+                                            <t t-esc="('%.2f' % line.balance)"/>
+                                            <t t-set="tot_bal" t-value="tot_bal + line.balance"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td>
+                                        Total
+                                    </td>
+                                    <td/>
+                                    <td/>
+                                    <td/>
+                                    <td>
+                                        <t t-if="docs.report_mode != 'detailed'" t-esc="('%.2f' % tot_amt)"/>
+                                    </td >
+                                    <td t-if="docs.report_mode == 'detailed'"/>
+                                    <td t-if="docs.report_mode == 'detailed'"/>
+                                    <td t-if="docs.report_mode == 'detailed'"/>
+                                    <td t-if="docs.report_mode == 'detailed'"/>
+                                    <td t-if="docs.report_mode == 'detailed'">
+                                        <t t-esc="('%.2f' % tot_amt)"/>
+                                    </td>
+                                    <td t-if="docs.report_mode == 'detailed'">
+                                        <t t-esc="('%.2f' % tot_bal)"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </page>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

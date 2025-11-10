@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            id="account.action_report_payment_receipt"
+            model="account.payment"
+            string="Advance Payment"
+            report_type="qweb-pdf"
+            name="account.report_payment_receipt"
+            file="account.report_payment_receipt"
+            menu="True"
+        />
+    </data>
+</odoo>

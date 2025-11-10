@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_invoice_receipt,invoice.receipt,model_invoice_receipt,base.group_user,1,1,1,0
+access_bill_payment,bill.payment,model_bill_payment,base.group_user,1,1,1,1
+access_bill_payment_line,bill.payment.line,model_bill_payment_line,base.group_user,1,1,1,1
+access_advance_payment_lines,advance.payment,model_advance_payment_lines,base.group_user,1,1,1,1
+
+
+

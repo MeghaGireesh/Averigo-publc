@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="invoice_form_view_inherit" model="ir.ui.view">
+        <field name="name">invoice.form.view.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id"
+               ref="averigo_sales_order.view_account_move_invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@id='invoice_tab']/field[@name='invoice_line_ids']/tree"
+                   position="replace">
+                <tree editable="bottom" string="Journal Items"
+                      create="false" decoration-danger="price_unit == 0.00"
+                      default_order="sequence, date desc, move_name desc, id">
+                    <!-- Displayed fields -->
+                    <field name="sequence" widget="handle"
+                           invisible="1"/>
+                    <field name="product_code"
+                           attrs="{'required': [('parent.type', 'not in', ('out_invoice'))]}"/>
+                    <field name="move_name" invisible="1"/>
+                    <field name="product_id" optional="show"
+                           readonly="1"
+                           domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"/>
+                    <field name="name" string="Description"
+                           widget="section_and_note_text"
+                           attrs="{'required': [('parent.type', 'not in', ('in_invoice', 'in_refund','in_receipt'))]}"/>
+                    <field name="account_id" invisible="1"
+                           groups="account.group_account_user"
+                           domain="[('deprecated', '=', False), ('user_type_id.type', 'not in', ('receivable', 'payable')), ('company_id', '=', parent.company_id)]"
+                           attrs="{'required': [('display_type', '=', False)]}"/>
+                    <field name="analytic_account_id"
+                           domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
+                           groups="analytic.group_analytic_accounting"
+                           optional="show"/>
+                    <field name="analytic_tag_ids"
+                           domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
+                           groups="analytic.group_analytic_tags"
+                           optional="show"
+                           widget="many2many_tags"/>
+                    <field name="quantity"
+                           attrs="{'readonly': ['|', ('parent.from_purchase', '=', True), ('parent.from_picking', '=', True)]}"/>
+                    <field name="product_uom_ids"
+                           widget="many2many_tags"
+                           invisible="1"/>
+                    <field name="product_uom_id"
+                           options="{'no_create': True, 'no_open': True}"
+                           attrs="{'readonly': ['|', ('parent.from_purchase', '=', True), ('parent.from_picking', '=', True)]}"
+                           string="UoM" groups="uom.group_uom"
+                           optional="show"
+                           domain="[('id', 'in', product_uom_ids)]"
+                           invisible="1"/>
+                    <field name="product_uomm_id" string="UoM"/>
+                    <field name="uom_ids" string="UoM" invisible="1"/>
+                    <field name="product_uom_categ"
+                           invisible="1"/>
+                    <field name="price_unit" string="Price"/>
+                    <field name="discount" string="Disc.%"
+                           groups="base.group_no_one"
+                           optional="show"
+                           invisible="1"/>
+                    <field name="discount_amount"
+                           invisible="1"/>
+                    <field name="container_deposit_amount"
+                           invisible="1"/>
+                    <field name="sales_tax_amount"
+                           invisible="1"/>
+                    <field name="tax_ids"
+                           widget="many2many_tags" invisible="1"
+                           domain="[('type_tax_use', '=?', parent.invoice_filter_type_domain), ('company_id', '=', parent.company_id)]"
+                           context="{'append_type_to_tax_name': not parent.invoice_filter_type_domain}"
+                           options="{'no_create': True}"
+                           optional="show"/>
+                    <field name="price_subtotal"
+                           string="Subtotal"
+                           groups="account.group_show_line_subtotals_tax_excluded"/>
+                    <field name="price_total"
+                           string="Total"
+                           groups="account.group_show_line_subtotals_tax_included"/>
+
+                    <!-- Others fields -->
+                    <field name="partner_id" invisible="1"/>
+                    <field name="amount_currency"
+                           invisible="1"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="debit" invisible="1"/>
+                    <field name="credit" invisible="1"/>
+                    <field name="date" invisible="1"/>
+                    <field name="date_maturity" invisible="1"/>
+
+                    <field name="tax_line_id" invisible="1"/>
+                    <field name="tax_repartition_line_id"
+                           invisible="1"/>
+                    <field name="tag_ids" invisible="1"/>
+                    <field name="tax_base_amount"
+                           invisible="1"/>
+                    <field name="tax_exigible" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="purchase_line_id"
+                           invisible="1"/>
+                    <field name="company_currency_id"
+                           invisible="1"/>
+                    <field name="recompute_tax_line"
+                           invisible="1" force_save="1"/>
+                    <field name="display_type" force_save="1"
+                           invisible="1"/>
+                    <field name="is_rounding_line"
+                           invisible="1"/>
+                    <field name="exclude_from_invoice_tab"
+                           invisible="1"/>
+                    <field name="account_internal_type"
+                           invisible="1"/>
+                    <field name="always_set_currency_id"
+                           invisible="1"/>
+                </tree>
+            </xpath>
+            <xpath expr="//notebook/page[@id='invoice_tab']/div[1]"
+                   position="before">
+                <div id="warning_header">
+                    <field name="validation_check"
+                           string="Check price" invisible="1"/>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='ref']" position="after">
+                <field name="check_quantity" invisible="1"/>
+            </xpath>
+            <xpath expr="//div[@name='div_bill_address']" position="replace">
+                <div class="o_address_format" name="div_bill_address" style="padding:5px;">
+                    <field name="partner_invoice_id" required="1" class="o_address_street"
+                           options='{"always_reload": True,  "no_create": True, "no_open": True}' force_save="1"/>
+                    <div class="text-muted " style="margin-bottom: 5px !important">
+                        Zip, State, City and County will be automatically filled based on Billing Address chosen.
+                    </div>
+                    <field name="inv_zip" placeholder="Zip" required="1" class="o_address_street" readonly="1"
+                           force_save="1"/>
+                    <field name="inv_street" placeholder="Street" class="o_address_street" readonly="1" force_save="1"/>
+                    <field name="inv_street2" placeholder="Street 2" class="o_address_street" readonly="1"
+                           force_save="1"/>
+                    <field name="inv_city" placeholder="City" required="1" class="o_address_city" readonly="1"
+                           force_save="1"/>
+                    <field name="inv_state_id" class="o_address_state" placeholder="State" required="1"
+                           style="width: 50px !important; margin:8px !important;" readonly="1"
+                           options="{&quot;no_open&quot;: True}" force_save="1"/>
+                    <field name="inv_county" placeholder="County" class="o_address_street" readonly="1" force_save="1"/>
+                </div>
+            </xpath>
+            <xpath expr="//div[@name='div_ship_address']" position="replace">
+                <field name="tax_rate_is" invisible="1"/>
+                <div class="o_address_format" name="div_ship_address" style="padding:5px;">
+                    <div class="alert alert-danger text-center o_form_header col-12" id="warning_header"
+                         attrs="{'invisible': [('tax_calc', '>', 0), ('tax_rate_is', '=', False)]}">
+                        The given Delivery Address doesn't have tax rate, Please choose correct Delivery Address.
+                    </div>
+                    <field name="partner_shipping_id" class="o_address_street"
+                           domain="[('id', 'in', partner_shipping_ids)]" force_save="1"
+                           options='{"always_reload": True,  "no_create": True, "no_open": True}'/>
+                    <div class="text-muted " style="margin-bottom: 5px !important">
+                        Zip, State, City and County will be automatically filled based on Delivery Address chosen.
+                    </div>
+                    <field name="shp_zip" placeholder="Zip" required="1" class="o_address_street" readonly="1"
+                           attrs="{'readonly': [('state', 'not in', ['draft', 'sent'])]}" force_save="1"/>
+                    <field name="shp_street" required="1" placeholder="Street" class="o_address_street" readonly="1"
+                           force_save="1"/>
+                    <field name="shp_street2" placeholder="Street 2" class="o_address_street" readonly="1"
+                           force_save="1"/>
+                    <field name="shp_city" placeholder="City" required="1" class="o_address_city" readonly="1"
+                           force_save="1"/>
+                    <field name="shp_state_id" class="o_address_state" placeholder="State" required="1" readonly="1"
+                           style="width: 50px !important; margin:8px !important;" force_save="1"
+                           options="{&quot;no_open&quot;: True}"/>
+                    <field name="shp_county" placeholder="County" class="o_address_street" readonly="1" force_save="1"/>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='invoice_line_ids']" position="before">
+                <div class="alert alert-danger text-center o_form_header col-12" id="warning_header"
+                     attrs="{'invisible': ['|', '|', ('validation_check', '=', False), ('check_quantity', '=', True), ('state', '=', 'posted')]}">
+                    There are some products that have zero price.
+                </div>
+                <div class="alert alert-danger text-center o_form_header col-12" id="check_zero_quantity"
+                     attrs="{'invisible': ['|', '|', ('check_quantity', '=', False), ('validation_check', '=', True), ('state', '=', 'posted')]}">
+                    There are some products that have zero quantity.
+                </div>
+                <div class="alert alert-danger text-center o_form_header col-12" id="check_zero_quantity"
+                     attrs="{'invisible': ['|', '|', ('check_quantity', '=', False), ('validation_check', '=', False), ('state', '=', 'posted')]}">
+                    There are some products that have zero price and quantity.
+                </div>
+            </xpath>
+            <xpath expr="//form/header/button[@name='action_invoice_register_payment']" position="replace">
+                <button name="action_register_payment" id="action_register_payment_btn" type="object"
+                        class="btn o_button_import"
+                        attrs="{'invisible': ['|', '|', ('state', '!=', 'posted'), ('invoice_payment_state', '!=', 'not_paid'), ('type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]}"
+                        string="Register Payment" groups="account.group_account_invoice"/>
+            </xpath>
+            <xpath expr="//div[@name='owner']" position="replace">
+                <div class="col-4 pt-2" name="owner" invisible="1">
+                    <label for="invoice_user_id" string="Owner" class="w-100"/>
+                    <field name="invoice_user_id" string="Owner" class="w-100"
+                           attrs="{'readonly': [('state', '!=', 'draft')]}"
+                           options="{'no_open': True, 'no_create': True, 'no_edit': True}"/>
+                </div>
+            </xpath>
+            <xpath expr="//div[hasclass('route')]" position="after">
+                <div class="col-4 pt-2 po_no">
+                    <label for="po_no" string="PO" class="w-100"/>
+                    <field name="po_no" class="w-100" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <record id="bill_form_view_inherit" model="ir.ui.view">
+        <field name="name">bill.form.view.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id"
+               ref="averigo_purchase.view_move_bill_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/header/button[@name='action_invoice_register_payment']"
+                   position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//form/header/button[@name='action_invoice_register_payment']"
+                   position="after">
+                <button name="action_bill_register_payment" id="action_bill_register_payment_btn" type="object"
+                        class="btn o_button_import"
+                        attrs="{'invisible': ['|', '|', ('state', '!=', 'posted'), ('invoice_payment_state', '!=', 'not_paid'), ('type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt'))]}"
+                        string="Register Payment" groups="account.group_account_invoice"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="advance_payment_view_inherit" model="ir.ui.view">
+        <field name="name">advance.payment.view.inherit</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="averigo_accounting.view_vendor_adv_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='partner_group']/div[10]" position="replace">
+                <div class="col-4 pt-2" attrs="{'invisible': [('check', '=', False)]}">
+                    <label for="check_id" string="Check Number" class="w-100"/>
+                    <field name="check" invisible="1"/>
+                    <field name="check_id" string="Check" class="w-100"
+                           attrs="{'required': [('check', '=', True)], 'invisible': [('check', '=', False)], 'readonly': [('state', '!=', 'draft')]}"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.actions.server"
+            id="account.action_move_switch_invoice_to_credit_note">
+        <field name="name">Switch Into Refund/Credit Note</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+            action = records.action_switch_invoice_into_refund_credit_note()
+        </field>
+    </record>
+    <record id="view_account_move_line_tree_custom" model="ir.ui.view">
+        <field name="name">account.move.line.tree</field>
+        <field name="model">account.move.line</field>
+        <field name="arch" type="xml">
+            <tree string="Journal Items" create="false" edit="false">
+                <field name="date" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="journal_id" string="Reference #"
+                       options='{"no_open":True}' invisible="1"/>
+                <field name="move_name" string="Reference #"/>
+                <field name="partner_id" string="Customer" optional="show"/>
+                <field name="name" optional="show" string="Type"/>
+                <field name="credit" sum="Total Credit" string="Total Amount"/>
+                <field name="advance_value" sum="Used Advance"
+                       string="Applied Amount"/>
+                <field name="balance_vale" sum="Balance Advance"
+                       string="Balance Amount"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_move_line_credit_tree" model="ir.ui.view">
+        <field name="name">account.move.line.tree.credit</field>
+        <field name="model">account.move.line</field>
+        <field eval="1" name="priority"/>
+        <field name="arch" type="xml">
+            <tree string="Journal Items" create="false"
+                  expand="context.get('expand', False)" multi_edit="1">
+                <field name="date" optional="show" readonly="1"/>
+                <field name="company_id" groups="base.group_multi_company"
+                       options="{'no_create': True}" optional="show"/>
+                <field name="move_id" optional="show" string="Reference#"/>
+                <field name="statement_id" invisible="1"/>
+                <field name="partner_id" optional="show" readonly="1"
+                       string="Vendor"/>
+                <field name="name" string="Type"/>
+                <field name="debit" sum="Total Debit" readonly="1"
+                       string="Total Amount"/>
+                <field name="credit_value" sum="Used Credit"
+                       string="Applied Amount"/>
+                <field name="bal_val" sum="Balance Advance"
+                       string="Balance Amount"/>
+                <!--                    <field name="credit_bal" sum="Used advance"-->
+                <!--                       string="Applied Amount"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="averigo_sales_order.view_account_invoice_filter" model="ir.ui.view">
+        <field name="name">account.invoice.filter</field>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <search string="Search Invoice">
+                <field name="name" string="Bill"
+                       filter_domain="[
+                                '|', '|' , '|', '|',
+                                ('name', 'ilike', self), ('invoice_origin', 'ilike', self),
+                                ('ref', 'ilike', self), ('invoice_payment_ref', 'ilike', self),
+                                ('partner_id', 'child_of', self)]"/>
+                <field name="invoice_origin" string="Source Document"
+                       filter_domain="[('invoice_origin', 'ilike', self)]"/>
+                <field name="ref" string="Reference"
+                       filter_domain="[('ref', 'ilike', self)]"/>
+                <!--                <field name="journal_id"/>-->
+                <field name="partner_id" operator="child_of"/>
+                <field name="invoice_user_id" string="Salesperson"
+                       domain="[('share', '=', False)]"/>
+                <field name="date" string="Period"/>
+                <filter domain="[('invoice_user_id', '=', uid)]"
+                        name="myinvoices" help="My Invoices"/>
+                <separator/>
+                <filter name="draft" string="Draft"
+                        domain="[('state','=','draft')]"/>
+                <filter name="posted" string="Posted"
+                        domain="[('state', '=', 'posted')]"/>
+                <separator/>
+                <filter name="in_payment" string="In Payment"
+                        domain="[('invoice_payment_state', '=', 'in_payment')]"/>
+                <filter name="paid" string="Paid"
+                        domain="[('invoice_payment_state', '=', 'paid')]"/>
+                <filter name="unpaid" string="Unpaid"
+                        domain="[('invoice_payment_state', '=', 'not_paid'), ('state', '!=', 'cancel'), ('check_total_amount', '!=', True)]"/>
+                <filter name="late" string="Overdue"
+                        domain="['&amp;', ('invoice_date_due', '&lt;', time.strftime('%%Y-%%m-%%d')), ('state', '=', 'posted'), ('invoice_payment_state', '=', 'not_paid')]"
+                        help="Overdue invoices, maturity date passed"/>
+                <separator/>
+                <filter name="invoice_date" string="Invoice Date"
+                        date="invoice_date"/>
+                <filter name="due_date" string="Due Date"
+                        date="invoice_date_due"/>
+                <separator/>
+                <filter invisible="1" string="Late Activities"
+                        name="activities_overdue"
+                        domain="[('activity_ids.date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"
+                        help="Show all records which has next action date is before today"/>
+                <filter invisible="1" string="Today Activities"
+                        name="activities_today"
+                        domain="[('activity_ids.date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter invisible="1" string="Future Activities"
+                        name="activities_upcoming_all"
+                        domain="[('activity_ids.date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Salesperson" name="salesperson"
+                            context="{'group_by':'invoice_user_id'}"/>
+                    <filter name="status" string="Status"
+                            context="{'group_by':'state'}"/>
+                    <separator/>
+                    <filter string="Invoice Date" name="invoicedate"
+                            context="{'group_by': 'invoice_date'}"/>
+                    <filter string="Due Date" name="duedate"
+                            context="{'group_by': 'invoice_date_due'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+</odoo>

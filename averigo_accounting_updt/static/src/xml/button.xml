@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xml:space="preserve">
+    <t t-extend="FormView.buttons">
+        <t t-jquery="button.o_form_button_cancel" t-operation="before">
+                <button t-if="widget.modelName == 'invoice.receipt'" class="btn btn-primary oe_save_payment_receipt_button"
+                        type="button" accesskey="f">
+                    Save
+                </button>
+                   <button t-if="widget.modelName == 'bill.payment'" class="btn btn-primary oe_save_bill_payment_button"
+                        type="button" accesskey="f">
+                    Save
+                </button>
+        </t>
+<!--        <t t-jquery="button.o_form_button_edit"-->
+    </t>
+</template>

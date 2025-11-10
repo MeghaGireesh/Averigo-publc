@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_res_partner_card,res.partner.card,model_res_partner_card,base.group_user,1,1,1,1
+access_res_partner_check,res.partner.check,model_res_partner_check,base.group_user,1,1,1,1
+access_receipt_credit_distribution,receipt.credit.distribution,model_receipt_credit_distribution,base.group_user,1,1,1,1
+access_invoice_receipt,invoice.receipt,model_invoice_receipt,base.group_user,1,0,0,0
+access_invoice_receipt_line,invoice.receipt.line,model_invoice_receipt_line,base.group_user,1,1,1,1
+access_bill_payment,bill.payment,model_bill_payment,base.group_user,1,0,0,0
+access_bill_payment_line,bill.payment.line,model_bill_payment_line,base.group_user,1,1,1,1
+access_account_payment_mode,account.payment.mode,model_account_payment_mode,base.group_user,1,1,1,1
+
+access_payment_bill_line,payment.bill.line,model_payment_bill_line,base.group_user,1,1,1,1

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <odoo>
+    <!-- updated form view of register payment screen-->
+     <record id="averigo_accounting.view_account_payment_invoice_bill_form" model="ir.ui.view">
+        <field name="name">account.payment.invoice.bill.form</field>
+        <field name="model">account.payment</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form string="Register Payment">
+                <header>
+                    <button name="post" class="oe_highlight" states="draft" string="Confirm" type="object"
+                            invisible="1"/>
+                    <button name="action_draft" class="btn btn-secondary" invisible="1"
+                            attrs="{'invisible': [('state', '=', 'draft')]}" string="Reset To Draft" type="object"/>
+                    <button name="cancel" states="draft" string="Cancel" type="object" invisible="1"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,posted,reconciled,cancelled"
+                           invisible="1"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="button_journal_entries" string="Journal Items"
+                                type="object" groups="account.group_account_user"
+                                attrs="{'invisible':[('move_line_ids','=',[])]}" icon="fa-bars"/>
+                        <field name="move_line_ids" invisible="1"/>
+                        <button class="oe_stat_button" name="button_invoices" type="object" icon="fa-bars"
+                                attrs="{'invisible':[('reconciled_invoices_count','=', 0)]}" invisible="1">
+                            <field name="reconciled_invoices_count"/>
+                            <span attrs="{'invisible':[('reconciled_invoices_count','&gt;',1)]}">Invoice</span>
+                            <span attrs="{'invisible':[('reconciled_invoices_count','&lt;=',1)]}">Invoices</span>
+                        </button>
+                        <button class="oe_stat_button" name="open_payment_matching_screen" string="Payment Matching"
+                                type="object" groups="account.group_account_user"
+                                attrs="{'invisible':[('move_reconciled','=',True)]}" icon="fa-dollar"/>
+                        <field name="has_invoices" invisible="1"/>
+                        <field name="move_reconciled" invisible="1"/>
+                    </div>
+                    <field name="id" invisible="1"/>
+                    <div class="oe_title" attrs="{'invisible': [('state', '=', 'draft')]}">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="invoice_ids" invisible="1"/>
+                        <group name="partner_group" invisible="context.get('active_model') == 'account.move'">
+                            <field name="payment_type" widget="radio" invisible="1"/>
+                            <field name="partner_type" widget="selection" invisible="1"
+                                   attrs="{'required': [('state', '=', 'draft'), ('payment_type', 'in', ('inbound', 'outbound'))], 'invisible': [('payment_type', 'not in', ('inbound', 'outbound'))]}"/>
+                            <field name="partner_id" options="{'no_create': True}"
+                                   attrs="{'required': [('state', '=', 'draft'), ('payment_type', 'in', ('inbound', 'outbound'))], 'invisible': [('payment_type', 'not in', ('inbound', 'outbound'))]}"
+                                   context="{'default_is_company': True}"/>
+                            <field name="division_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="company_id" groups="base.group_multi_company" required="1" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="amount" invisible="1"/>
+                            <field name="journal_id" widget="selection" string="Mode of Payment" invisible="1"
+                                   attrs="{'invisible': [('amount', '=', 0), ('state', '!=', 'draft')]}"/>
+                            <field name="payment_mode_id" required="1" widget="selection" string="Mode Of Payment"
+                                   domain="[('type', 'not in', ['advance'])]"/>
+                            <field name="check" invisible="1"/>
+
+                    <field name="is_credit_card" invisible="1"/>
+                            <field name="account_dom_ids" invisible="1"/>
+                            <field name="destination_journal_id" widget="selection"
+                                   attrs="{'required': [('payment_type', '=', 'transfer')], 'invisible': [('payment_type', '!=', 'transfer')]}"/>
+                            <field name="hide_payment_method" invisible="1"/>
+                             <field name="account_id" widget="selection" required="1"
+                                   domain="[('id', 'in', account_dom_ids)]"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="phone" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="card_type" string="Credit Card Type"
+                                       attrs="{'invisible': [('is_credit_card', '=', False)], 'readonly': [('state', '!=', 'draft')]}"/>
+                    <field name="card_name" string="Name on the Card" class="w-100"
+                                       attrs="{'invisible': [('is_credit_card', '=', False)], 'readonly': [('state', '!=', 'draft')]}"/>
+
+                            <field name="payment_method_id" widget="radio"
+                                   attrs="{'invisible': [('hide_payment_method', '=', True)]}"/>
+                            <field name="partner_bank_account_id"
+                                   attrs="{'invisible': [('show_partner_bank_account', '!=', True)], 'required': [('require_partner_bank_account', '=', True)]}"
+                                   context="{'default_partner_id': partner_id}"/>
+                            <field name="show_partner_bank_account" invisible="1"/>
+                            <field name="require_partner_bank_account" invisible="1"/>
+                            <field name="payment_method_code" invisible="1"/>
+                        </group>
+                        <group name="right_column">
+                            <label for="amount"/>
+                            <div name="amount_div" class="o_row">
+                                <field name="amount"/>
+                                <field name="currency_id" options="{'no_create': True, 'no_open': True}"
+                                       groups="base.group_multi_currency"/>
+                            </div>
+                            <field name="payment_date"/>
+                            <field name="communication"/>
+                             <field name="check_no" string="Check/Reference #"
+                                    attrs="{'invisible': [('check', '=', False)], 'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="card_number" string="Credit Card #"
+                                       attrs="{'invisible': [('is_credit_card', '=', False)], 'readonly': [('state', '!=', 'draft')]}"/>
+                     <field name="card_expiry" string="Card Expiry Date" class="w-100"
+                                       attrs="{'invisible': [('is_credit_card', '=', False)], 'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                        <group name="payment_difference" attrs="{'invisible': [('payment_difference', '=', 0.0)]}"
+                               groups="account.group_account_user" invisible="1">
+                            <label for="payment_difference"/>
+                            <div>
+                                <field name="payment_difference"/>
+                                <field name="payment_difference_handling" widget="radio" nolabel="1"/>
+                                <div attrs="{'invisible': [('payment_difference_handling','=','open')]}">
+                                    <label for="writeoff_account_id" class="oe_edit_only" string="Post Difference In"/>
+                                    <field name="writeoff_account_id" options="{'no_create': True}"
+                                           string="Post Difference In"
+                                           attrs="{'required': [('payment_difference_handling', '=', 'reconcile'), ('payment_difference', '!=', 0.0)]}"/>
+                                    <label for="writeoff_label" class="oe_edit_only" string="Label"/>
+                                    <field name="writeoff_label"
+                                           attrs="{'required': [('payment_difference_handling', '=', 'reconcile'), ('payment_difference', '!=', 0.0)]}"/>
+                                </div>
+                            </div>
+                        </group>
+                    </group>
+                    <notebook invisible="context.get('active_model') == 'account.move'">
+                        <page name="bill_details" string="Bill Details">
+                            <field name="invoice_ids" attrs="{'readonly': [('state', '!=', 'draft')]}"
+                                   context="{'tree_view_ref' : 'averigo_accounting.view_bill_payment_tree'}"
+                                   domain="[('type', '=', 'in_invoice'),('state', '=', 'posted'),('invoice_payment_state', '!=', 'paid'),('partner_id', '=', partner_id)]">
+                                <tree>
+                                    <field name="name" string="Bill No"/>
+                                    <field name="partner_id" invisible="1"/>
+                                    <field name="invoice_origin"/>
+                                    <field name="ref" invisible="1"/>
+                                    <field name="invoice_date_due"/>
+                                    <field name="amount_total_view" string="Total"/>
+                                    <field name="amount_residual"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="o_attachment_preview"/>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                <footer>
+                    <field name="state" invisible="1"/>
+                    <button string='Validate' name="post" type="object" class="btn-primary"
+                            context="{'direct_bill': 1}"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+ </odoo>

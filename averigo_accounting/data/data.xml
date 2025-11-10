@@ -1,0 +1,85 @@
+<odoo>
+    <data noupdate="1">
+
+<!--        <record id="averigo_check_journal" model="account.journal">-->
+<!--            <field name="name">Check</field>-->
+<!--            <field name="code">CHK1</field>-->
+<!--            <field name="type">bank</field>-->
+<!--            <field name="sequence">11</field>-->
+<!--            <field name="refund_sequence" eval="True"/>-->
+<!--            <field name="company_id" eval="True"/>-->
+<!--        </record>-->
+
+<!--        <record id="averigo_credit_card_journal" model="account.journal">-->
+<!--            <field name="name">Credit Card</field>-->
+<!--            <field name="code">CRD1</field>-->
+<!--            <field name="type">bank</field>-->
+<!--            <field name="sequence">12</field>-->
+<!--            <field name="refund_sequence" eval="True"/>-->
+<!--            <field name="company_id" eval="True"/>-->
+<!--        </record>-->
+
+<!--        <record id="averigo_wire_transfer_journal" model="account.journal">-->
+<!--            <field name="name">Wire Transfer</field>-->
+<!--            <field name="code">WRT1</field>-->
+<!--            <field name="type">bank</field>-->
+<!--            <field name="sequence">13</field>-->
+<!--            <field name="refund_sequence" eval="True"/>-->
+<!--            <field name="company_id" eval="True"/>-->
+<!--        </record>-->
+
+<!--        <record id="averigo_write_off_journal" model="account.journal">-->
+<!--            <field name="name">Write Off</field>-->
+<!--            <field name="code">WRO1</field>-->
+<!--            <field name="type">bank</field>-->
+<!--            <field name="sequence">14</field>-->
+<!--            <field name="refund_sequence" eval="True"/>-->
+<!--            <field name="company_id" eval="True"/>-->
+<!--        </record>-->
+
+<!--        <record id="averigo_advance_journal" model="account.journal">-->
+<!--            <field name="name">Advance</field>-->
+<!--            <field name="code">ADV1</field>-->
+<!--            <field name="type">bank</field>-->
+<!--            <field name="sequence">15</field>-->
+<!--            <field name="refund_sequence" eval="True"/>-->
+<!--            <field name="company_id" eval="True"/>-->
+<!--        </record>-->
+
+        <record id="averigo_check_payment" model="account.payment.mode">
+            <field name="name">Check</field>
+            <field name="type">check</field>
+            <field name="operator_id" eval="True"/>
+        </record>
+
+        <record id="averigo_cash_payment" model="account.payment.mode">
+            <field name="name">Cash</field>
+            <field name="type">cash</field>
+            <field name="operator_id" eval="True"/>
+        </record>
+
+        <record id="averigo_credit_payment" model="account.payment.mode">
+            <field name="name">Credit Card</field>
+            <field name="type">credit_card</field>
+            <field name="operator_id" eval="True"/>
+        </record>
+
+        <record id="averigo_wire_transfer_payment" model="account.payment.mode">
+            <field name="name">Wire Transfer</field>
+            <field name="type">wire_transfer</field>
+            <field name="operator_id" eval="True"/>
+        </record>
+
+        <record id="averigo_write_off_payment" model="account.payment.mode">
+            <field name="name">Write Off</field>
+            <field name="type">write_off</field>
+            <field name="operator_id" eval="True"/>
+        </record>
+
+        <record id="averigo_advance_payment" model="account.payment.mode">
+            <field name="name">Advance</field>
+            <field name="type">advance</field>
+            <field name="operator_id" eval="True"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,150 @@
+<odoo>
+    <data>
+        <template id="report_receipt_list_template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+
+                    <page>
+                        <h3>Receipt list Report</h3>
+                        <table class="table table-borderless">
+                            <tr>
+                                <td>
+                                    <strong>
+                                        Customer :
+                                    </strong>
+                                </td>
+                                <td>
+                                    <t t-esc="docs.partner_id.display_name"
+                                       t-if="docs.partner_id"/>
+                                </td>
+                                <td>
+                                    <strong>
+                                        Mode of Payment :
+                                    </strong>
+                                </td>
+                                <td>
+                                    <t t-esc="docs.payment_mode_id.name"
+                                       t-if="docs.payment_mode_id"/>
+                                </td>
+                                <td>
+                                    <strong>
+                                        Start Date :
+                                    </strong>
+                                </td>
+                                <td>
+                                    <t t-esc="docs.start_date.strftime('%m/%d/%Y')"
+                                       t-if="docs.start_date"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        Account :
+                                    </strong>
+                                </td>
+                                <td>
+                                    <t t-esc="docs.account_id.name"
+                                       t-if="docs.account_id"/>
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <strong>
+                                        End Date :
+                                    </strong>
+                                </td>
+                                <td>
+                                    <t t-esc="docs.end_date.strftime('%m/%d/%Y')"
+                                       t-if="docs.end_date"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Customer #
+                                    </th>
+                                    <th>
+                                        Customer
+                                    </th>
+                                    <th>
+                                        Account
+                                    </th>
+                                    <th>
+                                        Receipt
+                                    </th>
+                                    <th>
+                                        Date
+                                    </th>
+                                    <th>
+                                        Mode of Payment
+                                    </th>
+                                    <th>
+                                        Check / Reference No
+                                    </th>
+                                    <th>
+                                        Amount
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="tot_amt" t-value="0"/>
+                                <t t-foreach="docs.line_ids" t-as="line">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="line.code"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.partner_id.display_name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.account_id.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.receipt_id.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.receipt_date.strftime('%m/%d/%Y')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.mode_of_payment.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.check_no"
+                                               t-if="docs.payment_mode_id.type not in ('cash','write_off','advance')"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="line.amount"/>
+                                            <t t-set="tot_amt"
+                                               t-value="tot_amt + line.amount"/>
+
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                        <td>Total</td>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                        <td/>
+                                        <td align="right">
+                                            <b>
+                                                <t t-esc="('%.2f' % tot_amt)"/>
+                                            </b>
+                                        </td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </page>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

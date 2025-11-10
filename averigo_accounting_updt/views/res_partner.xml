@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="averigo_res_partner_inherit" model="ir.ui.view">
+            <field name="name">Averigo Customers Form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id"
+                   ref="base_averigo.view_res_customers_form"/>
+            <field name="arch" type="xml">
+
+                <field name="street" position="replace">
+                    <field name="street" required="1" style="margin-bottom: 2px !important" placeholder="Street" force_save="1"/>
+                </field>
+                <field name="zip" position="replace">
+                    <field name="zip" required="1" style="margin-bottom: 2px !important" placeholder="Zip"/>
+                </field>
+                <xpath expr="//button[@name='action_view_customer_invoices']"
+                       position="replace">
+                    <button type="object" class="oe_stat_button"
+                            name="action_view_customer_invoices"
+                            context="{'default_partner_id': active_id}">
+                        <div class="o_form_field o_stat_info">
+                            <span class="o_stat_value">
+                                <i class="fa fa-fw o_button_icon fa-pencil-square-o"/>
+                                <field name="invoice_balance" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"/>
+                            </span>
+                            <span class="o_stat_text">Invoice</span>
+                        </div>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_customer_tree_inherit" model="ir.ui.view">
+            <field name="name">Customer View Tree</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base_averigo.view_customer_tree"/>
+            <field name="arch" type="xml">
+                <field name="credit" position="replace">
+                    <field name="invoice_balance"/>
+                </field>
+            </field>
+        </record>
+    </data>
+
+    <record id="view_customer_tree_inherit_search" model="ir.ui.view">
+        <field name="name">Customer View Tree</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="nick_name"/>
+                <field name="invoice_balance" string="Invoice Balance"/>
+                <field name="advance_balance"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_vendor_tree_inherit_search" model="ir.ui.view">
+        <field name="name">Vendor View Tree</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <tree create="false" delete="false">
+                <field name="name"/>
+                <field name="bill_balance" string="Bill Balance"/>
+                <field name="credit_balance"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

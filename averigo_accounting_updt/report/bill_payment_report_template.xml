@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_bill_payment_document">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)"/>
+            <div class="page">
+                <div class="row">
+                    <t t-set="date_format" t-value="'%m/%d/%Y'"/>
+                    <t t-set="date_format"
+                       t-value="docs.operator_id.date_format"
+                       t-if="docs.operator_id.date_format"/>
+                    <t t-set="time_format" t-value="'%H:%M:%S'"/>
+                    <t t-set="time_format"
+                       t-value="docs.operator_id.time_format"
+                       t-if="docs.operator_id.time_format"/>
+                    <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                        <strong style="padding-left:50%;font-size:larger">
+                            Bill Payment
+                        </strong>
+                        <table class="table table-sm table-bordered"
+                               style="border:1px solid black; border-collapse: collapse;">
+                            <thead>
+                                <th style="border:1px solid black; border-collapse: collapse;">
+                                    <t>Payment Date</t>
+                                </th>
+                                <th style="border:1px solid black; border-collapse: collapse;">
+                                    <t>
+                                        <span>Payment No</span>
+                                    </t>
+                                </th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <span t-esc="o.payment_date.strftime(date_format)"/>
+                                    </td>
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <span t-field="o.name"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td style="border:1px solid black; border-collapse: collapse;">
+                                    <b>Vendor :</b>
+                                    <br/>
+                                    <t t-if="o.partner_id.name">
+                                        <span t-esc="o.partner_id.name"/>
+                                    </t>
+                                    <br/>
+                                    <t t-if="o.partner_id.street">
+                                        <span t-esc="o.partner_id.street"/>
+                                    </t>
+                                    <br/>
+                                    <t t-if="o.partner_id.city">
+                                        <span t-esc="o.partner_id.city"/>
+                                    </t>
+                                    <t t-if="o.partner_id.state_id.name">
+                                        <span t-esc="o.partner_id.state_id.name"/>
+                                    </t>
+                                    <t t-if="o.partner_id.zip">
+                                        <span t-esc="o.partner_id.zip"/>
+                                    </t>
+                                </td>
+                                <t t-if="o.state != 'done'">
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <b>Bill Balance :</b>
+                                        <span class="text-right"
+                                              t-esc="o.bill_balance"/>
+                                        <br/>
+                                        <br/>
+                                        <b>Credit Balance :</b>
+                                        <span class="text-right"
+                                              t-esc="'%.2f'% o.vendor_advance_balance"/>
+                                    </td>
+                                </t>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                            <th style="border:1px solid black; border-collapse: collapse;">
+                                Mode of Payment
+                            </th>
+                            <t t-if="o.payment_mode_id.type == 'check'">
+                                <th style="border:1px solid black; border-collapse: collapse;">
+                                    Check No
+                                </th>
+                                <!--                                <th style="border:1px solid black; border-collapse: collapse;">Vendor Bank Name-->
+                                <!--                                </th>-->
+                                <th class="text-right"
+                                    style="border:1px solid black; border-collapse: collapse;">
+                                    Amount
+                                </th>
+                            </t>
+                            <t t-if="o.payment_mode_id.type == 'credit_card'">
+                                <th style="border:1px solid black; border-collapse: collapse;">
+                                    Credit Card Type
+                                </th>
+                                <th style="border:1px solid black; border-collapse: collapse;">
+                                    Credit Card #
+                                </th>
+                                <th class="text-right"
+                                    style="border:1px solid black; border-collapse: collapse;">
+                                    Amount
+                                </th>
+                            </t>
+                            <t t-if="o.payment_mode_id.type == 'cash'">
+                                <th class="text-right"
+                                    style="border:1px solid black; border-collapse: collapse;">
+                                    Amount
+                                </th>
+                            </t>
+                            <t t-if="o.payment_mode_id.type == 'write_off'">
+                                <th class="text-right"
+                                    style="border:1px solid black; border-collapse: collapse;">
+                                    Amount
+                                </th>
+                            </t>
+                            <t t-if="o.payment_mode_id.type == 'wire_transfer'">
+                                <th style="border:1px solid black; border-collapse: collapse;">
+                                    Reference No
+                                </th>
+                                <th class="text-right"
+                                    style="border:1px solid black; border-collapse: collapse;">
+                                    Amount
+                                </th>
+                            </t>
+                            <t t-if="o.payment_mode_id.type != 'advance'">
+                                <th style="border:1px solid black; border-collapse: collapse;">
+                                    Bank Account
+                                </th>
+                            </t>
+                        </thead>
+                        <tbody>
+                            <tr style="height:1cm !important;">
+                                <td style="border:1px solid black; border-collapse: collapse;">
+                                    <t t-if="o.payment_mode_id.name">
+                                        <!--                                        <span t-field="o.payment_mode_id.name"-->
+                                        <!--                                              invisible="1"/>-->
+                                        <span t-field="o.payment_type"/>
+
+                                    </t>
+                                </td>
+                                <t t-if="o.payment_mode_id.type == 'check'">
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <t t-if="o.check_no">
+                                            <span t-field="o.check_no"/>
+                                        </t>
+                                    </td>
+                                    <td class="text-right"
+                                        style="border:1px solid black; border-collapse: collapse;">
+                                        <t t-if="o.amount">
+                                            <span t-esc="'%.2f'% o.amount"/>
+                                        </t>
+                                    </td>
+                                </t>
+                                <t t-if="o.payment_mode_id.type == 'credit_card'">
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <t t-if="o.card_type">
+                                            <span t-field="o.card_type"/>
+                                        </t>
+                                    </td>
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <t t-if="o.card_number">
+                                            <span t-field="o.card_number"/>
+                                        </t>
+                                    </td>
+                                    <td class="text-right"
+                                        style="border:1px solid black; border-collapse: collapse;">
+                                        <t t-if="o.amount">
+                                            <span t-esc="'%.2f'% o.amount"/>
+                                        </t>
+                                    </td>
+                                </t>
+                                <t t-if="o.payment_mode_id.type == 'cash'">
+                                    <td class="text-right"
+                                        style="border:1px solid black; border-collapse: collapse;">
+                                        <t t-if="o.amount">
+                                            <span t-esc="'%.2f'% o.amount"/>
+                                        </t>
+                                    </td>
+                                </t>
+                                <t t-if="o.payment_mode_id.type == 'write_off'">
+                                    <td class="text-right"
+                                        style="border:1px solid black; border-collapse: collapse;">
+                                        <t t-if="o.amount">
+                                            <span t-esc="'%.2f'% o.amount"/>
+                                        </t>
+                                    </td>
+                                </t>
+                                <t t-if="o.payment_mode_id.type == 'wire_transfer'">
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <t t-if="o.reference_no">
+                                            <span t-field="o.reference_no"/>
+                                        </t>
+                                    </td>
+                                    <td class="text-right"
+                                        style="border:1px solid black; border-collapse: collapse;">
+                                        <t t-if="o.amount">
+                                            <span t-esc="'%.2f'% o.amount"/>
+                                        </t>
+                                    </td>
+                                </t>
+                                <t t-if="o.payment_mode_id.type != 'advance'">
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <t t-if="o.account_id">
+                                            <span t-field="o.account_id.code"/>
+                                            <span t-field="o.account_id.name"/>
+                                        </t>
+                                    </td>
+                                </t>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <table class="table table-sm table-bordered">
+                        <thead>
+                            <th name="bii_no" class="text-left"
+                                style="border:1px solid black; border-collapse: collapse;">
+                                Bill No
+                            </th>
+                                 <th name="bill_date" class="text-left"
+                                style="border:1px solid black; border-collapse: collapse;">
+                                Bill Date
+                            </th>
+
+                            <th name="due_date" class="text-left"
+                                style="border:1px solid black; border-collapse: collapse;">
+                                Due Date
+                            </th>
+                            <th name="bill_amount" class="text-right"
+                                style="border:1px solid black; border-collapse: collapse;">
+                                Amount
+                            </th>
+                            <th name="adj" class="text-right"
+                                style="border:1px solid black; border-collapse: collapse;">
+                                Paid
+                            </th>
+                            <th name="bal" class="text-right"
+                                style="border:1px solid black; border-collapse: collapse;">
+                                Balance
+                            </th>
+                            <t t-if="o.payment_mode_id.type == 'advance'">
+                                <th name="th_amount" class="text-left"
+                                    style="border:1px solid black; border-collapse: collapse;">
+                                    Credit
+                                </th>
+                            </t>
+                            <t t-if="o.payment_mode_id.type == 'advance'">
+                                <th name="th_delivered" class="text-right"
+                                    style="border:1px solid black; border-collapse: collapse;">
+                                    Credit Applied
+                                </th>
+                            </t>
+                            <t t-if="o.payment_mode_id.type != 'advance'">
+                                <th name="th_price" class="text-right"
+                                    style="border:1px solid black; border-collapse: collapse;">
+                                    Amount Paid
+                                </th>
+                            </t>
+                            <th name="th_amount" class="text-right"
+                                style="border:1px solid black; border-collapse: collapse;">
+                                Due Amount
+                            </th>
+                        </thead>
+                        <tbody>
+
+                            <t t-set="total_amount_total_view" t-value="0"/>
+                            <t t-set="total_amount_adjusted" t-value="0"/>
+                            <t t-set="total_amount_residual" t-value="0"/>
+                            <t t-set="total_advance_amount" t-value="0"/>
+                            <t t-set="total_amount_received" t-value="0"/>
+                            <t t-set="total_due_amount" t-value="0"/>
+
+                            <t t-set="bill_lines"
+                               t-value="o.mapped('bill_line_ids')"/>
+                            <tr t-foreach="bill_lines" t-as="bill_line">
+
+                                <t t-set="total_amount_total_view"
+                                   t-value="total_amount_total_view+bill_line.amount_total_view"/>
+                                <t t-set="total_amount_adjusted"
+                                   t-value="total_amount_adjusted+bill_line.amount_adjusted"/>
+                                <t t-set="total_amount_residual"
+                                   t-value="total_amount_residual+bill_line.amount_residual"/>
+                                <t t-set="total_advance_amount"
+                                   t-value="total_advance_amount+bill_line.advance_amount"/>
+                                <t t-set="total_amount_received"
+                                   t-value="total_amount_received+bill_line.amount_received"/>
+                                <t t-set="total_due_amount"
+                                   t-value="total_due_amount+bill_line.due_amount"/>
+                                <td style="border:1px solid black; border-collapse: collapse;">
+                                    <t>
+                                        <span t-field="bill_line.name"/>
+                                    </t>
+                                </td>
+                                <td style="border:1px solid black; border-collapse: collapse;">
+                                    <t>
+                                        <span t-esc="bill_line.invoice_date.strftime(date_format)"/>
+                                    </t>
+                                </td>
+
+                                <td style="border:1px solid black; border-collapse: collapse;">
+                                    <t>
+                                        <span t-esc="bill_line.bill_date_due.strftime(date_format)"/>
+                                    </t>
+                                </td>
+                                <td class="text-right"
+                                    style="border:1px solid black; border-collapse: collapse;">
+                                    <t>
+                                        <span t-field="bill_line.amount_total_view"/>
+                                    </t>
+                                </td>
+                                <td class="text-right"
+                                    style="border:1px solid black; border-collapse: collapse;">
+                                    <t>
+                                        <span t-esc="'%.2f'% bill_line.amount_adjusted"/>
+                                    </t>
+                                </td>
+                                <td class="text-right"
+                                    style="border:1px solid black; border-collapse: collapse;">
+                                    <t>
+                                        <span t-esc="'%.2f'% bill_line.amount_residual"/>
+                                    </t>
+                                </td>
+                                <t t-if="o.payment_mode_id.type == 'advance'">
+
+                                    <td style="border:1px solid black; border-collapse: collapse;">
+                                        <t>
+                                            <span t-field="bill_line.advance_move_line_id"/>
+                                        </t>
+                                    </td>
+                                </t>
+                                <t t-if="o.payment_mode_id.type == 'advance'">
+
+                                    <td class="text-right"
+                                        style="border:1px solid black; border-collapse: collapse;">
+                                        <t>
+                                            <span t-esc="'%.2f'% bill_line.advance_amount"/>
+                                        </t>
+                                    </td>
+                                </t>
+                                <t t-if="o.payment_mode_id.type != 'advance'">
+                                    <td class="text-right"
+                                        style="border:1px solid black; border-collapse: collapse;">
+                                        <t>
+                                            <span t-esc="'%.2f'% bill_line.amount_received"/>
+                                        </t>
+                                    </td>
+                                </t>
+                                <td class="text-right"
+                                    style="border:1px solid black; border-collapse: collapse;">
+                                    <t>
+                                        <span t-esc="'%.2f'% bill_line.due_amount"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+
+                                </td>
+                            </tr>
+                            <tr style="border:1px solid black; border-collapse: collapse; background-color: #ECECEC">
+                                <td>
+                                    <t>
+                                    </t>
+                                </td>
+
+                                <td>
+                                    <t>
+
+                                    </t>
+                                </td>
+                                 <td>
+                                    <t>
+
+                                    </t>
+                                </td>
+                                <td class="text-right">
+                                    <t>
+                                        <b>
+                                            <span t-esc="'%.2f'% total_amount_total_view"/>
+                                        </b>
+                                    </t>
+                                </td>
+                                <td class="text-right">
+                                    <t>
+                                        <b>
+                                            <span t-esc="'%.2f'% total_amount_adjusted"/>
+                                        </b>
+                                    </t>
+                                </td>
+                                <td class="text-right">
+                                    <t>
+                                        <b>
+                                            <span t-esc="'%.2f'% total_amount_residual"/>
+                                        </b>
+                                    </t>
+                                </td>
+                                <t t-if="o.payment_mode_id.type == 'advance'">
+
+                                    <td class="text-right">
+                                        <t>
+
+                                        </t>
+                                    </td>
+                                </t>
+                                <t t-if="o.payment_mode_id.type == 'advance'">
+
+                                    <td class="text-right">
+                                        <t>
+                                            <b>
+                                                <span t-esc="'%.2f'% total_advance_amount"/>
+                                            </b>
+                                        </t>
+                                    </td>
+                                </t>
+                                <t t-if="o.payment_mode_id.type != 'advance'">
+                                    <td class="text-right">
+                                        <t>
+                                            <b>
+                                                <span t-esc="'%.2f'% total_amount_received"/>
+                                            </b>
+                                        </t>
+                                    </td>
+                                </t>
+                                <td class="text-right">
+                                    <t>
+                                        <b>
+                                            <span t-esc="'%.2f'% total_due_amount"/>
+                                        </b>
+                                    </t>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+
+                        <table>
+                            <t t-if="o.payment_mode_id.type != 'advance' and o.payment_mode_id.type != 'write_off' ">
+                                <tr>
+                                    <td>
+                                        <b>Unapplied Amount:</b>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.2f'% o.unapplied_amount"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <table>
+                        <tr>
+                            <t t-if="o.narration">
+                                <td>
+                                    Internal Notes:
+                                    <span t-field="o.narration"/>
+                                </td>
+                            </t>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_bill_payment">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="averigo_accounting_updt.report_bill_payment_document"
+                   t-lang="o.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

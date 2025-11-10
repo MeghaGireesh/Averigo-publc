@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_default_receivable_form_inherit_view" model="ir.ui.view">
+            <field name="name">averigo.default.receivable.form.inherit</field>
+            <field name="model">default.receivable</field>
+            <field name="inherit_id" ref="averigo_accounting.default_receivable_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@for='inv_refund_seq_id']" position="attributes">
+                    <attribute name="string">Credit Memo</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_default_payable_form_inherit_view" model="ir.ui.view">
+            <field name="name">averigo.default.payable.form.inherit</field>
+            <field name="model">default.payable</field>
+            <field name="inherit_id" ref="averigo_accounting.default_payable_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@for='bill_refund_seq_id']" position="attributes">
+                    <attribute name="string">Debit Memo</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

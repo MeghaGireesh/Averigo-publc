@@ -1,0 +1,16 @@
+{
+    "name": "Account Move Line Auto Reconcile Hook",
+    "summary": "Adds Hook to account move line",
+    'version': '13.0.1.0',
+    'category': 'Accounting/Payment',
+    'author': 'Cybrosys Techno Solutions',
+    'website': "https://www.cybrosys.com",
+    'company': 'Cybrosys Techno Solutions',
+    'maintainer': 'Cybrosys Techno Solutions',
+    "description": """""",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "depends": ['account'],
+    'post_load': 'post_load_hook',
+}

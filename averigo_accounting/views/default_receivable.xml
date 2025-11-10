@@ -1,0 +1,154 @@
+<odoo>
+    <record id="default_receivable_form" model="ir.ui.view">
+        <field name="name">default.receivable.form</field>
+        <field name="model">default.receivable</field>
+        <field name="arch" type="xml">
+            <form string="Default Receivable">
+                <style>
+                    .o_field_many2manytags{max-height: 7vh; overflow: scroll;}
+                    .col-4 {
+                    min-height: 50px;
+                    }
+                    textarea {
+                    padding-left: 10px !important;
+                    padding-top: 2px !important;
+                    }
+                </style>
+                <sheet>
+                    <field name="name" invisible="1"/>
+                    <div class="field_color">
+                        <div class="row">
+                            <div class="col-4 pt-2">
+                                <label for="due_days" string="Aging Invoice Report (Due Days)" class="w-100"/>
+                                <div class="d-flex">
+                                    <field name="due_days" class="w-25"/>
+                                    <field name="due_days_2" class="w-25 ml-2"/>
+                                    <field name="due_days_3" class="w-25 ml-2"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" name="receivable_sequence">
+                            <div class="col-12 col-header mt-3">
+                                <h3 style="margin:0px">Default Sequence</h3>
+                            </div>
+                            <div class="col-4 pt-2">
+                                <label for="inv_seq_id" string="Invoice" class="w-100"/>
+                                <field name="inv_seq_id" class="w-100"
+                                       context="{'form_view_ref': 'averigo_accounting.view_sequence_form', 'default_inv_seq': True, 'default_implementation': 'no_gap', 'default_use_date_range': True}"/>
+                            </div>
+                            <div class="col-4 pt-2">
+                                <label for="inv_refund_seq_id" string="Credit Memo" class="w-100"/>
+                                <field name="inv_refund_seq_id" class="w-100"
+                                       context="{'form_view_ref': 'averigo_accounting.view_sequence_form', 'default_inv_refund_seq': True, 'default_implementation': 'no_gap', 'default_use_date_range': True}"/>
+                            </div>
+                            <div class="col-4 pt-2">
+                                <label for="adv_payment_customer_seq_id" string="Advance" class="w-100"/>
+                                <field name="adv_payment_customer_seq_id" class="w-100"
+                                       context="{'form_view_ref': 'averigo_accounting.view_sequence_form', 'default_adv_payment_customer_seq': True, 'default_implementation': 'no_gap', 'default_use_date_range': True}"/>
+                            </div>
+                            <div class="col-4 pt-2">
+                                <label for="invoice_receipt_seq_id" string="Invoice Receipt" class="w-100"/>
+                                <field name="invoice_receipt_seq_id" class="w-100"
+                                       context="{'form_view_ref': 'averigo_accounting.view_sequence_form', 'default_invoice_receipt_seq': True, 'default_implementation': 'no_gap', 'default_use_date_range': True}"/>
+                            </div>
+                        </div>
+                        <div class="row" name="account_setup">
+                            <div class="col-12 col-header mt-3">
+                                <h3 style="margin:0px">Account Setup</h3>
+                            </div>
+                            <div class="col-4 pt-2">
+                                <label for="receivables_control_account_id" string="Receivables Control" class="w-100"/>
+                                <field name="receivables_control_account_id" class="w-100"
+                                       options="{'no_create': True}"/>
+                            </div>
+                            <div class="col-4 pt-2">
+                                <label for="terms_discount_account_id" string="Terms Discount" class="w-100"/>
+                                <field name="terms_discount_account_id" class="w-100"
+                                       options="{'no_create': True}"/>
+                            </div>
+                            <div class="col-4 pt-2">
+                                <label for="sales_tax_liability_account_id" string="Sales Tax Liability" class="w-100"/>
+                                <field name="sales_tax_liability_account_id" class="w-100"
+                                       options="{'no_create': True}"/>
+                            </div>
+                            <div class="col-4 pt-2">
+                                <label for="s_h_account_id" string="S and H" class="w-100"/>
+                                <field name="s_h_account_id" class="w-100" options="{'no_create': True}"/>
+                            </div>
+                            <div class="col-4 pt-2">
+                                <label for="accrued_receivable_account_id" string="Accrued Receivable" class="w-100"/>
+                                <field name="accrued_receivable_account_id" class="w-100"
+                                       options="{'no_create': True}"/>
+                            </div>
+                            <div class="col-4 pt-2">
+                                <label for="sugar_tax_account_id" string="Sugar Tax" class="w-100"/>
+                                <field name="sugar_tax_account_id" class="w-100"
+                                       options="{'no_create': True}"/>
+                            </div>
+                            <div class="col-4 pt-2">
+                                <label for="hazard_fee_account_id" string="Hazard Fee" class="w-100"/>
+                                <field name="hazard_fee_account_id" class="w-100"
+                                       options="{'no_create': True}"/>
+                            </div>
+                            <div class="col-4 pt-2">
+                                <label for="miscellaneous_receipt_control_account_id"
+                                       string="Miscellaneous Receipt Control" class="w-100"/>
+                                <field name="miscellaneous_receipt_control_account_id"
+                                       class="w-100" options="{'no_create': True}"/>
+                            </div>
+                            <div class="col-4 pt-2">
+                                <label for="sales_discount_account_id" string="Sales Discount" class="w-100"/>
+                                <field name="sales_discount_account_id" class="w-100"
+                                       options="{'no_create': True}"/>
+                            </div>
+                            <div class="col-4 pt-2">
+                                <label for="advance_account_id" string="Advance" class="w-100"/>
+                                <field name="advance_account_id" class="w-100" options="{'no_create': True}"/>
+                            </div>
+                            <div class="col-4 pt-2">
+                                <label for="insurance_account_id" string="Insurance" class="w-100"/>
+                                <field name="insurance_account_id" class="w-100"
+                                       options="{'no_create': True}"/>
+                            </div>
+                            <div class="col-4 pt-2">
+                                <label for="write_off_account_id" string="Write Off Account" class="w-100"/>
+                                <field name="write_off_account_id" class="w-100"
+                                       options="{'no_create': True}"/>
+                            </div>
+                            <div class="col-4 pt-2">
+                                <label for="fuel_charge_account_id" string="Fuel Charge" class="w-100"/>
+                                <field name="fuel_charge_account_id" class="w-100"
+                                       options="{'no_create': True}"/>
+                            </div>
+                        </div>
+                    </div>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_default_receivable_information" model="ir.actions.server">
+        <field name="name">Default Receivable</field>
+        <field name="model_id" eval="ref('base.model_res_company')"/>
+        <field name="state">code</field>
+        <field name="code">action = model.open_default_receivable()</field>
+    </record>
+
+    <record id="action_default_receivable" model="ir.actions.act_window">
+        <field name="name">Receivable</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">default.receivable</field>
+        <field name="context">{'create': False, 'delete': False}</field>
+        <field name="view_mode">form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('averigo_accounting.default_receivable_form')})]"/>
+    </record>
+
+    <menuitem name="Receivable" parent="base_averigo.menu_default_setup" id="menu_sales_default"
+              action="averigo_accounting.action_default_receivable_information"
+              groups="base_averigo.hide_critical_menu" sequence="3"/>
+</odoo>

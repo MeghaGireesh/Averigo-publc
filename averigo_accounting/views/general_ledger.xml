@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_general_ledger_form" model="ir.ui.view">
+        <field name="name">general.ledger.form</field>
+        <field name="model">general.ledger</field>
+        <field name="arch" type="xml">
+            <form string="General Ledger">
+                <sheet>
+<!--                    <div class="oe_button_box" name="button_box">-->
+<!--                        <button class="oe_stat_button" name="account.action_move_line_select"-->
+<!--                                string="Journal Items" type="action" icon="fa-bars"/>-->
+<!--                    </div>-->
+                    <group>
+                        <group>
+                            <field name="name" invisible="1"/>
+                            <field name="restock_fee_credit_debit" string="Apply Restock Fee For Credit/Debit Memo"/>
+                            <field name="restock_type" string="Restock Type"/>
+                            <field name="restock_fee_percent" string="Restock Fee %"/>
+                            <field name="restock_amount" string="Restock Amount"/>
+                            <field name="display_account" string="Display Amount"/>
+                            <field name="service_charges" string="Service Charges" required="1"/>
+                            <field name="interest_earned" string="Interest Earned" required="1"/>
+                            <field name="interest_paid" string="Intered Paid" required="1"/>
+                            <field name="undeposited_funds" string="Undeposited Funds" required="1"/>
+                            <field name="retained_earnings" string="Retained Earnings" required="1"/>
+                            <field name="journal_adjustment" string="Journal Adjustment" required="1"/>
+                            <field name="restock_fee" string="Restock Fee" required="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_general_ledger_list" model="ir.ui.view">
+        <field name="name">general.ledger.list</field>
+        <field name="model">general.ledger</field>
+        <field name="arch" type="xml">
+            <tree string="General Ledger">
+                <field name="name"/>
+                <field name="service_charges"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_general_ledger_search" model="ir.ui.view">
+            <field name="name">general.ledger.search</field>
+            <field name="model">general.ledger</field>
+            <field name="arch" type="xml">
+                <search string="Account Type">
+                    <field name="name" filter_domain="['|', ('name','ilike',self), ('type','ilike',self)]" string="General Ledger"/>
+                </search>
+            </field>
+        </record>
+    <record id="action_general_ledger_form" model="ir.actions.act_window">
+            <field name="name">General ledger</field>
+            <field name="res_model">general.ledger</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_general_ledger_search"/>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Define a new account type
+              </p><p>
+                An account type is used to determine how an account is used in
+                each journal. The deferral method of an account type determines
+                the process for the annual closing. Reports such as the Balance
+                Sheet and the Profit and Loss report use the category
+                (profit/loss or balance sheet).
+              </p>
+            </field>
+    </record>
+    <menuitem action="averigo_accounting.action_general_ledger_form" parent="base_averigo.menu_default_setup"
+              name="General Ledger" id="menu_action_general_ledger" sequence="4"/>
+<!--              groups="base_averigo.hide_critical_menu"/>-->
+
+</odoo>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <delete model="ir.rule" id="account.tax_comp_rule"/>
+        <delete model="ir.rule" id="account.account_comp_rule"/>
+        <delete model="ir.rule" id="account.journal_comp_rule"/>
+
+        <record id="tax_comp_rule" model="ir.rule">
+            <field name="name">Tax multi-company</field>
+            <field name="model_id" ref="account.model_account_tax"/>
+            <field name="global" eval="False"/>
+            <field name="groups" eval="[(4, ref('base_averigo.averigo_operator_user'))]"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="seq_comp_rule" model="ir.rule">
+            <field name="name">Sequence multi-company</field>
+            <field name="model_id" ref="base.model_ir_sequence"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="account_comp_rule" model="ir.rule">
+            <field name="name">Account multi-company</field>
+            <field name="model_id" ref="account.model_account_account"/>
+            <field name="global" eval="False"/>
+            <field name="groups" eval="[(4, ref('base_averigo.averigo_operator_user'))]"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="journal_comp_rule" model="ir.rule">
+            <field name="name">Journal multi-company</field>
+            <field name="model_id" ref="account.model_account_journal"/>
+            <field name="global" eval="False"/>
+            <field name="groups" eval="[(4, ref('base_averigo.averigo_operator_user'))]"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="res_partner_card_rule" model="ir.rule">
+            <field name="name">Partner Card company rule</field>
+            <field name="model_id" ref="model_res_partner_card"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">
+                ['|', ('company_id', 'in', company_ids), ('company_id', '=', False)]
+            </field>
+        </record>
+
+        <record id="res_partner_check_rule" model="ir.rule">
+            <field name="name">Partner Check company rule</field>
+            <field name="model_id" ref="model_res_partner_check"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">
+                ['|', ('company_id', 'in', company_ids), ('company_id', '=', False)]
+            </field>
+        </record>
+
+        <!--        invoice receipt rule-->
+        <record id="invoice_receipt_rule" model="ir.rule">
+            <field name="name">Invoice Receipt rule</field>
+            <field name="model_id" ref="model_invoice_receipt"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <!--        bill payment rule-->
+        <record id="bill_payment_rule" model="ir.rule">
+            <field name="name">Bill Payment rule</field>
+            <field name="model_id" ref="model_bill_payment"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('operator_id', 'in', company_ids)]</field>
+        </record>
+
+        <!--        payment mode rule-->
+        <record id="payment_mode_rule" model="ir.rule">
+            <field name="name">Payment Mode rule</field>
+            <field name="model_id" ref="model_account_payment_mode"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('operator_id', 'in', company_ids)]</field>
+        </record>
+
+
+    </data>
+</odoo>

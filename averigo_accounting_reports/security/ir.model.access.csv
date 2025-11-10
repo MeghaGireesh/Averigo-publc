@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_invoice_list_report,invoice.list.report,model_invoice_list_report,,1,1,1,1
+access_invoice_list_lines,invoice.list.lines,model_invoice_list_lines,,1,1,1,1
+access_receipt_list_report,receipt.list.report,model_receipt_list,,1,1,1,1
+access_receipt_list_lines,receipt.list.lines,model_receipt_list_lines,,1,1,1,1
+access_bill_list_report	,bill.list.report,model_bill_list_report,,1,1,1,1
+access_bill_list_lines	,bill.list.lines,model_bill_list_lines,,1,1,1,1

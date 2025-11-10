@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_form" model="ir.ui.view">
+        <field name="name">account.account.form</field>
+        <field name="model">account.account</field>
+        <field name="arch" type="xml">
+            <form string="Account">
+                <style>
+                    .o_field_many2manytags{max-height: 7vh; overflow: scroll;}
+                    .o_field_widget.o_field_radio.o_vertical .o_radio_item {
+                    margin-bottom: 22px;
+                    }
+                    .col-4 {
+                    min-height: 50px;
+                    }
+                    textarea {
+                    padding-left: 10px !important;
+                    padding-top: 2px !important;
+                    }
+
+                    /*btn*/
+                    .o_form_view .oe_button_box .btn.oe_stat_button > .o_stat_info .o_stat_value, .o_form_view
+                    .oe_button_box .btn.oe_stat_button > span .o_stat_value {
+                    font-weight: 700;
+                    color: #f2f2f2 !important;
+                    line-height: 1.2;
+                    font-size: 13px !important;
+                    text-align: center !important;
+                    }
+                    .o_form_view .oe_button_box .btn.oe_stat_button > .o_stat_info .o_stat_value, .o_form_view
+                    .oe_button_box .btn.oe_stat_button > span .o_stat_value {
+                    font-weight: 700;
+                    color: #f2f2f2;
+                    line-height: 1.2;
+                    font-size: 15px;
+                    text-align: center !important;
+                    }
+                    .o_form_view .oe_button_box .btn.oe_stat_button > .o_stat_info .o_stat_text, .o_form_view
+                    .oe_button_box .btn.oe_stat_button > span .o_stat_text {
+                    line-height: 1.2;
+                    text-align: center !important;
+                    }
+                    .o_form_view .oe_button_box .btn.oe_stat_button > .o_stat_info, .o_form_view .oe_button_box
+                    .btn.oe_stat_button > span {
+                    display: inline-block;
+                    vertical-align: middle;
+                    font-weight: 500;
+                    padding-right: 0px !important;
+                    line-height: 1.3;
+                    width: 100% !important;
+                    }
+                    .o_form_view .oe_button_box .btn.oe_stat_button {
+                    color: #f2f2f2;
+                    height: 44px;
+                    padding: 0 0px 0 0 !important;
+                    text-align: left;
+                    white-space: nowrap;
+                    background-color: transparent;
+                    opacity: 1 !important;
+                    border-radius: 0px;
+                    margin-bottom: 0;
+                    }
+
+                    .btn.oe_stat_button {
+                    background-color: #0b5d74 !important;
+                    }
+
+                    .o_form_view .oe_button_box .btn.oe_stat_button {
+                    color: #FFF;
+                    }
+
+                    .o_stat_text:hover {
+                    color: #eae6e6 !important;
+                    }
+
+                    .btn.oe_stat_button:hover {
+                    color: #eceaea !important;
+                    }
+
+                    .o_form_view .oe_button_box .btn.oe_stat_button > .o_stat_info .o_stat_value, .o_form_view
+                    .oe_button_box .btn.oe_stat_button > span .o_stat_value {
+                    color: #fff !important;
+                    }
+
+                    .oe_button_box .fa {
+                    color: #fff !important;
+                    }
+                </style>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" name="account.action_move_line_select"
+                                string="Journal Items" type="action" icon="fa-bars"/>
+                    </div>
+                    <div class="row field_color">
+                        <field name="deprecated" invisible="1"/>
+                        <field name="tag_ids" widget="many2many_tags" domain="[('applicability', '!=', 'taxes')]"
+                               context="{'default_applicability': 'accounts'}" options="{'no_create_edit': True}"
+                               invisible="1"/>
+                        <field name="tax_ids" widget="many2many_tags" domain="[('company_id','=',company_id)]"
+                               attrs="{'invisible': [('internal_group', '=', 'off_balance')]}" invisible="1"/>
+                        <field name="group_id" invisible="1"/>
+                        <field name="internal_type" invisible="1" readonly="1"/>
+                        <field name="internal_group" invisible="1" readonly="1"/>
+                        <label for="reconcile" invisible="1"
+                               attrs="{'invisible': ['|', ('internal_type','=','liquidity'), ('internal_group', '=', 'off_balance')]}"/>
+                        <div attrs="{'invisible': ['|', ('internal_type','=','liquidity'), ('internal_group', '=', 'off_balance')]}"
+                             invisible="1">
+                            <field name="reconcile"/>
+                            <button name="action_open_reconcile" class="oe_link" type="object"
+                                    string=" -> Reconcile" attrs="{'invisible': [('reconcile', '=', False)]}"/>
+                        </div>
+                        <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                        <field name="currency_id" options="{'no_create': True}" groups="base.group_multi_currency"/>
+                        <div class="col-4">
+                            <label for="code" string="Code" class="w-100"/>
+                            <field name="code" placeholder="code" class="w-100"/>
+                        </div>
+                        <div class="col-4">
+                            <label for="name" string="Name" class="w-100"/>
+                            <field name="name" class="w-100"/>
+                        </div>
+                        <div class="col-4">
+                            <label for="user_type_id" string="Type" class="w-100"/>
+                            <field name="user_type_id" class="w-100" widget="account_hierarchy_selection"/>
+                        </div>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_account_list" model="ir.ui.view">
+        <field name="name">account.account.list</field>
+        <field name="model">account.account</field>
+        <field name="arch" type="xml">
+            <tree string="Chart of accounts">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="user_type_id"/>
+                <field name="currency_id" options="{'no_create': True}" groups="base.group_multi_currency"/>
+                <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--    <record id="view_account_account_kanban" model="ir.ui.view">-->
+    <!--        <field name="name">account.account.kanban</field>-->
+    <!--        <field name="model">account.account</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <kanban class="o_kanban_mobile">-->
+    <!--                <field name="name"/>-->
+    <!--                <field name="code"/>-->
+    <!--                <field name="user_type_id"/>-->
+    <!--                <templates>-->
+    <!--                    <t t-name="kanban-box">-->
+    <!--                        <div t-attf-class="oe_kanban_global_click">-->
+    <!--                            <div class="row">-->
+    <!--                                <div class="col-6">-->
+    <!--                                    <strong>-->
+    <!--                                        <field name="name"/>-->
+    <!--                                    </strong>-->
+    <!--                                </div>-->
+    <!--                                <div class="col-6 text-right">-->
+    <!--                                    <span class="badge badge-pill">-->
+    <!--                                        <t t-esc="record.code.value"/>-->
+    <!--                                    </span>-->
+    <!--                                </div>-->
+    <!--                            </div>-->
+    <!--                            <div>-->
+    <!--                                <strong>Type:</strong>-->
+    <!--                                <t t-esc="record.user_type_id.value"/>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                    </t>-->
+    <!--                </templates>-->
+    <!--            </kanban>-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+    <record id="view_account_search" model="ir.ui.view">
+        <field name="name">account.account.search</field>
+        <field name="model">account.account</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <search string="Accounts">
+                <field name="name" filter_domain="['|', ('name','ilike',self), ('code','=like',str(self)+'%')]"
+                       string="Account"/>
+                <filter string="Receivable Accounts" name="receivableacc"
+                        domain="[('internal_type','=','receivable')]"/>
+                <filter string="Payable Accounts" name="payableacc" domain="[('internal_type','=','payable')]"/>
+                <filter string="Equity" name="equityacc" domain="[('internal_group','=', 'equity')]"/>
+                <filter string="Assets" name="assetsacc" domain="[('internal_group','=', 'asset')]"/>
+                <filter string="Liability" name="liabilityacc" domain="[('internal_group','=', 'liability')]"/>
+                <filter string="Income" name="incomeacc" domain="[('internal_group','=', 'income')]"/>
+                <filter string="Expenses" name="expensesacc" domain="[('internal_group','=', 'expense')]"/>
+                <separator/>
+                <filter string="Account with Entries" name="used" domain="[('used', '=', True)]"/>
+                <separator/>
+                <field name="user_type_id"/>
+                <group expand="0" string="Group By">
+                    <filter string="Account Type" name="accounttype" domain="" context="{'group_by':'user_type_id'}"/>
+                </group>
+                <searchpanel class="account_root">
+                    <field name="root_id" icon="fa-filter"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_account_form" model="ir.actions.act_window">
+        <field name="name">Chart of Accounts</field>
+        <field name="res_model">account.account</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="averigo_accounting.view_account_search"/>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('view_account_list')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_account_form')})]"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add a new account
+            </p>
+            <p>
+                An account is part of a ledger allowing your company
+                to register all kinds of debit and credit transactions.
+                Companies present their annual accounts in two main parts: the
+                balance sheet and the income statement (profit and loss
+                account). The annual accounts of a company are required by law
+                to disclose a certain amount of information.
+            </p>
+        </field>
+    </record>
+    <record id="inherit_view_account_type_form" model="ir.ui.view">
+        <field name="name">account.account.type.form.inherit</field>
+        <field name="model">account.account.type</field>
+        <field name="inherit_id" ref="account.view_account_type_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="replace">
+                <form string="Account Type">
+                    <sheet>
+                        <div class="row field_color">
+                            <field name="include_initial_balance" invisible="1"/>
+                            <div class="col-4 pt-2">
+                                <label for="name" string="Account Type" class="w-100"/>
+                                <field name="name" class="oe_edit_only w-100"/>
+                                <field name="name" class="oe_read_only name_font w-100"/>
+                            </div>
+                            <div class="col-4 pt-2">
+                                <label for="type" string="Type" class="w-100"/>
+                                <field name="type" class="w-100"/>
+                            </div>
+                            <div class="col-4 pt-2">
+                                <label for="internal_group" string="Parent" class="w-100"/>
+                                <field name="internal_group" class="w-100"/>
+                            </div>
+                            <div class="col-4 pt-2">
+                                <label for="bind_to" string="Bind To" class="w-100"/>
+                                <field name="bind_to" class="w-100"/>
+                            </div>
+                            <div class="col-4 pt-2">
+                                <label for="range_from" string="Range From" class="w-100"/>
+                                <field name="range_from" class="w-100"/>
+                            </div>
+                            <div class="col-4 pt-2">
+                                <label for="range_to" string="Range To" class="w-100"/>
+                                <field name="range_to" class="w-100"/>
+                            </div>
+                        </div>
+                        <div class="row field_color pt-2">
+                            <div class="col-12 col-header">
+                                <h3 style="margin:0px">Notes</h3>
+                            </div>
+                            <div class="col-12 pt-2">
+                                <field name="note"/>
+                            </div>
+                        </div>
+                    </sheet>
+                    <style>
+                        .o_field_many2manytags{max-height: 7vh; overflow: scroll;}
+                        .col-4 {
+                        min-height: 50px;
+                        }
+                        textarea {
+                        padding-left: 10px !important;
+                        padding-top: 2px !important;
+                        }
+                    </style>
+                </form>
+            </xpath>
+        </field>
+    </record>
+    <menuitem name="Financial Accounting"
+              id="menu_finance"
+              groups="base_averigo.hide_critical_menu"
+              web_icon="account,static/description/icon.png"
+              sequence="26"/>
+    <menuitem name="Accounts Receivable"
+              id="menu_accounts_receivable"
+              parent="averigo_accounting.menu_finance"
+              groups="base_averigo.hide_critical_menu"
+              sequence="1"/>
+    <menuitem name="Accounts Payable"
+              id="menu_accounts_payable"
+              parent="averigo_accounting.menu_finance"
+              groups="base_averigo.hide_critical_menu"
+              sequence="3"/>
+    <menuitem name="General Ledger"
+              id="menu_general_ledger"
+              parent="averigo_accounting.menu_finance"
+              groups="base_averigo.hide_critical_menu"
+              sequence="4"/>
+
+    <!--    accounts receivable menu-->
+    <menuitem id="menu_customer_adv_payment" name="Advance"
+              action="averigo_accounting.action_customer_adv_payment"
+              parent="averigo_accounting.menu_accounts_receivable" sequence="3"
+              groups="base_averigo.hide_critical_menu"/>
+
+    <!--    accounts payable menu-->
+    <menuitem action="averigo_purchase.action_move_in_invoice_type" parent="averigo_accounting.menu_accounts_payable"
+              name="Bills" id="menu_action_purchase_bill_accounting" sequence="1"
+              groups="base_averigo.hide_critical_menu"/>
+
+    <!--    general ledger  menu-->
+    <menuitem action="averigo_accounting.action_account_form" parent="averigo_accounting.menu_general_ledger"
+              name="Chart of Accounts" id="menu_action_chart_of_accounts" sequence="1"
+              groups="base_averigo.hide_critical_menu"/>
+    <menuitem action="account.action_account_type_form" parent="base_averigo.menu_default_setup"
+              name="General Ledger Types" id="menu_action_account_account_type" sequence="3"/>
+    <!--              groups="base_averigo.hide_critical_menu"/>-->
+    <menuitem action="averigo_accounting.action_move_journal_line" parent="averigo_accounting.menu_general_ledger"
+              name="Journal Entries" id="menu_action_journal_entries" sequence="2"
+              groups="base_averigo.hide_critical_menu"/>
+    <!--    <menuitem action="averigo_accounting.action_account_moves_all" parent="averigo_accounting.menu_general_ledger"-->
+    <!--              name="Journal Items" id="menu_action_journal_items" sequence="3"-->
+    <!--              groups="base_averigo.hide_critical_menu"/>-->
+</odoo>
