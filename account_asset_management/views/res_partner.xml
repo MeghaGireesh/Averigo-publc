@@ -1,0 +1,71 @@
+<odoo>
+
+    <record id="view_res_partner_machine_form" model="ir.ui.view">
+        <field name="name">view.res.partner.machine.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id"
+               ref="averigo_sales_order.view_res_customers_form_inherit"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//page[@name='customer_product']" position="after">
+                <page name="machine" string="Equipments" class="machine_list">
+                    <field name="machine_ids" mode="tree"
+                           options="{'no_create': True, 'no_open': True}" create="0" edit="0" readonly="1"
+                           context="{'tree_view_ref':'account_asset_management.account_machine_view_tree',
+                           'form_view_ref': 'account_asset_management.account_machine_view_form_external'}"/>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+    <!--    This Tree view is created to show the number of open case count of each employee in case management -->
+    <record id="res_partner_equipment_activity" model="ir.ui.view">
+        <field name="name">res.partner.equipment.activity.view</field>
+        <field name="model">res.partner</field>
+        <field name="priority" eval="17"/>
+        <field name="arch" type="xml">
+            <form create="0" edit="0">
+                <sheet>
+                    <field name="machine_activity_ids" widget="one2many"
+                           create="0" edit="0" readonly="1"
+                           context="{'tree_view_ref':'account_asset_management.account_asset_transfer_tree',
+                       'form_view_ref':'account_asset_management.view_account_asset_transfer_form_external'}"/>
+                </sheet>
+                <footer>
+                    <button string="Close" class="btn-danger" special="cancel"/>
+                </footer>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="view_res_partner_machine_button" model="ir.ui.view">
+        <field name="name">view.res.partner.machine.button</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base_averigo.view_res_customers_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_view_partner_events']"
+                   position="before">
+                <button name="show_all_equipment" class="oe_stat_button"
+                        type="object">
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_value">
+                            <i class="fa fa-fw o_button_icon fa-cubes"></i>
+                            <field name="machine_count"/>
+                        </span>
+                        <span class="o_stat_text">Equipments</span>
+                    </div>
+                </button>
+                <button name="equipment_history" class="oe_stat_button"
+                        type="object">
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_value">
+                            <i class="fa fa-fw o_button_icon fa-history"></i>
+                        </span>
+                        <span class="o_stat_text">Equipment History</span>
+                    </div>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <menuitem id="menu_finance_assets" name="Assets" parent="account.menu_finance" sequence="9"/>
+
+    <menuitem id="account_asset_menu" action="account_asset_action"
+              parent="menu_finance_assets"/>
+
+    <menuitem id="account_asset_compute_menu"
+              action="account_asset_compute_action" parent="menu_finance_assets"
+              sequence="110"/>
+
+    <menuitem id="menu_finance_config_assets" name="Assets"
+              parent="account.menu_finance_configuration"
+              sequence="25"/>
+
+    <menuitem id="account_asset_profile_menu"
+              action="account_asset_profile_action"
+              parent="menu_finance_config_assets"/>
+
+    <menuitem id="account_asset_group_menu" action="account_asset_group_action"
+              parent="menu_finance_config_assets"/>
+
+    <!-- Averigo Menu -->
+    <menuitem id="equipment_management_menu" name="Equipment Management"
+              sequence="10"
+              web_icon="account_asset_management,static/description/icon.png"
+              groups="base_averigo.hide_critical_menu"/>
+
+    <menuitem id="machine_management_menu" name="Equipment"
+              action="account_machine_action"
+              parent="equipment_management_menu" sequence="1"
+              groups="base_averigo.hide_critical_menu"/>
+
+    <menuitem id="service_configuration_menu" name="Configuration"
+              parent="equipment_management_menu" sequence="10"
+              groups="base_averigo.hide_critical_menu"/>
+
+    <menuitem id="machine_bill_menu" name="Equipment Bill"
+              action="action_move_asset_bill"
+              parent="equipment_management_menu" sequence="2"
+              groups="base.group_no_one" active="0"/>
+
+    <menuitem id="menu_account_asset_transfer" name="Equipment Activity"
+              action="action_account_asset_transfer"
+              parent="equipment_management_menu" sequence="3"
+              groups="base_averigo.hide_critical_menu"/>
+
+    <menuitem id="machine_type_menu" name="Equipment Type"
+              action="action_machine_type"
+              parent="service_configuration_menu" sequence="1"
+              groups="base_averigo.hide_critical_menu"/>
+
+    <menuitem id="machine_name_menu" name="Equipment Name"
+              action="action_machine_name"
+              parent="service_configuration_menu" sequence="1"
+              groups="base_averigo.hide_critical_menu"/>
+
+    <menuitem id="machine_model_menu" name="Equipment Model"
+              action="action_machine_model"
+              parent="service_configuration_menu" sequence="1"
+              groups="base_averigo.hide_critical_menu"/>
+
+    <menuitem id="machine_model_number_menu" name="Equipment Model Number"
+              action="action_machine_model_number"
+              parent="service_configuration_menu" sequence="1"
+              groups="base_averigo.hide_critical_menu"/>
+
+    <menuitem id="machine_location_menu" name="Equipment Area/POS Location"
+              action="action_account_machine_location"
+              parent="service_configuration_menu" sequence="2"
+              groups="base_averigo.hide_critical_menu" active="1"/>
+
+    <menuitem id="menu_asset_transfer_type" name="Equipment Transfer type"
+              action="action_asset_transfer_type"
+              parent="service_configuration_menu" sequence="3"
+              groups="base_averigo.hide_critical_menu" active="0"/>
+
+    <menuitem id="menu_account_asset_profile" name="Equipment Profile"
+              action="account_asset_profile_action"
+              parent="service_configuration_menu" sequence="3"
+              groups="base_averigo.hide_critical_menu" active="0"/>
+    <!--    <menuitem id="menu_account_asset_profile" name="Equipment Transfers" action="action_account_asset_transfer"-->
+    <!--              parent="service_configuration_menu" sequence="3" groups="base_averigo.hide_critical_menu"/>-->
+
+
+</odoo>

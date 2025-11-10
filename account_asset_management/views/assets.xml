@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_tests" name="Equipment view Asset"
+              inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript"
+                    src="/account_asset_management/static/src/js/form_render.js"></script>
+        </xpath>
+    </template>
+    <function name="write" model="ir.model.data">
+        <function name="search" model="ir.rule">
+            <value eval="[('name', '=', 'account_asset_management')]"/>
+        </function>
+        <value eval="{'noupdate': False}"/>
+    </function>
+</odoo>

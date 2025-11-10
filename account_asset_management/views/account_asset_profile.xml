@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="account_asset_profile_view_form" model="ir.ui.view">
+            <field name="name">account.asset.profile.form</field>
+            <field name="model">account.asset.profile</field>
+            <field name="arch" type="xml">
+                <form string="Asset profile">
+                    <style>
+                        .o_field_many2manytags{max-height: 7vh; overflow: scroll;}
+                        .col-4 {
+                        min-height: 50px;
+                        }
+                        textarea {
+                        padding-left: 10px !important;
+                        padding-top: 2px !important;
+                        }
+                    </style>
+                    <sheet>
+                        <div class="field_color">
+                            <div class="row">
+                                <field name="active" invisible="1"/>
+                                <field name="company_id" widget="selection" invisible="1"/>
+                                <div class="col-4 pt-2">
+                                    <label for="name" string="Name" class="w-100"/>
+                                    <field name="name" class="w-100"/>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="group_ids" string="Asset Groups" class="w-100"/>
+                                    <field name="group_ids" widget="many2many_tags" class="w-100"/>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="asset_product_item" string="Create an asset by product item"
+                                           class="w-100" style="margin-bottom: 8px !important;"/>
+                                    <div class="checklist">
+                                        <field name="asset_product_item"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4 pt-2">
+                                    <label for="journal_id" string="Journal" class="w-100"/>
+                                    <field name="journal_id" class="w-100"/>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="account_asset_id" string="Asset Account" class="w-100"/>
+                                    <field name="account_asset_id" class="w-100"/>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="account_depreciation_id" string="Depreciation Account" class="w-100"/>
+                                    <field name="account_depreciation_id" class="w-100"/>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="account_expense_depreciation_id" string="Depr. Expense Account"
+                                           class="w-100"/>
+                                    <field name="account_expense_depreciation_id" class="w-100"/>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="account_plus_value_id" string="Plus-Value Account" class="w-100"/>
+                                    <field name="account_plus_value_id" class="w-100"/>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="account_min_value_id" string="Min-Value Account" class="w-100"/>
+                                    <field name="account_min_value_id" class="w-100"/>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="account_residual_value_id" string="Residual Value Account"
+                                           class="w-100"/>
+                                    <field name="account_residual_value_id" class="w-100"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-header mt-3">
+                                    <h3 style="margin:0px">Depreciation Dates</h3>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="method_time" string="Time Method" class="w-100"/>
+                                    <field name="method_time" class="w-100"/>
+                                </div>
+                                <div class="col-4 pt-2"
+                                     attrs="{'invisible': [('method_time', 'not in', ['number', 'year'])]}">
+                                    <label for="method_number" string="Number of Years" class="w-100"/>
+                                    <field name="method_number" class="w-100"
+                                           attrs="{'required': [('method_time', 'in', ['number', 'year'])]}"/>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="method_period" string="Period Length" class="w-100"/>
+                                    <field name="method_period" class="w-100"/>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="days_calc" string="Calculate by days" class="w-100"
+                                           style="margin-bottom: 8px !important;"/>
+                                    <div class="checklist">
+                                        <field name="days_calc"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-header mt-3">
+                                    <h3 style="margin:0px">Depreciation Method</h3>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="method" string="Computation Method" class="w-100"/>
+                                    <field name="method" class="w-100"/>
+                                </div>
+                                <div class="col-4 pt-2"
+                                     attrs="{'invisible': [('method', 'in', ['linear', 'linear-limit'])]}">
+                                    <label for="method_progress_factor" string="Degressive Factor" class="w-100"/>
+                                    <field name="method_progress_factor" class="w-100"
+                                           attrs="{'required': [('method', 'in', ['degressive', 'degr-linear', 'degr-limit'])]}"/>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="prorata" string="Prorata Temporis" class="w-100"
+                                           style="margin-bottom: 8px !important;"/>
+                                    <div class="checklist">
+                                        <field name="prorata"
+                                               attrs="{'readonly':[('method_time','!=','year')]}"/>
+                                    </div>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="open_asset" string="Skip Draft State" class="w-100"
+                                           style="margin-bottom: 8px !important;"/>
+                                    <div class="checklist">
+                                        <field name="open_asset"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-header mt-3">
+                                    <h3 style="margin:0px">Analytic Information</h3>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="account_analytic_id" string="Analytic Account" class="w-100"/>
+                                    <field name="account_analytic_id" class="w-100"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-header mt-3">
+                                    <h3 style="margin:0px">Notes</h3>
+                                </div>
+                                <div class="col-12 pt-2">
+                                    <field name="note" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="account_asset_profile_view_tree" model="ir.ui.view">
+            <field name="name">account.asset.profile.tree</field>
+            <field name="model">account.asset.profile</field>
+            <field name="arch" type="xml">
+                <tree string="Asset profile">
+                    <field name="name"/>
+                    <field name="journal_id"/>
+                    <field name="method"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="account_asset_profile_view_search" model="ir.ui.view">
+            <field name="name">account.asset.profile.search</field>
+            <field name="model">account.asset.profile</field>
+            <field name="arch" type="xml">
+                <search string="Search Asset Profile">
+                    <field name="name" string="Asset Profile"/>
+                    <field name="journal_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="account_asset_profile_action" model="ir.actions.act_window">
+            <field name="name">Asset Profiles</field>
+            <field name="res_model">account.asset.profile</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,106 @@
+<odoo>
+
+    <record id="view_machine_location_form" model="ir.ui.view">
+        <field name="name">view.machine.location.form</field>
+        <field name="model">account.asset.location</field>
+        <field name="arch" type="xml">
+            <form string="Equipment Location">
+                <sheet>
+                    <div class="oe_title">
+                        <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" text="Archived" bg_color="bg-danger"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
+                        <label for="name" string="Equipment Location" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" class="oe_inline" required="1"/>
+                        </h1>
+                        <label for="code" string="Equipment Code" class="oe_edit_only"/>
+                        <h2 class="o_row">
+                            <field name="code" required="1"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="warehouse" invisible="1"/>
+                            <field name="scrap" />
+                        </group>
+                        <group/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_machine_location_tree" model="ir.ui.view">
+        <field name="name">view.machine.location.tree</field>
+        <field name="model">account.asset.location</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_machine_location" model="ir.actions.act_window">
+        <field name="name">Equipment Location</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.asset.location</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_account_machine_location_form" model="ir.ui.view">
+        <field name="name">view.account.machine.location.form</field>
+        <field name="model">stock.location</field>
+        <field name="arch" type="xml">
+            <form string="Equipment Location">
+                <sheet>
+                    <field name="active" invisible="1"/>
+                    <widget name="web_ribbon" text="Archived" bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"/>
+                    <div class="row field_color">
+                        <div class="col-4 pt-2">
+                            <label for="name" string="Location Name" class="w-100"/>
+                            <field name="name" class="w-100" required="1"/>
+<!--                            <field name="name" class="oe_read_only name_font w-100" required="1"/>-->
+                        </div>
+                        <div class="col-4 pt-2" invisible="1">
+                            <label for="warehouse_id" string="Location" class="w-100" invisible="1"/>
+                            <field name="warehouse_id" domain="[('location_type', '=', 'view')]" class="w-100" invisible="1"/>
+                        </div>
+                        <div class="col-4 pt-2">
+                            <label for="scrap" string="Scrap" class="w-100" style="margin-bottom: 8px !important;"/>
+                            <div class="checklist">
+                                <field name="scrap"/>
+                                <field name="area_or_pos" invisible="1"/>
+                            </div>
+                        </div>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_account_machine_location_tree" model="ir.ui.view">
+        <field name="name">view.account.machine.location.tree</field>
+        <field name="model">stock.location</field>
+        <field name="arch" type="xml">
+            <tree string="Equipment Location">
+                <field name="name"/>
+                <field name="warehouse_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_account_machine_location" model="ir.actions.act_window">
+        <field name="name">Equipment Location</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.location</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_machine_location', '=', True), ('usage', '=', 'internal')]</field>
+        <field name="context">{'default_is_machine_location': True, 'default_usage': 'internal'}</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('view_account_machine_location_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_account_machine_location_form')})]"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,2525 @@
+<odoo>
+
+    <record id="account_machine_view_form" model="ir.ui.view">
+        <field name="name">account.machine.form</field>
+        <field name="model">account.asset</field>
+        <field name="priority" eval="0"/>
+        <field name="arch" type="xml">
+            <form string="Equipment" duplicate="0">
+                <style>
+                    .o_field_many2manytags {
+                    max-height: 7vh;
+                    overflow: scroll;
+                    }
+                    .col-4 {
+                    min-height: 50px;
+                    }
+                    textarea {
+                    padding-left: 10px !important;
+                    padding-top: 2px !important;
+                    }
+                    .col-12 {
+                    padding: 10px !important;
+                    }
+                    button.fa.fa-external-link.btn.btn-secondary.o_external_button{
+                    padding-left:1.5%;
+                    padding-right:0;
+                    }
+                    .hr_class{
+                    padding: 0px 10px 0px 10px !important;
+                    height:15px;
+                    }
+
+                    /*btn*/
+                    .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                    .o_stat_info .o_stat_value,
+                    .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                    span .o_stat_value {
+                    font-weight: 700;
+                    color: #f2f2f2 !important;
+                    line-height: 1.2;
+                    font-size: 13px !important;
+                    text-align: center !important;
+                    }
+                    .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                    .o_stat_info .o_stat_value,
+                    .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                    span .o_stat_value {
+                    font-weight: 700;
+                    color: #f2f2f2;
+                    line-height: 1.2;
+                    font-size: 15px;
+                    text-align: center !important;
+                    }
+                    .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                    .o_stat_info .o_stat_text,
+                    .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                    span .o_stat_text {
+                    line-height: 1.2;
+                    text-align: center !important;
+                    }
+                    .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                    .o_stat_info,
+                    .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                    span {
+                    display: inline-block;
+                    vertical-align: middle;
+                    font-weight: 500;
+                    max-width: 100% !important;
+                    padding-right: 0px !important;
+                    line-height: 1.3;
+                    width: 100% !important;
+                    }
+                    .o_form_view .oe_machine_button .btn.oe_stat_button {
+                    color: #f2f2f2;
+                    height: 44px;
+                    padding: 0 0px 0 0 !important;
+                    text-align: left;
+                    white-space: nowrap;
+                    background-color: transparent;
+                    opacity: 1 !important;
+                    border-radius: 0px;
+                    margin-bottom: 0;
+                    display:flex;
+                    }
+
+                    .btn.oe_stat_button {
+                    background-color: #0b5d74 !important;
+                    }
+
+                    .o_form_view .oe_machine_button .btn.oe_stat_button {
+                    color: #fff;
+                    }
+
+                    .o_stat_text:hover {
+                    color: #eae6e6 !important;
+                    }
+
+                    .btn.oe_stat_button:hover {
+                    color: #eceaea !important;
+                    }
+
+                    .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                    .o_stat_info .o_stat_value,
+                    .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                    span .o_stat_value {
+                    color: #fff !important;
+                    }
+
+                    .oe_machine_button .fa {
+                    color: #fff !important;
+                    }
+                    .o_field_widget.o_field_monetary.o_input {
+                    width: 100%;
+                    }
+                    .o_not_full .oe_machine_button {
+                    position: absolute;
+                    display: flex;
+                    flex-direction: column;
+                    width: 15%;
+                    height: 100%;
+                    left: -15%;
+                    }
+
+                    .o_form_view .oe_machine_button .btn.oe_stat_button {
+                    color: #fff;
+                    margin: 0.2rem 0;
+                    width: 100%;
+                    }
+                    .o_form_view .oe_machine_button {
+                    position: absolute;
+                    display: flex;
+                    flex-direction: column;
+
+                    left: -14vw !important;
+                    width: 12vw !important;
+                    <!--                    height: 30% !important;-->
+                    <!--                    overflow-y: scroll;-->
+                    }
+                    .o_form_view .o_form_sheet_bg > .o_form_sheet {
+                    overflow : visible !important;
+                    <!--                    margin-left: 15%;-->
+                    }
+                    .o_form_view .oe_machine_button .btn.oe_stat_button >
+                    .o_stat_info {
+                    padding: 5%;
+                    }
+
+                    .o_form_view
+                    .oe_machine_button
+                    .btn.oe_stat_button
+                    > .o_stat_info
+                    .o_stat_value,
+                    .o_form_view .oe_machine_button .btn.oe_stat_button > span
+                    .o_stat_value {
+                    display: inline-block;
+                    margin-right: 2%;
+                    }
+                    .o_form_view .oe_machine_button .btn.oe_stat_button >
+                    .o_stat_info .o_stat_text,
+                    .o_form_view .oe_machine_button .btn.oe_stat_button > span
+                    .o_stat_text {
+                    display: inline-block;
+                    }
+                    .o_field_widget o_stat_info {
+                    display: inline-block;
+                    padding: 5%;
+                    }
+                    <!--                    New chnage-->
+                    .table_div{
+                    display:table;
+
+                    }
+                    .row_div{
+                    display:table-row !important;
+                    }
+                    .col_div{
+                    display: table-cell;
+
+                    }
+                    .td_label {
+                    border-right: 1px solid #0000002b;
+                    border-radius: 2px;
+                    width: 100px;
+                    min-width: 100px;
+                    max-width: 100px;
+                    font-size: 109%;
+                    line-height: 1.6;
+                    white-space: initial;
+                    word-wrap: break-word;
+
+                    }
+                    .td_fields.col_div{
+                    padding:0px 10px !important;
+                    padding-right:30px !important;
+                    }
+                    .o_field_widget {
+                    white-space: initial;
+                    word-wrap: break-word;
+                    }
+                    .o_form_view .o_group .o_form_label {
+                    font-weight: 900 !important;
+                    margin-right: 0px !important;
+                    padding-right:0.2vw !important;
+                    margin-left: 0px;
+                    font-size: 109%;
+                    margin:0px !important;
+                    width:100
+                    }
+                    .td_label {
+                    border-right: 1px solid #0000002b;
+                    border-radius: 2px;
+                    width: 100px;
+                    min-width: 100px;
+                    max-width: 100px;
+                    }
+                    td.td_fields {
+                    padding: 0px 10px !important;
+                    width: 150px !important;
+                    min-width: 150px !important;
+                    max-width: 150px !important;
+                    padding-right:30px !important;
+                    }
+                    .modal-dialog.modal-lg {
+                    max-width: 80vw !important;
+                    }
+                    .o_field_widget {
+                    white-space: initial;
+                    word-wrap: break-word;
+                    }
+
+                    .o_chatter .o_chatter_topbar {
+                    display: flex;
+                    flex-wrap: wrap;
+                    }
+
+                    }
+                    @media (max-width: 1700px) {
+                    .o_action_manager{
+                    overflow-y: none !important;
+                    }
+                    .o_form_view .oe_machine_button {
+                    position: absolute;
+                    display: flex;
+                    flex-direction: column;
+                    left: -16%;
+                    top: 0%;
+                    width: 15%;
+                    height: auto;
+                    overflow-y: scroll;
+                    }
+                    }
+                    @media (max-width: 1500px) {
+                    .o_form_view .oe_machine_button .btn.oe_stat_button {
+                    margin-top: 1%;
+                    margin-right: 2%;
+                    padding-right: 2% !important;
+                    }
+                    .o_form_view .oe_machine_button{
+                    width:100% !important;
+                    }
+                    .o_field_widget.o_stat_info{
+                    display:flex !important;
+                    }
+                    .o_form_view .o_form_sheet_bg > .o_form_sheet {
+                    margin: 5%;
+                    overflow:none !important;
+                    }
+                    .o_form_view .oe_machine_button {
+                    position: initial;
+                    display: flex;
+                    flex-direction: row;
+                    width: 100%;
+                    margin-bottom: 2%;
+                    }
+                    .o_field_widget.o_stat_info.o_readonly_modifier
+                    {
+                    padding-right:5px;
+                    }
+                    }
+                    .image-dontainer{
+                    display:flex;
+                    }
+                    .o_form_view .o_group{
+                    margin:0px !important;
+
+                    }
+                </style>
+                <header>
+                    <field name="method_time" invisible="1"/>
+                    <button name="validate" string="Confirm Equipment"
+                            type="object"
+                            class="oe_highlight" invisible="1"/>
+                    <button name="set_to_draft" states="open"
+                            string="Set to Draft" type="object" invisible="1"
+                            groups="account.group_account_manager"
+                            class="btn btn-white"/>
+                    <button name="set_to_close" states="open"
+                            string="Sell or Dispose" type="object"
+                            class="btn btn o_form_button_cancel" invisible="1"/>
+                    <button name="remove" string="Remove" type="object"
+                            invisible="1"/>
+                    <!--                            attrs="{'invisible':['|', ('method_time', '!=', 'year'), ('state', 'not in', ['open', 'close'])]}"-->
+                    <!--                            help="Asset removal."/>-->
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,open,close"
+                           attrs="{'invisible':[('id','=',False)]}"/>
+                </header>
+                <sheet style="min-width:100% !important;">
+                    <widget name="web_ribbon" text="Inactive"
+                            bg_color="bg-danger"
+                            attrs="{'invisible':[('state', '!=', 'removed')]}"/>
+                    <div class="oe_read_only" invisible="1">
+                        <div class="alert alert-info " role="alert"
+                             style="margin-bottom:0px;"
+                             attrs="{'invisible':[('state', 'in', ['open','close'])]}">
+                            Must confirm the equipment before you create
+                            maintenance requests.
+                        </div>
+                    </div>
+                    <!-- - - - - - - - - - - - - - - - - Smart Buttons - - - - - - - - - - - - - - - - - - - - - -->
+                    <div name="button_box" class="oe_machine_button"
+                         attrs="{'invisible':[('id','=',False)]}">
+                        <button name="open_note" class="oe_stat_button"
+                                type="object">
+                            <div class="o_field_widget o_stat_info"
+                                 style="display:flex">
+                                <span class="o_stat_value">
+                                    <i class="fa fa-fw o_button_icon fa-file-text-o"></i>
+                                </span>
+                                <span style="display:flex">
+                                    <field name="notes_count"
+                                           widget="statinfo" nolabel="1"
+                                           options="{'reload_on_button': true}"/>
+                                    <span class="o_stat_text">Notes</span>
+                                </span>
+                            </div>
+                        </button>
+                        <button name="open_activities" class="oe_stat_button"
+                                invisible="1"
+                                type="object">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <i class="fa fa-fw o_button_icon fa-calendar"></i>
+                                </span>
+                                <span class="o_stat_text">Activities</span>
+                            </div>
+                        </button>
+                        <button name="action_view_asset_transfer" type="object"
+                                class="oe_stat_button"
+                                context="{'create_from_machine': 1}"
+                                attrs="{'invisible':['|',('state','=','close'), ('state','=','removed')]}">
+                            <div class="o_field_widget o_stat_info"
+                                 style="display:flex">
+                                <span class="o_stat_value">
+                                    <i class="fa fa-fw o_button_icon fa-exchange"></i>
+                                </span>
+                                <span class="o_stat_text">Equipment Activity
+                                </span>
+                            </div>
+                        </button>
+                        <button name="action_get_attachment_view"
+                                class="oe_stat_button"
+                                type="object">
+                            <div class="o_field_widget o_stat_info"
+                                 style="display:flex">
+                                <span class="o_stat_value">
+                                    <i class="fa fa-fw o_button_icon fa-file-text-o"></i>
+
+                                </span>
+                                <span style="display:flex">
+                                    <field name="attachment_number"
+                                           widget="statinfo" nolabel="1"
+                                           options="{'reload_on_button': true}"/>
+                                    <span class="o_stat_text">Attachments</span>
+                                </span>
+                            </div>
+                        </button>
+                        <button name="open_location_history" type="object"
+                                class="oe_stat_button">
+                            <div class="o_field_widget o_stat_info"
+                                 style="display:flex">
+                                <span class="o_stat_value">
+                                    <i class="fa fa-fw o_button_icon fa-globe"></i>
+                                </span>
+                                <span style="display:flex">
+
+                                    <field name="activity_count"
+                                           widget="statinfo" nolabel="1"
+                                           options="{'reload_on_button': true}"/>
+                                    <span class="o_stat_text">Activity History
+                                    </span>
+                                </span>
+
+                            </div>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" text="Archived"
+                            bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"/>
+                    <field name="active" invisible="1"/>
+                    <field name="group_ids" widget="many2many_tags"
+                           invisible="1"/>
+                    <field name="is_customer_location" invisible="1"/>
+                    <!--                    Main Group          -->
+                    <div class="field_color">
+                        <div class="row pt-2" style="color:#3d9bbb !important">
+                            <div class="col-3 image-dontainer">
+                                <field name="image_1920" widget="image"
+                                       class="oe_avatar"
+                                       options="{&quot;zoom&quot;: true, &quot;preview_image&quot;:&quot;image_1920&quot;}"/>
+                            </div>
+                            <div class="col-3">
+                                <field name="operator_locations_ids"
+                                       invisible="1"/>
+                                <label for="operator_location_id"
+                                       string="Warehouse"
+                                       class="w-100 oe_read_only"
+                                       attrs="{'invisible':[('location_partner_id','!=',False)]}"/>
+                                <label for="operator_location_id"
+                                       string="Warehouse" class="w-100 "
+                                       attrs="{'invisible':['|',('location_partner_id','!=',False),('id','!=',False)]}"/>
+                                <label for="location_partner_id"
+                                       string="Customer" class="w-100"
+                                       attrs="{'invisible':[('location_partner_id','=',False)]}"/>
+
+                                <field name="id" invisible="1"/>
+                                <field name="operator_location_id" required="1"
+                                       class="w-100"
+                                       options="{'no_create': True, 'no_create_edit':True,'no_open':True}"
+                                       attrs="{'invisible':[('id','!=',False)]}"
+                                       readonly="0"/>
+                                <field name="operator_location_id"
+                                       class="w-100 oe_read_only"
+                                       options="{'no_create': True, 'no_create_edit':True,'no_open':True}"
+                                       attrs="{'invisible':[('location_partner_id','!=',False)],'readonly':[('id','!=',False)]}"
+                                       readonly="0"/>
+                                <field name="location_partner_id" class="w-100"
+                                       attrs="{'invisible':[('location_partner_id','=',False)]}"
+                                       readonly="1"
+                                       widget="res_partner_many2one"
+                                       context="{'show_address_averigo': 1,}"
+                                       options="{'always_reload': True}"
+                                />
+                            </div>
+                            <div class="col-3"
+                                 attrs="{'invisible':[('location_partner_id','=',False)]}">
+                                <field name="location_type" invisible="1"/>
+                                <label for="machine_location_id"
+                                       string="Area / Pos" class="w-100"
+                                       attrs="{'invisible':['|',('location_type','=','micro_market'),('location_partner_id','=',False)]}"/>
+                                <label for="micro_market_id"
+                                       string="Micro Market" class="w-100"
+                                       attrs="{'invisible':['|',('location_type','!=','micro_market'),('location_partner_id','=',False)]}"/>
+                                <field name="micro_market_id" readonly="1"
+                                       class="w-100"
+                                       attrs="{'invisible':['|',('location_type','!=','micro_market'),('location_partner_id','=',False)]}"/>
+
+                                <field name="machine_location_id" required="1"
+                                       class="w-100"
+                                       attrs="{'invisible':['|',('location_type','!=','order'),('location_partner_id','=',False)]}"
+                                       domain="[('area_partner_id','=',location_partner_id),('area_or_pos','=',True)]"
+                                       context="{'default_area_or_pos':True,'default_area_partner_id':location_partner_id,'default_is_machine_location': True,'default_usage': 'internal','form_view_ref':'account_asset_management.view_account_machine_location_form'}"
+                                       readonly="1"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 hr_class">
+                            <hr/>
+                        </div>
+                    </div>
+                    <div class="row pt-2">
+                        <div class="col-3 mb-3">
+                            <label for="code" string="Equipment Code"
+                                   class="w-100"/>
+                            <field name="code" required="1" class="w-100"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="machine_type_id" string="Equipment Type"
+                                   class="w-100"/>
+                            <field name="machine_type_id" required="1"
+                                   class="w-100"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','open'])]}"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="equipment_name_id"
+                                   string="Equipment Name" class="w-100"/>
+                            <field name="name" class="oe_edit_only w-100"
+                                   invisible="1"/>
+                            <field name="name" class="w-100 name_font"
+                                   invisible="1"/>
+                            <field name="equipment_name_id" required="1"
+                                   class="w-100"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','open'])]}"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <field name="serial_readable" invisible="1"/>
+                            <label for="serial_no" string="Serial No"
+                                   class="w-100"/>
+                            <field name="serial_no" string="Serial No"
+                                   class="w-100"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','open'])]}"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="asset_no" string="Asset No"
+                                   class="w-100"/>
+                            <field name="asset_no" class="w-100"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','open'])]}"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <field name="model_redable" invisible="1"/>
+                            <label for="equipment_model_id" string="Model"
+                                   class="w-100"/>
+                            <field name="model" class="w-100" invisible="1"/>
+                            <field name="equipment_model_id" class="w-100"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','open'])]}"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="equipment_model_no_id" string="Model No"
+                                   class="w-100"/>
+                            <field name="model_no" class="w-100"
+                                   invisible="1"/>
+                            <field name="equipment_model_no_id" class="w-100"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','open'])]}"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="machine_frontage"
+                                   string="Equipment Frontage" class="w-100"/>
+                            <field name="machine_frontage" class="w-100"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 hr_class">
+                            <hr/>
+                        </div>
+                    </div>
+                    <group string="Other Details" name="other" class=""/>
+                    <div class="row pt-2">
+                        <div class="col-3 mb-3">
+                            <label for="finance_type" string="Loan/Lease"
+                                   class="w-100"/>
+                            <field name="finance_type" class="w-100"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','open'])]}"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="manufacture" string="Manufacture"
+                                   class="w-100"/>
+                            <field name="manufacture" class="w-100"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','open'])]}"/>
+                        </div>
+
+                        <div class="col-3 mb-3">
+                            <label for="partner_id" string="Distributor"
+                                   class="w-100"/>
+                            <field name="partner_id" class="w-100"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','open'])]}"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="purchase_value" string="Purchase Value"
+                                   class="w-100"/>
+                            <field name="purchase_value" widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"
+                                   attrs="{'readonly':['|', ('move_line_check', '=', True), ('state', 'not in', ['draft','open'])],'required':[('finance_type','=','own')]}"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="date_start" string="Purchase Date"
+                                   class="w-100"/>
+                            <field name="date_start"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','open'])]}"
+                                   class="w-100"/>
+
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="machine_age" string="Equipment Age"
+                                   class="w-100"/>
+                            <field name="machine_age" class="w-100"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="warranty" string="Warranty"
+                                   class="w-100"/>
+                            <field name="warranty" class="w-100"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','open'])]}"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="warranty_date" string="Warranty End"
+                                   class="w-100"/>
+                            <field name="warranty_date" class="w-100"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="is_inventory" string="Inventory"
+                                   class="w-100"/>
+                            <field name="is_inventory" class="w-100"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="is_telemetry" string="Telemetry"
+                                   class="w-100"/>
+                            <field name="is_telemetry" class="w-100"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="is_credit_Card_reader"
+                                   string="Credit Card Reader"
+                                   class="w-100"/>
+                            <field name="is_credit_Card_reader" class="w-100"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="is_energy_star" string="Energy Star"
+                                   class="w-100"/>
+                            <field name="is_energy_star" class="w-100"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="is_healt_wellness"
+                                   string="Health and Wellness"
+                                   class="w-100"/>
+                            <field name="is_healt_wellness" class="w-100"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="last_transfer_date"
+                                   string="Install Date"
+                                   class="w-100"/>
+                            <field name="last_transfer_date" class="w-100"
+                                   readonly="1"/>
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-12 hr_class">
+                            <hr/>
+                        </div>
+                    </div>
+                    <group name="maintenance_details" invisible="1"/>
+                    <notebook>
+                        <page name="loan_details" string="Loan Details"
+                              invisible="1"
+                              attrs="{'invisible': [('finance_type', '=', 'lease')]}">
+                            <group string="Account" name="account" class="">
+                                <table style="width:100%;">
+                                    <tbody style="width:100%;">
+                                        <tr>
+                                            <td class="td_label col_div">
+                                                <label for="account_analytic_id"
+                                                       string="Analytic account"
+                                                       class="w-100"/>
+                                            </td>
+                                            <td class="td_fields col_div">
+                                                <field name="account_analytic_id"
+                                                       class="w-100"
+                                                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                            </td>
+
+                                            <td class="td_label col_div">
+                                                <label for="profile_id"
+                                                       string="Equipment Profile"
+                                                       class="w-100"/>
+                                            </td>
+                                            <td class="td_fields col_div">
+                                                <field name="profile_id"
+                                                       class="w-100"
+                                                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+
+                                            </td>
+                                            <td class="td_label col_div">
+                                                <label for="loan_base"
+                                                       string="Loan Value"
+                                                       class="w-100"/>
+                                            </td>
+                                            <td class="td_fields col_div">
+                                                <field name="loan_base"
+                                                       class="w-100"/>
+                                            </td>
+                                            <td class="td_label col_div">
+                                                <label for="loan_paid"
+                                                       string="Loan Paid"
+                                                       class="w-100"/>
+                                            </td>
+                                            <td class="td_fields col_div">
+                                                <field name="loan_paid"
+                                                       class="w-100"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td_label col_div">
+                                                <label for="loan_to_pay"
+                                                       string="Loan To Pay"
+                                                       class="w-100"/>
+                                            </td>
+                                            <td class="td_fields col_div">
+                                                <field name="loan_to_pay"
+                                                       class="w-100"/>
+                                            </td>
+
+                                            <td class="td_label col_div">
+                                                <label for="loan_year"
+                                                       string="Number of Years"
+                                                       class="w-100"/>
+                                            </td>
+                                            <td class="td_fields col_div">
+                                                <field name="loan_year"
+                                                       class="w-100"/>
+
+                                            </td>
+                                            <td class="td_label col_div">
+                                                <label for="account_loan_id"
+                                                       string="Loan Account"
+                                                       class="w-100"/>
+                                            </td>
+                                            <td class="td_fields col_div">
+                                                <field name="account_loan_id"
+                                                       class="w-100"
+                                                       attrs="{'readonly': [('state', '!=', 'draft')]}"
+                                                       options="{'no_open': True, 'no_create': True}"
+                                                       context="{'default_internal_type': 'payable'}"/>
+                                            </td>
+                                            <td class="td_label col_div">
+                                                <label for="loan_period"
+                                                       string="Period Length"
+                                                       class="w-100"/>
+                                            </td>
+                                            <td class="td_fields col_div">
+                                                <field name="loan_period"
+                                                       class="w-100"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td_label col_div">
+                                                <label for="journal_id"
+                                                       string="Journal"
+                                                       class="w-100"/>
+                                            </td>
+                                            <td class="td_fields col_div">
+                                                <field name="journal_id"
+                                                       class="w-100"
+                                                       attrs="{'readonly': [('state', '!=', 'draft')]}"
+                                                       options="{'no_open': True, 'no_create': True}"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </group>
+
+                        </page>
+                        <page name="loan_board" string="Loan Board"
+                              invisible="1">
+                            <div class="row"
+                                 attrs="{'invisible': [('state', 'in', ['close', 'removed'])]}">
+                                <div class="col-4">
+                                    <button type="object"
+                                            name="compute_loan_board"
+                                            string="Compute" icon="fa-gears"
+                                            class="btn btn-secondary btn-white"/>
+                                </div>
+                            </div>
+                            <div class="row field_color pt-2">
+                                <div class="col-12">
+                                    <field name="loan_line_ids" mode="tree"
+                                           options="{'reload_on_button': true}">
+                                        <tree string="Asset Lines"
+                                              create="false"
+                                              decoration-info="(move_check == False) and (init_entry == False)">
+                                            <field name="type" invisible="1"/>
+                                            <field name="line_date"/>
+                                            <field name="line_days"
+                                                   sum="Total Days"/>
+                                            <field name="loan_value"
+                                                   readonly="1" invisible="1"/>
+                                            <field name="amount"/>
+                                            <field name="remaining_value"
+                                                   readonly="1" invisible="1"/>
+                                            <field name="init_entry"
+                                                   string="Init" invisible="1"/>
+                                            <field name="move_check"/>
+                                            <field name="parent_state"
+                                                   invisible="1"/>
+                                            <button name="create_payment"
+                                                    icon="fa-check text-success"
+                                                    string="Create Payment"
+                                                    type="object"
+                                                    attrs="{'invisible': ['|', '|', ('init_entry', '=', True), ('move_check', '!=', False), ('parent_state', '!=', 'open')]}"/>
+                                            <button name="open_move"
+                                                    icon="fa-folder-open-o"
+                                                    string="View Move"
+                                                    type="object"
+                                                    attrs="{'invisible': [('move_check', '!=', True)]}"/>
+                                            <button name="unlink_move"
+                                                    icon="fa-times text-danger"
+                                                    string="Delete Move"
+                                                    type="object"
+                                                    confirm="Are you sure ?"
+                                                    attrs="{'invisible': [('move_check', '!=', True)]}"/>
+                                        </tree>
+                                        <form string="Loan Line">
+                                            <group>
+                                                <group>
+                                                    <field name="parent_state"
+                                                           invisible="1"/>
+                                                    <field name="loan_base"
+                                                           invisible="1"/>
+                                                    <field name="type"/>
+                                                    <field name="name"/>
+                                                    <field name="amount"
+                                                           attrs="{'readonly': [('move_check', '=', True)]}"/>
+                                                    <field name="init_entry"
+                                                           attrs="{'readonly': ['|', ('move_check', '=', True), ('type', '=', 'create')]}"/>
+                                                    <field name="move_id"/>
+                                                    <field name="move_check"/>
+                                                </group>
+                                                <group>
+                                                    <field name="line_date"
+                                                           attrs="{'readonly': [('move_check', '=', True)]}"/>
+                                                    <field name="loan_value"
+                                                           readonly="1"/>
+                                                    <field name="remaining_value"
+                                                           readonly="1"/>
+                                                </group>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </div>
+                            </div>
+                        </page>
+                        <page name="depreciation_details"
+                              string="Depreciation Details" invisible="1">
+                            <div class="row field_color">
+                                <field name="company_id" widget="selection"
+                                       invisible="1"/>
+                                <field name="company_currency_id"
+                                       invisible="1"/>
+                                <field name="move_line_check" invisible="1"/>
+                                <field name="date_remove"
+                                       string="Equipment Removal Date"
+                                       invisible="1"/>
+                                <div class="col-4 pt-2">
+                                    <label for="depreciation_base"
+                                           string="Depreciation Base"
+                                           class="w-100"/>
+                                    <field name="depreciation_base"
+                                           widget="monetary" class="w-100"
+                                           options="{'currency_field': 'company_currency_id'}"/>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="value_depreciated"
+                                           string="Depreciated Value"
+                                           class="w-100"/>
+                                    <field name="value_depreciated"
+                                           widget="monetary" class="w-100"
+                                           options="{'currency_field': 'company_currency_id'}"/>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="value_residual"
+                                           string="Residual Value"
+                                           class="w-100"/>
+                                    <field name="value_residual"
+                                           widget="monetary" class="w-100"
+                                           options="{'currency_field': 'company_currency_id'}"/>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="salvage_value"
+                                           string="Salvage Value"
+                                           class="w-100"/>
+                                    <field name="salvage_value"
+                                           widget="monetary" class="w-100"
+                                           options="{'currency_field': 'company_currency_id'}"
+                                           attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                </div>
+                            </div>
+                            <div class="row field_color">
+                                <div class="col-12 col-header">
+                                    <h3 style="margin:0px">Depreciation Dates
+                                    </h3>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="method_time"
+                                           string="Time Method" class="w-100"/>
+                                    <field name="method_time" class="w-100"/>
+                                </div>
+                                <div class="col-4 pt-2"
+                                     attrs="{'invisible': [('method_time', 'not in', ['number', 'year'])]}">
+                                    <label for="method_number"
+                                           string="Number of Years"
+                                           class="w-100"/>
+                                    <field name="method_number" class="w-100"
+                                           attrs="{'required': [('method_time', 'in', ['number', 'year'])]}"/>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="method_period"
+                                           string="Period Length"
+                                           class="w-100"/>
+                                    <field name="method_period" class="w-100"/>
+                                </div>
+                                <div class="col-4 pt-2"
+                                     attrs="{'invisible': [('method_time', 'in', ['number'])]}">
+                                    <label for="method_end" string="Ending Date"
+                                           class="w-100"/>
+                                    <field name="method_end" class="w-100"
+                                           attrs="{'required': [('method_time', '=', 'end')]}"/>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="days_calc"
+                                           string="Calculate by days"
+                                           class="w-100"
+                                           style="margin-bottom: 8px !important;"/>
+                                    <div class="checklist">
+                                        <field name="days_calc"
+                                               attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    </div>
+                                </div>
+                                <div class="col-4 pt-2"
+                                     attrs="{'invisible': [('days_calc', '=', True)]}">
+                                    <label for="use_leap_years"
+                                           string="Use leap years"
+                                           class="w-100"
+                                           style="margin-bottom: 8px !important;"/>
+                                    <div class="checklist">
+                                        <field name="use_leap_years"
+                                               attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row field_color">
+                                <div class="col-12 col-header">
+                                    <h3 style="margin:0px">Depreciation Method
+                                    </h3>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="method"
+                                           string="Computation Method"
+                                           class="w-100"/>
+                                    <field name="method" class="w-100"/>
+                                </div>
+                                <div class="col-4 pt-2"
+                                     attrs="{'invisible': [('method', 'in', ['linear', 'linear-limit'])]}">
+                                    <label for="method_progress_factor"
+                                           string="Degressive Factor"
+                                           class="w-100"/>
+                                    <field name="method_progress_factor"
+                                           class="w-100"
+                                           attrs="{'required': [('method', 'in', ['degressive', 'degr-linear', 'degr-limit'])]}"/>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="prorata"
+                                           string="Prorata Temporis"
+                                           class="w-100"
+                                           style="margin-bottom: 8px !important;"/>
+                                    <div class="checklist">
+                                        <field name="prorata"
+                                               attrs="{'readonly': [('method_time', '!=', 'year')]}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </page>
+                        <page name="depreciation_board"
+                              string="Depreciation Board" invisible="1">
+                            <div class="row field_color"
+                                 attrs="{'invisible': [('state', 'in', ['close', 'removed'])]}">
+                                <div class="col-4">
+                                    <button type="object"
+                                            name="compute_depreciation_board"
+                                            string="Compute" icon="fa-gears"
+                                            class="btn btn-secondary btn-white"/>
+                                </div>
+                            </div>
+                            <div class="row field_color pt-2">
+                                <div class="col-12">
+                                    <field name="depreciation_line_ids"
+                                           mode="tree"
+                                           options="{'reload_on_button': true}">
+                                        <tree string="Asset Lines"
+                                              create="false"
+                                              decoration-info="(move_check == False) and (init_entry == False)">
+                                            <field name="type"/>
+                                            <field name="line_date"/>
+                                            <field name="line_days"
+                                                   sum="Total Days"/>
+                                            <field name="depreciated_value"
+                                                   readonly="1"/>
+                                            <field name="amount"/>
+                                            <field name="remaining_value"
+                                                   readonly="1"/>
+                                            <field name="init_entry"
+                                                   string="Init"/>
+                                            <field name="move_check"/>
+                                            <field name="parent_state"
+                                                   invisible="1"/>
+                                            <button name="create_move"
+                                                    icon="fa-cog"
+                                                    string="Create Move"
+                                                    type="object"
+                                                    attrs="{'invisible': ['|', '|', ('init_entry', '=', True), ('move_check', '!=', False), ('parent_state', '!=', 'open')]}"/>
+                                            <button name="open_move"
+                                                    icon="fa-folder-open-o"
+                                                    string="View Move"
+                                                    type="object"
+                                                    attrs="{'invisible': [('move_check', '!=', True)]}"/>
+                                            <button name="unlink_move"
+                                                    icon="fa-times"
+                                                    string="Delete Move"
+                                                    type="object"
+                                                    confirm="Are you sure ?"
+                                                    groups="account.group_account_manager"
+                                                    attrs="{'invisible': [('move_check', '!=', True)]}"/>
+                                        </tree>
+                                        <form string="Asset Line">
+                                            <group>
+                                                <group>
+                                                    <field name="parent_state"
+                                                           invisible="1"/>
+                                                    <field name="depreciation_base"
+                                                           invisible="1"/>
+                                                    <field name="type"/>
+                                                    <field name="name"/>
+                                                    <field name="amount"
+                                                           attrs="{'readonly': [('move_check', '=', True)]}"/>
+                                                    <field name="init_entry"
+                                                           attrs="{'readonly': ['|', ('move_check', '=', True), ('type', '=', 'create')]}"/>
+                                                    <field name="move_id"/>
+                                                    <field name="move_check"/>
+                                                </group>
+                                                <group>
+                                                    <field name="line_date"
+                                                           attrs="{'readonly': [('move_check', '=', True)]}"/>
+                                                    <field name="depreciated_value"
+                                                           readonly="1"/>
+                                                    <field name="remaining_value"
+                                                           readonly="1"/>
+                                                </group>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </div>
+                            </div>
+                        </page>
+                        <page name="parts_details" string="Parts">
+                            <div class="row field_color">
+                                <div class="col-12">
+                                    <field name="parts_line_ids">
+                                        <tree editable="bottom">
+                                            <field name="machine_id"
+                                                   invisible="1"/>
+                                            <field name="company_id"
+                                                   invisible="1"/>
+                                            <field name="parts_id"
+                                                   context="{'form_view_ref' : 'account_asset_management.machine_parts_form_view', 'tree_view_ref' : 'account_asset_management.machine_parts_tree_view', 'default_is_machine_part':True}"/>
+                                            <field name="quantity"/>
+                                            <field name="uom_id" string="UoM"/>
+                                        </tree>
+                                    </field>
+                                </div>
+                            </div>
+                        </page>
+                        <page string="Other Information" invisible="1">
+                            <div class="row field_color">
+                                <div class="col-4 pt-2">
+                                    <label for="effective_date"
+                                           string="Date of purchase"
+                                           class="w-100"/>
+                                    <field name="effective_date" class="w-100"/>
+                                </div>
+                            </div>
+                            <div class="row field_color">
+                                <div class="col-12 col-header mt-3">
+                                    <h3 style="margin:0px">Transfer Date</h3>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="installed_date"
+                                           string="Installed Date"
+                                           class="w-100"/>
+                                    <field name="installed_date" class="w-100"
+                                           attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                </div>
+                                <div class="col-4 pt-2"
+                                     attrs="{'invisible':[('id','=',False)]}">
+                                    <label for="removed_date"
+                                           string="Removal Date" class="w-100"/>
+                                    <field name="removed_date" class="w-100"
+                                           attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                </div>
+                                <div class="col-4 pt-2"
+                                     attrs="{'invisible':[('id','=',False)]}">
+                                    <label for="last_transfer_date"
+                                           string="Last Transfer Date"
+                                           class="w-100"/>
+                                    <field name="last_transfer_date"
+                                           class="w-100"
+                                           attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                </div>
+                            </div>
+                            <div class="row field_color">
+                            </div>
+                        </page>
+                        <page string="History" invisible="1">
+                            <field name="account_move_line_ids" readonly="1">
+                                <tree string="Journal Items">
+                                    <field name="move_id"/>
+                                    <field name="journal_id"/>
+                                    <field name="date"/>
+                                    <field name="ref"/>
+                                    <field name="partner_id"/>
+                                    <field name="account_id"/>
+                                    <field name="debit" sum="Total Debit"/>
+                                    <field name="credit" sum="Total Credit"/>
+                                </tree>
+                                <form string="Journal Item">
+                                    <field name="journal_id"
+                                           options='{"no_open":True}'/>
+                                    <field name="move_id"
+                                           options='{"no_open":True}'/>
+                                    <newline/>
+                                    <field name="name"/>
+                                    <field name="ref"/>
+                                    <newline/>
+                                    <field name="date"/>
+                                    <newline/>
+                                    <field name="partner_id"
+                                           options='{"no_open":True}'/>
+                                    <newline/>
+                                    <field name="account_id"
+                                           options='{"no_open":True}'/>
+                                    <field name="analytic_account_id"
+                                           groups="analytic.group_analytic_accounting"
+                                           options='{"no_open": True}'/>
+                                    <newline/>
+                                    <field name="debit" sum="Total Debit"/>
+                                    <field name="credit" sum="Total Credit"/>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Description">
+                            <div class="row field_color">
+                                <div class="col-12 pt-2">
+                                    <field name="note"
+                                           placeholder="Description"/>
+                                </div>
+                            </div>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"
+                           options="{'post_refresh': 'recipients', 'open_attachments': True}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="account_machine_view_form_external" model="ir.ui.view">
+        <field name="name">account.machine.form</field>
+        <field name="model">account.asset</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <form string="Equipment" duplicate="0">
+                <style>
+                    .o_field_many2manytags{max-height: 7vh; overflow: scroll;}
+                    .col-4 {
+                    min-height: 50px;
+                    }
+                    textarea {
+                    padding-left: 10px !important;
+                    padding-top: 2px !important;
+                    }
+                    .hr_class{
+                    padding: 0px 10px 0px 10px !important;
+                    }
+                    .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                    .o_stat_info .o_stat_value,
+                    .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                    span .o_stat_value {
+                    font-weight: 700;
+                    color: #f2f2f2 !important;
+                    line-height: 1.2;
+                    font-size: 13px !important;
+                    text-align: center !important;
+                    }
+                    .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                    .o_stat_info .o_stat_value,
+                    .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                    span .o_stat_value {
+                    font-weight: 700;
+                    color: #f2f2f2;
+                    line-height: 1.2;
+                    font-size: 15px;
+                    text-align: center !important;
+                    }
+                    .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                    .o_stat_info .o_stat_text,
+                    .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                    span .o_stat_text {
+                    line-height: 1.2;
+                    text-align: center !important;
+                    }
+                    .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                    .o_stat_info,
+                    .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                    span {
+                    display: inline-block;
+                    vertical-align: middle;
+                    font-weight: 500;
+                    max-width: 100% !important;
+                    padding-right: 0px !important;
+                    line-height: 1.3;
+                    width: 100% !important;
+                    }
+                    .o_form_view .oe_machine_button .btn.oe_stat_button {
+                    color: #f2f2f2;
+                    height: 44px;
+                    padding: 0 0px 0 0 !important;
+                    text-align: left;
+                    white-space: nowrap;
+                    background-color: transparent;
+                    opacity: 1 !important;
+                    border-radius: 0px;
+                    margin-bottom: 0;
+                    display:flex;
+                    }
+                    .o_form_view .oe_machine_button .btn.oe_stat_button {
+                    color: #fff;
+                    }
+                    .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                    .o_stat_info .o_stat_value,
+                    .o_form_view .oe_machine_button .btn.oe_stat_button &gt;
+                    span .o_stat_value {
+                    color: #fff !important;
+                    }
+
+                    .oe_machine_button .fa {
+                    color: #fff !important;
+                    }
+                    .o_not_full .oe_machine_button {
+                    position: absolute;
+                    display: flex;
+                    flex-direction: column;
+                    width: 15%;
+                    height: 100%;
+                    left: -15%;
+                    }
+                    .o_form_view .oe_machine_button .btn.oe_stat_button {
+                    color: #fff;
+                    margin: 0.2rem 0;
+                    width: 100%;
+                    }
+                    .o_not_full .oe_machine_button {
+                    position: absolute;
+                    display: flex;
+                    flex-direction: column;
+                    width: 15%;
+                    height: 100%;
+                    left: -15%;
+                    }
+                    .o_form_view .oe_machine_button .btn.oe_stat_button >
+                    .o_stat_info {
+                    padding: 5%;
+                    }
+
+                    .o_form_view .oe_machine_button {
+                    <!--                    position: absolute;-->
+                    display: flex;
+                    flex-direction: row;
+
+                    left: -14vw !important;
+                    width: 100% !important;
+                    <!--                    height: 30% !important;-->
+                    <!--                    overflow-y: scroll;-->
+                    }
+                    .o_form_view
+                    .oe_machine_button
+                    .btn.oe_stat_button
+                    > .o_stat_info
+                    .o_stat_value,
+                    .o_form_view .oe_machine_button .btn.oe_stat_button > span
+                    .o_stat_value {
+                    display: inline-block;
+                    margin-right: 2%;
+                    }
+                    .o_form_view .oe_machine_button .btn.oe_stat_button >
+                    .o_stat_info .o_stat_text,
+                    .o_form_view .oe_machine_button .btn.oe_stat_button > span
+                    .o_stat_text {
+                    display: inline-block;
+                    }
+                    button.btn.oe_stat_button{
+                    margin-right:1% !important;
+                    }
+
+                </style>
+                <header>
+                    <field name="method_time" invisible="1"/>
+                    <button name="validate" string="Confirm Equipment"
+                            type="object"
+                            class="oe_highlight" invisible="1"/>
+                    <button name="set_to_draft" states="open"
+                            string="Set to Draft" type="object"
+                            groups="account.group_account_manager"
+                            class="btn btn-white" invisible="1"/>
+                    <button name="set_to_close" states="open"
+                            string="Sell or Dispose" type="object"
+                            class="btn btn o_form_button_cancel" invisible="1"/>
+                    <button name="remove" string="Remove" type="object"
+                            invisible="1"
+                            attrs="{'invisible':['|', ('method_time', '!=', 'year'), ('state', 'not in', ['open', 'close'])]}"
+                            help="Asset removal."/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,open,close"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" text="Inactive"
+                            bg_color="bg-danger"
+                            attrs="{'invisible':[('state', '!=', 'removed')]}"/>
+                    <div class="oe_read_only" invisible="1">
+                        <div class="alert alert-info " role="alert"
+                             style="margin-bottom:0px;"
+                             attrs="{'invisible':[('state', 'in', ['open','close'])]}">
+                            Must confirm the equipment before you create
+                            maintenance requests.
+                        </div>
+                    </div>
+                    <!-- - - - - - - - - - - - - - - - - Smart Buttons - - - - - - - - - - - - - - - - - - - - - -->
+                    <div name="button_box" class="oe_machine_button"
+                         attrs="{'invisible':[('id','=',False)]}">
+                        <button name="open_note" class="oe_stat_button"
+                                type="object">
+                            <div class="o_field_widget o_stat_info"
+                                 style="display:flex">
+                                <span class="o_stat_value">
+                                    <i class="fa fa-fw o_button_icon fa-file-text-o"></i>
+                                </span>
+                                <span style="display:flex">
+                                    <field name="notes_count"
+                                           widget="statinfo" nolabel="1"
+                                           options="{'reload_on_button': true}"/>
+                                    <span class="o_stat_text">Notes</span>
+                                </span>
+                            </div>
+                        </button>
+                        <button name="open_activities" class="oe_stat_button"
+                                invisible="1"
+                                type="object">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <i class="fa fa-fw o_button_icon fa-calendar"></i>
+                                </span>
+                                <span class="o_stat_text">Activities</span>
+                            </div>
+                        </button>
+                        <button name="action_view_asset_transfer" type="object"
+                                class="oe_stat_button"
+                                context="{'create_from_machine': 1}"
+                                attrs="{'invisible':['|',('state','=','close'), ('state','=','removed')]}">
+                            <div class="o_field_widget o_stat_info"
+                                 style="display:flex">
+                                <span class="o_stat_value">
+                                    <i class="fa fa-fw o_button_icon fa-exchange"></i>
+                                </span>
+                                <span class="o_stat_text">Equipment Activity
+                                </span>
+                            </div>
+                        </button>
+                        <button name="action_get_attachment_view"
+                                class="oe_stat_button"
+                                type="object">
+                            <div class="o_field_widget o_stat_info"
+                                 style="display:flex">
+                                <span class="o_stat_value">
+                                    <i class="fa fa-fw o_button_icon fa-file-text-o"></i>
+
+                                </span>
+                                <span style="display:flex">
+                                    <field name="attachment_number"
+                                           widget="statinfo" nolabel="1"
+                                           options="{'reload_on_button': true}"/>
+                                    <span class="o_stat_text">Attachments</span>
+                                </span>
+                            </div>
+                        </button>
+                        <button name="open_location_history" type="object"
+                                class="oe_stat_button">
+                            <div class="o_field_widget o_stat_info"
+                                 style="display:flex">
+                                <span class="o_stat_value">
+                                    <i class="fa fa-fw o_button_icon fa-globe"></i>
+                                </span>
+                                <span style="display:flex">
+
+                                    <field name="activity_count"
+                                           widget="statinfo" nolabel="1"
+                                           options="{'reload_on_button': true}"/>
+                                    <span class="o_stat_text">Activity History
+                                    </span>
+                                </span>
+
+                            </div>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" text="Archived"
+                            bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"/>
+                    <field name="active" invisible="1"/>
+                    <field name="group_ids" widget="many2many_tags"
+                           invisible="1"/>
+                    <field name="is_customer_location" invisible="1"/>
+                    <!--                    Main Group          -->
+                    <div class="field_color">
+                        <div class="row pt-2" style="color:#3d9bbb !important">
+                            <div class="col-3 image-dontainer">
+                                <field name="image_1920" widget="image"
+                                       class="oe_avatar"
+                                       options="{&quot;zoom&quot;: true, &quot;preview_image&quot;:&quot;image_1920&quot;}"/>
+                            </div>
+                            <div class="col-3">
+                                <field name="operator_locations_ids"
+                                       invisible="1"/>
+                                <label for="operator_location_id"
+                                       string="Warehouse"
+                                       class="w-100 oe_read_only"
+                                       attrs="{'invisible':[('location_partner_id','!=',False)]}"/>
+                                <label for="operator_location_id"
+                                       string="Warehouse" class="w-100 "
+                                       attrs="{'invisible':['|',('location_partner_id','!=',False),('id','!=',False)]}"/>
+                                <label for="location_partner_id"
+                                       string="Customer" class="w-100"
+                                       attrs="{'invisible':[('location_partner_id','=',False)]}"/>
+
+                                <field name="id" invisible="1"/>
+                                <field name="operator_location_id" required="1"
+                                       class="w-100"
+                                       options="{'no_create': True, 'no_create_edit':True,'no_open':True}"
+                                       attrs="{'invisible':[('id','!=',False)]}"
+                                       readonly="0"/>
+                                <field name="operator_location_id" required="1"
+                                       class="w-100 oe_read_only"
+                                       options="{'no_create': True, 'no_create_edit':True,'no_open':True}"
+                                       attrs="{'invisible':[('location_partner_id','!=',False)],'readonly':[('id','!=',False)]}"
+                                       readonly="0"/>
+                                <field name="location_partner_id" class="w-100"
+                                       attrs="{'invisible':[('location_partner_id','=',False)]}"
+                                       readonly="1"
+                                       widget="res_partner_many2one"
+                                       context="{'show_address_averigo': 1,}"
+                                       options="{'always_reload': True}"
+                                />
+                            </div>
+                            <div class="col-3"
+                                 attrs="{'invisible':[('location_partner_id','=',False)]}">
+                                <field name="location_type" invisible="1"/>
+                                <label for="machine_location_id"
+                                       string="Area / Pos" class="w-100"
+                                       attrs="{'invisible':['|',('location_type','=','micro_market'),('location_partner_id','=',False)]}"/>
+                                <label for="micro_market_id"
+                                       string="Micro Market" class="w-100"
+                                       attrs="{'invisible':['|',('location_type','!=','micro_market'),('location_partner_id','=',False)]}"/>
+                                <field name="micro_market_id" readonly="1"
+                                       class="w-100"
+                                       attrs="{'invisible':['|',('location_type','!=','micro_market'),('location_partner_id','=',False)]}"/>
+                                <field name="machine_location_id" required="1"
+                                       class="w-100"
+                                       attrs="{'invisible':['|',('location_type','!=','order'),('location_partner_id','=',False)]}"
+                                       readonly="1"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 hr_class">
+                            <hr/>
+                        </div>
+                    </div>
+                    <div class="row pt-2">
+                        <div class="col-3 mb-3">
+                            <label for="code" string="Equipment Code"
+                                   class="w-100"/>
+                            <field name="code" required="1" class="w-100"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="machine_type_id" string="Equipment Type"
+                                   class="w-100"/>
+                            <field name="machine_type_id" required="1"
+                                   class="w-100"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','open'])]}"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="equipment_name_id"
+                                   string="Equipment Name" class="w-100"/>
+                            <field name="name" class="oe_edit_only w-100"
+                                   invisible="1"/>
+                            <field name="name" class="w-100 name_font"
+                                   invisible="1"/>
+                            <field name="equipment_name_id" required="1"
+                                   class="w-100"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','open'])]}"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <field name="serial_readable" invisible="1"/>
+                            <label for="serial_no" string="Serial No"
+                                   class="w-100"/>
+                            <field name="serial_no" string="Serial No"
+                                   class="w-100"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','open'])]}"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="asset_no" string="Asset No"
+                                   class="w-100"/>
+                            <field name="asset_no" class="w-100"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','open'])]}"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <field name="model_redable" invisible="1"/>
+                            <label for="equipment_model_id" string="Model"
+                                   class="w-100"/>
+                            <field name="model" class="w-100" invisible="1"/>
+                            <field name="equipment_model_id" class="w-100"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','open'])]}"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="equipment_model_no_id" string="Model No"
+                                   class="w-100"/>
+                            <field name="model_no" class="w-100"
+                                   invisible="1"/>
+                            <field name="equipment_model_no_id" class="w-100"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','open'])]}"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="machine_frontage"
+                                   string="Equipment Frontage" class="w-100"/>
+                            <field name="machine_frontage" class="w-100"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 hr_class">
+                            <hr/>
+                        </div>
+                    </div>
+                    <group string="Other Details" name="other" class=""/>
+                    <div class="row pt-2">
+                        <div class="col-3 mb-3">
+                            <label for="finance_type" string="Loan/Lease"
+                                   class="w-100"/>
+                            <field name="finance_type" class="w-100"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','open'])]}"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="manufacture" string="Manufacture"
+                                   class="w-100"/>
+                            <field name="manufacture" class="w-100"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','open'])]}"/>
+                        </div>
+
+                        <div class="col-3 mb-3">
+                            <label for="partner_id" string="Distributor"
+                                   class="w-100"/>
+                            <field name="partner_id" class="w-100"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','open'])]}"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="purchase_value" string="Purchase Value"
+                                   class="w-100"/>
+                            <field name="purchase_value" widget="monetary"
+                                   options="{'currency_field': 'currency_id'}"
+                                   attrs="{'readonly':['|', ('move_line_check', '=', True), ('state', 'not in', ['draft','open'])],'required':[('finance_type','=','own')]}"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="date_start" string="Purchase Date"
+                                   class="w-100"/>
+                            <field name="date_start"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','open'])]}"
+                                   class="w-100"/>
+
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="machine_age" string="Equipment Age"
+                                   class="w-100"/>
+                            <field name="machine_age" class="w-100"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="warranty" string="Warranty"
+                                   class="w-100"/>
+                            <field name="warranty" class="w-100"
+                                   attrs="{'readonly': [('state', 'not in', ['draft','open'])]}"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="warranty_date" string="Warranty End"
+                                   class="w-100"/>
+                            <field name="warranty_date" class="w-100"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="is_inventory" string="Inventory"
+                                   class="w-100"/>
+                            <field name="is_inventory" class="w-100"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="is_telemetry" string="Telemetry"
+                                   class="w-100"/>
+                            <field name="is_telemetry" class="w-100"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="is_credit_Card_reader"
+                                   string="Credit Card Reader"
+                                   class="w-100"/>
+                            <field name="is_credit_Card_reader" class="w-100"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="is_energy_star" string="Energy Star"
+                                   class="w-100"/>
+                            <field name="is_energy_star" class="w-100"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="is_healt_wellness"
+                                   string="Health and Wellness"
+                                   class="w-100"/>
+                            <field name="is_healt_wellness" class="w-100"/>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="last_transfer_date"
+                                   string="Install Date"
+                                   class="w-100"/>
+                            <field name="last_transfer_date" class="w-100"
+                                   readonly="1"/>
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-12 hr_class">
+                            <hr/>
+                        </div>
+                    </div>
+                    <group name="maintenance_details" invisible="1"/>
+                    <notebook>
+                        <page name="loan_details" string="Loan Details"
+                              invisible="1"
+                              attrs="{'invisible': [('finance_type', '=', 'lease')]}">
+                            <group string="Account" name="account" class="">
+                                <table style="width:100%;">
+                                    <tbody style="width:100%;">
+                                        <tr>
+                                            <td class="td_label col_div">
+                                                <label for="account_analytic_id"
+                                                       string="Analytic account"
+                                                       class="w-100"/>
+                                            </td>
+                                            <td class="td_fields col_div">
+                                                <field name="account_analytic_id"
+                                                       class="w-100"
+                                                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                            </td>
+
+                                            <td class="td_label col_div">
+                                                <label for="profile_id"
+                                                       string="Equipment Profile"
+                                                       class="w-100"/>
+                                            </td>
+                                            <td class="td_fields col_div">
+                                                <field name="profile_id"
+                                                       class="w-100"
+                                                       attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+
+                                            </td>
+                                            <td class="td_label col_div">
+                                                <label for="loan_base"
+                                                       string="Loan Value"
+                                                       class="w-100"/>
+                                            </td>
+                                            <td class="td_fields col_div">
+                                                <field name="loan_base"
+                                                       class="w-100"/>
+                                            </td>
+                                            <td class="td_label col_div">
+                                                <label for="loan_paid"
+                                                       string="Loan Paid"
+                                                       class="w-100"/>
+                                            </td>
+                                            <td class="td_fields col_div">
+                                                <field name="loan_paid"
+                                                       class="w-100"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td_label col_div">
+                                                <label for="loan_to_pay"
+                                                       string="Loan To Pay"
+                                                       class="w-100"/>
+                                            </td>
+                                            <td class="td_fields col_div">
+                                                <field name="loan_to_pay"
+                                                       class="w-100"/>
+                                            </td>
+
+                                            <td class="td_label col_div">
+                                                <label for="loan_year"
+                                                       string="Number of Years"
+                                                       class="w-100"/>
+                                            </td>
+                                            <td class="td_fields col_div">
+                                                <field name="loan_year"
+                                                       class="w-100"/>
+
+                                            </td>
+                                            <td class="td_label col_div">
+                                                <label for="account_loan_id"
+                                                       string="Loan Account"
+                                                       class="w-100"/>
+                                            </td>
+                                            <td class="td_fields col_div">
+                                                <field name="account_loan_id"
+                                                       class="w-100"
+                                                       attrs="{'readonly': [('state', '!=', 'draft')]}"
+                                                       options="{'no_open': True, 'no_create': True}"
+                                                       context="{'default_internal_type': 'payable'}"/>
+                                            </td>
+                                            <td class="td_label col_div">
+                                                <label for="loan_period"
+                                                       string="Period Length"
+                                                       class="w-100"/>
+                                            </td>
+                                            <td class="td_fields col_div">
+                                                <field name="loan_period"
+                                                       class="w-100"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td_label col_div">
+                                                <label for="journal_id"
+                                                       string="Journal"
+                                                       class="w-100"/>
+                                            </td>
+                                            <td class="td_fields col_div">
+                                                <field name="journal_id"
+                                                       class="w-100"
+                                                       attrs="{'readonly': [('state', '!=', 'draft')]}"
+                                                       options="{'no_open': True, 'no_create': True}"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </group>
+
+                        </page>
+                        <page name="loan_board" string="Loan Board"
+                              invisible="1">
+                            <div class="row"
+                                 attrs="{'invisible': [('state', 'in', ['close', 'removed'])]}">
+                                <div class="col-4">
+                                    <button type="object"
+                                            name="compute_loan_board"
+                                            string="Compute" icon="fa-gears"
+                                            class="btn btn-secondary btn-white"/>
+                                </div>
+                            </div>
+                            <div class="row field_color pt-2">
+                                <div class="col-12">
+                                    <field name="loan_line_ids" mode="tree"
+                                           options="{'reload_on_button': true}">
+                                        <tree string="Asset Lines"
+                                              create="false"
+                                              decoration-info="(move_check == False) and (init_entry == False)">
+                                            <field name="type" invisible="1"/>
+                                            <field name="line_date"/>
+                                            <field name="line_days"
+                                                   sum="Total Days"/>
+                                            <field name="loan_value"
+                                                   readonly="1" invisible="1"/>
+                                            <field name="amount"/>
+                                            <field name="remaining_value"
+                                                   readonly="1" invisible="1"/>
+                                            <field name="init_entry"
+                                                   string="Init" invisible="1"/>
+                                            <field name="move_check"/>
+                                            <field name="parent_state"
+                                                   invisible="1"/>
+                                            <button name="create_payment"
+                                                    icon="fa-check text-success"
+                                                    string="Create Payment"
+                                                    type="object"
+                                                    attrs="{'invisible': ['|', '|', ('init_entry', '=', True), ('move_check', '!=', False), ('parent_state', '!=', 'open')]}"/>
+                                            <button name="open_move"
+                                                    icon="fa-folder-open-o"
+                                                    string="View Move"
+                                                    type="object"
+                                                    attrs="{'invisible': [('move_check', '!=', True)]}"/>
+                                            <button name="unlink_move"
+                                                    icon="fa-times text-danger"
+                                                    string="Delete Move"
+                                                    type="object"
+                                                    confirm="Are you sure ?"
+                                                    attrs="{'invisible': [('move_check', '!=', True)]}"/>
+                                        </tree>
+                                        <form string="Loan Line">
+                                            <group>
+                                                <group>
+                                                    <field name="parent_state"
+                                                           invisible="1"/>
+                                                    <field name="loan_base"
+                                                           invisible="1"/>
+                                                    <field name="type"/>
+                                                    <field name="name"/>
+                                                    <field name="amount"
+                                                           attrs="{'readonly': [('move_check', '=', True)]}"/>
+                                                    <field name="init_entry"
+                                                           attrs="{'readonly': ['|', ('move_check', '=', True), ('type', '=', 'create')]}"/>
+                                                    <field name="move_id"/>
+                                                    <field name="move_check"/>
+                                                </group>
+                                                <group>
+                                                    <field name="line_date"
+                                                           attrs="{'readonly': [('move_check', '=', True)]}"/>
+                                                    <field name="loan_value"
+                                                           readonly="1"/>
+                                                    <field name="remaining_value"
+                                                           readonly="1"/>
+                                                </group>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </div>
+                            </div>
+                        </page>
+                        <page name="depreciation_details"
+                              string="Depreciation Details" invisible="1">
+                            <div class="row field_color">
+                                <field name="company_id" widget="selection"
+                                       invisible="1"/>
+                                <field name="company_currency_id"
+                                       invisible="1"/>
+                                <field name="move_line_check" invisible="1"/>
+                                <field name="date_remove"
+                                       string="Equipment Removal Date"
+                                       invisible="1"/>
+                                <div class="col-4 pt-2">
+                                    <label for="depreciation_base"
+                                           string="Depreciation Base"
+                                           class="w-100"/>
+                                    <field name="depreciation_base"
+                                           widget="monetary" class="w-100"
+                                           options="{'currency_field': 'company_currency_id'}"/>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="value_depreciated"
+                                           string="Depreciated Value"
+                                           class="w-100"/>
+                                    <field name="value_depreciated"
+                                           widget="monetary" class="w-100"
+                                           options="{'currency_field': 'company_currency_id'}"/>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="value_residual"
+                                           string="Residual Value"
+                                           class="w-100"/>
+                                    <field name="value_residual"
+                                           widget="monetary" class="w-100"
+                                           options="{'currency_field': 'company_currency_id'}"/>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="salvage_value"
+                                           string="Salvage Value"
+                                           class="w-100"/>
+                                    <field name="salvage_value"
+                                           widget="monetary" class="w-100"
+                                           options="{'currency_field': 'company_currency_id'}"
+                                           attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                </div>
+                            </div>
+                            <div class="row field_color">
+                                <div class="col-12 col-header">
+                                    <h3 style="margin:0px">Depreciation Dates
+                                    </h3>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="method_time"
+                                           string="Time Method" class="w-100"/>
+                                    <field name="method_time" class="w-100"/>
+                                </div>
+                                <div class="col-4 pt-2"
+                                     attrs="{'invisible': [('method_time', 'not in', ['number', 'year'])]}">
+                                    <label for="method_number"
+                                           string="Number of Years"
+                                           class="w-100"/>
+                                    <field name="method_number" class="w-100"
+                                           attrs="{'required': [('method_time', 'in', ['number', 'year'])]}"/>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="method_period"
+                                           string="Period Length"
+                                           class="w-100"/>
+                                    <field name="method_period" class="w-100"/>
+                                </div>
+                                <div class="col-4 pt-2"
+                                     attrs="{'invisible': [('method_time', 'in', ['number'])]}">
+                                    <label for="method_end" string="Ending Date"
+                                           class="w-100"/>
+                                    <field name="method_end" class="w-100"
+                                           attrs="{'required': [('method_time', '=', 'end')]}"/>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="days_calc"
+                                           string="Calculate by days"
+                                           class="w-100"
+                                           style="margin-bottom: 8px !important;"/>
+                                    <div class="checklist">
+                                        <field name="days_calc"
+                                               attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    </div>
+                                </div>
+                                <div class="col-4 pt-2"
+                                     attrs="{'invisible': [('days_calc', '=', True)]}">
+                                    <label for="use_leap_years"
+                                           string="Use leap years"
+                                           class="w-100"
+                                           style="margin-bottom: 8px !important;"/>
+                                    <div class="checklist">
+                                        <field name="use_leap_years"
+                                               attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row field_color">
+                                <div class="col-12 col-header">
+                                    <h3 style="margin:0px">Depreciation Method
+                                    </h3>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="method"
+                                           string="Computation Method"
+                                           class="w-100"/>
+                                    <field name="method" class="w-100"/>
+                                </div>
+                                <div class="col-4 pt-2"
+                                     attrs="{'invisible': [('method', 'in', ['linear', 'linear-limit'])]}">
+                                    <label for="method_progress_factor"
+                                           string="Degressive Factor"
+                                           class="w-100"/>
+                                    <field name="method_progress_factor"
+                                           class="w-100"
+                                           attrs="{'required': [('method', 'in', ['degressive', 'degr-linear', 'degr-limit'])]}"/>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="prorata"
+                                           string="Prorata Temporis"
+                                           class="w-100"
+                                           style="margin-bottom: 8px !important;"/>
+                                    <div class="checklist">
+                                        <field name="prorata"
+                                               attrs="{'readonly': [('method_time', '!=', 'year')]}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </page>
+                        <page name="depreciation_board"
+                              string="Depreciation Board" invisible="1">
+                            <div class="row field_color"
+                                 attrs="{'invisible': [('state', 'in', ['close', 'removed'])]}">
+                                <div class="col-4">
+                                    <button type="object"
+                                            name="compute_depreciation_board"
+                                            string="Compute" icon="fa-gears"
+                                            class="btn btn-secondary btn-white"/>
+                                </div>
+                            </div>
+                            <div class="row field_color pt-2">
+                                <div class="col-12">
+                                    <field name="depreciation_line_ids"
+                                           mode="tree"
+                                           options="{'reload_on_button': true}">
+                                        <tree string="Asset Lines"
+                                              create="false"
+                                              decoration-info="(move_check == False) and (init_entry == False)">
+                                            <field name="type"/>
+                                            <field name="line_date"/>
+                                            <field name="line_days"
+                                                   sum="Total Days"/>
+                                            <field name="depreciated_value"
+                                                   readonly="1"/>
+                                            <field name="amount"/>
+                                            <field name="remaining_value"
+                                                   readonly="1"/>
+                                            <field name="init_entry"
+                                                   string="Init"/>
+                                            <field name="move_check"/>
+                                            <field name="parent_state"
+                                                   invisible="1"/>
+                                            <button name="create_move"
+                                                    icon="fa-cog"
+                                                    string="Create Move"
+                                                    type="object"
+                                                    attrs="{'invisible': ['|', '|', ('init_entry', '=', True), ('move_check', '!=', False), ('parent_state', '!=', 'open')]}"/>
+                                            <button name="open_move"
+                                                    icon="fa-folder-open-o"
+                                                    string="View Move"
+                                                    type="object"
+                                                    attrs="{'invisible': [('move_check', '!=', True)]}"/>
+                                            <button name="unlink_move"
+                                                    icon="fa-times"
+                                                    string="Delete Move"
+                                                    type="object"
+                                                    confirm="Are you sure ?"
+                                                    groups="account.group_account_manager"
+                                                    attrs="{'invisible': [('move_check', '!=', True)]}"/>
+                                        </tree>
+                                        <form string="Asset Line">
+                                            <group>
+                                                <group>
+                                                    <field name="parent_state"
+                                                           invisible="1"/>
+                                                    <field name="depreciation_base"
+                                                           invisible="1"/>
+                                                    <field name="type"/>
+                                                    <field name="name"/>
+                                                    <field name="amount"
+                                                           attrs="{'readonly': [('move_check', '=', True)]}"/>
+                                                    <field name="init_entry"
+                                                           attrs="{'readonly': ['|', ('move_check', '=', True), ('type', '=', 'create')]}"/>
+                                                    <field name="move_id"/>
+                                                    <field name="move_check"/>
+                                                </group>
+                                                <group>
+                                                    <field name="line_date"
+                                                           attrs="{'readonly': [('move_check', '=', True)]}"/>
+                                                    <field name="depreciated_value"
+                                                           readonly="1"/>
+                                                    <field name="remaining_value"
+                                                           readonly="1"/>
+                                                </group>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </div>
+                            </div>
+                        </page>
+                        <page name="parts_details" string="Parts">
+                            <div class="row field_color">
+                                <div class="col-12">
+                                    <field name="parts_line_ids">
+                                        <tree editable="bottom">
+                                            <field name="machine_id"
+                                                   invisible="1"/>
+                                            <field name="company_id"
+                                                   invisible="1"/>
+                                            <field name="parts_id"
+                                                   context="{'form_view_ref' : 'account_asset_management.machine_parts_form_view', 'tree_view_ref' : 'account_asset_management.machine_parts_tree_view', 'default_is_machine_part':True}"/>
+                                            <field name="quantity"/>
+                                            <field name="uom_id"
+                                                   string="Unit of Measure"/>
+                                        </tree>
+                                    </field>
+                                </div>
+                            </div>
+                        </page>
+                        <page string="Other Information" invisible="1">
+                            <div class="row field_color">
+                                <div class="col-4 pt-2">
+                                    <label for="effective_date"
+                                           string="Date of purchase"
+                                           class="w-100"/>
+                                    <field name="effective_date" class="w-100"/>
+                                </div>
+                            </div>
+                            <div class="row field_color">
+                                <div class="col-12 col-header mt-3">
+                                    <h3 style="margin:0px">Transfer Date</h3>
+                                </div>
+                                <div class="col-4 pt-2">
+                                    <label for="installed_date"
+                                           string="Installed Date"
+                                           class="w-100"/>
+                                    <field name="installed_date" class="w-100"
+                                           attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                </div>
+                                <div class="col-4 pt-2"
+                                     attrs="{'invisible':[('id','=',False)]}">
+                                    <label for="removed_date"
+                                           string="Removal Date" class="w-100"/>
+                                    <field name="removed_date" class="w-100"
+                                           attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                </div>
+                                <div class="col-4 pt-2"
+                                     attrs="{'invisible':[('id','=',False)]}">
+                                    <label for="last_transfer_date"
+                                           string="Last Transfer Date"
+                                           class="w-100"/>
+                                    <field name="last_transfer_date"
+                                           class="w-100"
+                                           attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                </div>
+                            </div>
+                            <div class="row field_color">
+                            </div>
+                        </page>
+                        <page string="History" invisible="1">
+                            <field name="account_move_line_ids" readonly="1">
+                                <tree string="Journal Items">
+                                    <field name="move_id"/>
+                                    <field name="journal_id"/>
+                                    <field name="date"/>
+                                    <field name="ref"/>
+                                    <field name="partner_id"/>
+                                    <field name="account_id"/>
+                                    <field name="debit" sum="Total Debit"/>
+                                    <field name="credit" sum="Total Credit"/>
+                                </tree>
+                                <form string="Journal Item">
+                                    <field name="journal_id"
+                                           options='{"no_open":True}'/>
+                                    <field name="move_id"
+                                           options='{"no_open":True}'/>
+                                    <newline/>
+                                    <field name="name"/>
+                                    <field name="ref"/>
+                                    <newline/>
+                                    <field name="date"/>
+                                    <newline/>
+                                    <field name="partner_id"
+                                           options='{"no_open":True}'/>
+                                    <newline/>
+                                    <field name="account_id"
+                                           options='{"no_open":True}'/>
+                                    <field name="analytic_account_id"
+                                           groups="analytic.group_analytic_accounting"
+                                           options='{"no_open": True}'/>
+                                    <newline/>
+                                    <field name="debit" sum="Total Debit"/>
+                                    <field name="credit" sum="Total Credit"/>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Description">
+                            <div class="row field_color">
+                                <div class="col-12 pt-2">
+                                    <field name="note"
+                                           placeholder="Description"/>
+                                </div>
+                            </div>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"
+                           options="{'post_refresh': 'recipients', 'open_attachments': True}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="account_machine_view_kanban" model="ir.ui.view">
+        <field name="name">account.machine.view.kanban</field>
+        <field name="model">account.asset</field>
+        <field name="arch" type="xml">
+            <kanban class="oe_background_grey o_kanban_dashboard o_machine_kanban">
+                <field name="id"/>
+                <field name="color"/>
+                <field name="currency_id"/>
+                <field name="machine_location_id"/>
+                <field name="location_type"/>
+                <field name="warranty"/>
+                <field name="state"/>
+                <field name="micro_market_id"/>
+                <field name="equipment_model_id"/>
+                <field name="serial_no"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="#{!selection_mode ? kanban_color(record.color.raw_value) : ''}">
+                            <style>
+                                .o_kanban_view.oe_background_grey.o_kanban_dashboard.o_machine_kanban.o_kanban_ungrouped
+                                {
+                                background: #f2f2f2;
+                                }
+                                .o_kanban_record {
+                                -webkit-box-shadow: 0 0.75rem 1.5rem
+                                rgba(18,38,63,.3);
+                                box-shadow: 0 0.75rem 1.5rem rgba(18,38,63,.3);
+                                border: none !important;
+                                height:350px;
+                                }
+                                .o_kanban_view .o_kanban_record::after {
+                                top: auto;
+                                left: 0px;
+                                bottom: 0;
+                                right: auto;
+                                width: 322px;
+                                height: 6px;
+                                border-bottom-left-radius: 5px;
+                                border-bottom-right-radius: 5px;
+                                }
+                                .kanban_case {
+                                margin: 10px -12px;
+                                background: #f2f2f2;
+                                color: #000;
+                                border-radius: 5px;
+                                padding-top: 5px;
+                                padding-bottom: 5px;
+                                }
+                                .o_field_widget {
+                                font-size: 11px;
+                                }
+                                .o_kanban_view.o_kanban_ungrouped
+                                .o_kanban_record{
+                                <!--                                min-width:18vw;-->
+                                <!--                                width:18vw;-->
+                                max-width:350px;
+                                max-height:60vh;
+                                }
+                                .o_kanban_view .oe_kanban_color_1::after{
+                                background-color:transparent !important;
+                                }
+                                .o_kanban_card_header{
+                                min-height:30px;
+                                max-height:30px;
+                                margin-bottom:2%;
+                                }
+                                .row.kanban_details {
+                                min-height: 100px;
+                                max-height: 100px;
+                                display: flex;
+                                flex-direction: row;
+                                margin-bottom:10%;
+                                align-content: space-around;
+                                }
+                            </style>
+                            <div class="oe_kanban_global_click">
+                                <div t-attf-class="o_kanban_card_header">
+                                    <div class="o_kanban_card_header_title">
+                                        <div class="o_primary"
+                                             style="font-size:large;margin-bottom: 5px;">
+                                            <a name="809" type="open"
+                                               style="color:#3d9bbb;padding-bottom: 34px !important;">
+                                                <strong>
+                                                    <field name="name"/>
+                                                </strong>
+                                                <small t-if="record.code.value">
+                                                    [
+                                                    <field name="code"/>
+                                                    ]
+                                                </small>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row kanban_details">
+                                    <div class="col-9 oe_kanban_details">
+                                        <ul t-if="record.location_partner_id.value"
+                                            style="color: #313131;">
+                                            <li>
+                                                <strong>Customer:</strong>
+                                                <a type="object"
+                                                   name="action_open_customer_form"
+                                                   style="color:#dc3545;">
+                                                    <field name="location_partner_id"/>
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                        <ul t-if="record.machine_location_id.value">
+                                            <li>
+                                                <t t-if="record.location_partner_id.value">
+                                                    <strong>Location:</strong>
+                                                </t>
+                                                <t t-else="">
+                                                    <strong>Warehouse:</strong>
+                                                </t>
+                                                <t t-log="record"/>
+                                                <field name="equipment_location"/>
+                                                <!--                                                 <t t-if="record.location_type.raw_value === 'micro_market' &amp;&amp; record.micro_market_id.value">
+                                                                                                    <field name="micro_market_id"/>
+                                                                                                </t>
+                                                                                                <t t-else="">
+                                                                                                    <field name="machine_location_id"/>
+                                                                                                </t> -->
+                                            </li>
+                                        </ul>
+                                        <ul t-if="record.equipment_model_id.value">
+                                            <li>
+                                                <!--                                                <strong>Location Type:</strong>-->
+                                                <!--                                                <field name="location_type"/>-->
+                                                <strong>Model :</strong>
+                                                <field name="equipment_model_id"/>
+
+                                            </li>
+                                        </ul>
+                                        <ul t-if="record.serial_no.value">
+                                            <li>
+                                                <!--                                                <strong>Location Type:</strong>-->
+                                                <!--                                                <field name="location_type"/>-->
+                                                <strong>Serial No :</strong>
+                                                <field name="serial_no"/>
+
+                                            </li>
+                                        </ul>
+                                        <ul t-if="record.asset_no.value">
+                                            <li>
+                                                <strong>Asset No:</strong>
+                                                <field name="asset_no"/>
+                                            </li>
+
+                                        </ul>
+                                        <ul t-if="record.warranty.value == 'Yes'">
+                                            <li>
+                                                <strong>Warranty End:</strong>
+                                                <field name="warranty_date"/>
+                                            </li>
+                                        </ul>
+                                        <!--                                        <ul t-if="record.state.value">-->
+                                        <!--                                            <li>-->
+                                        <!--                                                <strong>Status :</strong>-->
+                                        <!--                                                <field name="state"/>-->
+                                        <!--                                            </li>-->
+                                        <!--                                        </ul>-->
+                                    </div>
+                                    <div class="o_kanban_image">
+                                        <img t-att-src="kanban_image('account.asset', 'image_1920', record.id.raw_value)"
+                                             alt="Equipment"
+                                             class="o_image_64_contain"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="account_machine_view_tree" model="ir.ui.view">
+        <field name="name">account.machine.tree</field>
+        <field name="model">account.asset</field>
+        <field name="arch" type="xml">
+            <!--            AV-2153 -->
+            <tree string="Equipment" create="false">
+                <field name="machine_type_id"/>
+                <field name="asset_no" string="Asset No"/>
+                <field name="equipment_name_id" string="Equipment Name"/>
+                <field name="combine_name" string="Equipment Name"
+                       invisible="1"/>
+                <field name="equipment_model_id" string="Model"/>
+                <field name="equipment_model_no_id"/>
+                <field name="serial_no" string="Serial No"/>
+<!--                <field name="asset_no" string="Asset No"/>-->
+                <field name="code" string="Equipment code"/>
+                <field name="machine_location_id" invisible="1"/>
+                <field name="equipment_location"/>
+                <field name="asset_no" invisible="1"/>
+                <field name="depreciation_base" invisible="1"/>
+                <field name="value_depreciated" invisible="1"/>
+                <field name="value_residual" invisible="1"/>
+                <field name="date_start" string="Equipment Start Date"
+                       invisible="1"/>
+                <field name="last_transfer_date" string="Install Date"/>
+                <!--                <field name="frequency_start_date" string="Maintenance Start Date" optional="hide"/>-->
+                <field name="full_address" string="Address" invisible="1"/>
+                <field name="date_remove" string="Machine Removal Date"
+                       invisible="1"/>
+                <field name="profile_id" readonly="1" invisible="1"/>
+                <field name="state"/>
+                <field name="company_id" invisible="1"/>
+                <!--                <field name="warehouse_id" context="{'show_address': 1}"
+                options="{'always_reload': True}"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="account_machine_view_search" model="ir.ui.view">
+        <field name="name">account.machine.search</field>
+        <field name="model">account.asset</field>
+        <field name="arch" type="xml">
+            <search string="Account Machine">
+                <field name="serial_no" string="Serial No"
+                       filter_domain="[('serial_no','ilike', self)]"/>
+                <field name="equipment_model_id" string="Equipment Model"
+                       filter_domain="[('equipment_model_id.name','ilike', self)]"/>
+                <field name="equipment_model_no_id" string="Equipment Model No"
+                       filter_domain="[('equipment_model_no_id.name','ilike', self)]"/>
+                <field name="asset_no" string="Equipment Asset No"
+                       filter_domain="[('asset_no','ilike', self)]"/>
+                <filter string="Archived" name="active"
+                        domain="[('active','=',False)]"
+                        help="Equipments that are archived"/>
+                <filter string="Active" name="draft"
+                        domain="[('state', '=', 'draft')]"
+                        help="Draft Equipments"/>
+                <filter string="In Service" name="running"
+                        domain="[('state', '=', 'open')]"
+                        help="Equipments in Running State"/>
+                <filter string="Inactive" name="removed"
+                        domain="[('state', '=', 'removed')]"
+                        help="Equipments which have been removed"/>
+                <filter string="OutSide Repair" name="removed"
+                        domain="[('state', '=', 'out_repair')]"
+                        help="Equipments which have been Send to Outside for Repair"/>
+
+                <separator orientation="vertical"/>
+                <filter name="group_machine_type" string="Type"
+                        context="{'group_by':'machine_type_id'}"/>
+                <filter name="group_model" string="Model"
+                        context="{'group_by':'equipment_model_id'}"/>
+                <filter name="group_model_no" string="Model No"
+                        context="{'group_by':'equipment_model_no_id'}"/>
+                <filter name="group_micro_market" string="Micro Market"
+                        context="{'group_by':'micro_market_id'}"/>
+                <filter name="group_customer" string="Customer"
+                        context="{'group_by':'location_partner_id'}"/>
+
+                <field name="combine_name" string="Equipment Name"/>
+                <field name="code" string="Equipment Code"/>
+                <field name="location_partner_id" string="Customer"
+                       filter_domain="[('location_partner_id.name','ilike', self)]"/>
+                <field name="micro_market_id" string="Micro Market"
+                       filter_domain="[('micro_market_id.name','ilike', self)]"/>
+                <field name="machine_location_id" string="Area/Pos"
+                       filter_domain="[('machine_location_id.name','ilike', self)]"/>
+                <!--                <field name="date_start"/>-->
+                <!--                <field name="partner_id" filter_domain="[('partner_id', 'child_of', self)]"/>-->
+            </search>
+        </field>
+    </record>
+
+    <record id="account_machine_action" model="ir.actions.act_window">
+        <field name="name">Equipment</field>
+        <field name="res_model">account.asset</field>
+        <field name="search_view_id" ref="account_machine_view_search"/>
+        <field name="context">{'search_default_running':1,'machine': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                Create New Equipment
+            </p>
+        </field>
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'kanban', 'view_id': ref('account_machine_view_kanban')}),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('account_machine_view_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('account_machine_view_form')})]"/>
+    </record>
+
+    <record id="view_machine_type_form" model="ir.ui.view">
+        <field name="name">view.machine.type.form</field>
+        <field name="model">account.asset.type</field>
+        <field name="arch" type="xml">
+            <form string="Machine Type">
+                <sheet>
+                    <div class="oe_title">
+                        <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" text="Archived"
+                                bg_color="bg-danger"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
+                    </div>
+                    <group class="col-8">
+                        <field name="name"/>
+                    </group>
+                    <group class="col-4">
+                        <field name="beverage"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_machine_type_tree" model="ir.ui.view">
+        <field name="name">view.machine.type.tree</field>
+        <field name="model">account.asset.type</field>
+        <field name="arch" type="xml">
+            <tree string="Machine Type" editable="bottom">
+                <field name="name"/>
+                <field name="beverage"/>
+                <field name="active" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_machine_name_tree" model="ir.ui.view">
+        <field name="name">view.machine.name.tree</field>
+        <field name="model">equipment.name</field>
+        <field name="arch" type="xml">
+            <tree string="Machine Name" editable="bottom">
+                <field name="name"/>
+                <field name="active" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_machine_model_tree" model="ir.ui.view">
+        <field name="name">view.machine.model.tree</field>
+        <field name="model">equipment.model.name</field>
+        <field name="arch" type="xml">
+            <tree string="Machine Model" editable="bottom">
+                <field name="name"/>
+                <field name="active" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_machine_model_number_tree" model="ir.ui.view">
+        <field name="name">view.machine.model.number.tree</field>
+        <field name="model">equipment.model.number</field>
+        <field name="arch" type="xml">
+            <tree string="Machine Model No" editable="bottom">
+                <field name="name"/>
+                <field name="active" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_machine_type" model="ir.actions.act_window">
+        <field name="name">Machine Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.asset.type</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+
+    <record id="action_machine_name" model="ir.actions.act_window">
+        <field name="name">Machine Name</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">equipment.name</field>
+        <field name="domain">[('company_id','=',allowed_company_ids[0])]</field>
+        <field name="view_mode">tree</field>
+    </record>
+    <record id="action_machine_model" model="ir.actions.act_window">
+        <field name="name">Machine Model</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">equipment.model.name</field>
+        <field name="domain">[('company_id','=',allowed_company_ids[0])]</field>
+        <field name="view_mode">tree</field>
+    </record>
+    <record id="action_machine_model_number" model="ir.actions.act_window">
+        <field name="name">Machine Model No</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">equipment.model.number</field>
+        <field name="domain">[('company_id','=',allowed_company_ids[0])]</field>
+        <field name="view_mode">tree</field>
+    </record>
+</odoo>

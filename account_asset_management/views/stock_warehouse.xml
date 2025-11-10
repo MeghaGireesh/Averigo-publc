@@ -1,0 +1,28 @@
+<odoo>
+
+    <record id="view_stock_warehouse_machine_form" model="ir.ui.view">
+        <field name="name">view.stock.warehouse.machine.form</field>
+        <field name="model">stock.warehouse</field>
+        <field name="inherit_id" ref="micro_market.micro_market_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='pantry_products']" position="after">
+                <page name="machine" string="Equipments" class="machine_list">
+                    <field name="machine_ids" mode="tree"
+                           context="{
+                           'tree_view_ref':'account_asset_management.account_machine_view_tree',
+                           'form_view_ref': 'account_asset_management.account_machine_view_form_external'}"/>
+                </page>
+            </xpath>
+            <field name="active_date" position="after">
+<!--                Phase 2 - Location Screen - General Information - Alignment Issue-->
+<!--                <div class="col-4">-->
+<!--                    <label for='is_parts_warehouse' string="Parts Warehouse"/>-->
+                    <field name="is_parts_warehouse" string="Parts Warehouse"
+                           attrs="{'readonly': [('id', '!=', False)], 'invisible': [('check_group', '=', False),('location_type', '!=', 'view')]}"/>
+<!--                </div>-->
+            </field>
+            <!--            </xpath>-->
+        </field>
+    </record>
+
+</odoo>

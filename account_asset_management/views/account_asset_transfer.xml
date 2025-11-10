@@ -1,0 +1,1050 @@
+<odoo>
+
+
+    <record id="view_account_asset_transfer_form_external" model="ir.ui.view">
+        <field name="name">account.asset.transfer.form.external</field>
+        <field name="model">account.asset.transfer</field>
+        <field name="arch" type="xml">
+            <form name="Equipment Activity" create="0" edit="0" delete="0">
+                <style>
+                    .o_field_many2manytags{max-height: 7vh; overflow: scroll;}
+                    .col-4 {
+                    min-height: 50px;
+                    }
+                    .o_form_sheet{
+                    width:100% !important;
+                    }
+                    textarea {
+                    padding-left: 10px !important;
+                    padding-top: 2px !important;
+                    }
+                    @media (min-width: 992px){
+                    .modal-lg, .modal-xl {
+                    max-width: 80vw !important;
+                    }}
+                    hr {
+                    margin-top: 1rem;
+                    margin-bottom: 1rem;
+                    border: 0;
+                    border-top: 2px solid rgb(0 0 0 / 12%);
+                    }
+
+                </style>
+                <header name="">
+                    <field name="disable_transfer" invisible="1"/>
+                    <!--                    <button name="act_done" class="oe_highlight" string="Submit" type="object"-->
+                    <!--                            attrs="{'invisible': ['|','|',('state', '=', 'done'),('disable_transfer','=',True),('activity_type','=','remove')]}"/>-->
+                    <!--                    <button name="act_done" class="oe_highlight" string="Submit" type="object"-->
+                    <!--                            confirm="Are you sure you want to remove this Equipment ?"-->
+                    <!--                            attrs="{'invisible': ['|','|',('state', '=', 'done'),('disable_transfer','=',True),('activity_type','!=','remove')]}"/>-->
+                    <!--                    <button name="act_reset_draft" string="Set to Draft" type="object" states="cancelled"-->
+                    <!--                            class="btn btn-white"/>-->
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,done" invisible="1"/>
+                </header>
+                <div class="alert alert-info" role="alert"
+                     attrs="{'invisible':[('disable_transfer','=',False)]}">
+                    <span>
+                        This equipment is currently in
+                        <strong>
+                            <field name="equipment_state" readonly="1"/>
+                        </strong>
+                        and
+                        <strong>
+                            <field name="activity_type" readonly="1"/>
+                        </strong>
+                        activity is not possible.
+                    </span>
+                </div>
+
+                <sheet>
+
+                    <div class="row field_color" name="h1_title">
+                        <field name="transfer_warehouse_id" invisible="1"/>
+                        <field name="mm_ids" invisible="1"/>
+                        <field name="customer_ids" invisible="1"/>
+                        <field name="disable_transfer" invisible="1"/>
+                        <field name="transfer_machine_location_ids"
+                               widget="many2many_tags" invisible="1"/>
+                        <field name="transfer_machine_location_ids_mm"
+                               widget="many2many_tags" invisible="1"/>
+
+                        <div class="col-3 pt-2" invisible="1">
+                            <label for="name" string="Equipment Name"
+                                   class="w-100"/>
+                            <field name="name" class="w-100" force_save="1"/>
+                        </div>
+                        <div class="col-3 pt-2">
+                            <label for="transferred_asset_id" string="Equipment"
+                                   class="w-100"/>
+                            <field name="transferred_asset_id"
+                                   options="{'no_create': True}" class="w-100"
+                                   force_save="1"
+                                   readonly="1"/>
+                        </div>
+                        <div class="col-3 pt-2">
+                            <label for="transferred_asset_serial_no"
+                                   string="Serial No" class="w-100"/>
+                            <field name="transferred_asset_serial_no"
+                                   class="w-100"
+                                   readonly="1" force_save="1"/>
+                        </div>
+                        <div class="col-3 pt-2">
+                            <label for="activity_type" string="Activity Type"
+                                   class="w-100"/>
+                            <field name="activity_type" class="w-100"
+                                   required="1" force_save="1"/>
+                        </div>
+                        <div class="col-12 pt-2"
+                             attrs="{'invisible':[('activity_type','!=','exchange')]}">
+                            <Hr/>
+                            <span>
+                                <h2 style="color:#3d9bbb">Current Equipment</h2>
+                            </span>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','=','exchange')]}">
+                            <label for="start_date" string="Installed Date"
+                                   class="w-100"
+                                   attrs="{'invisible':[('activity_type','in',['remove','retire','exchange','out_repair'])]}"/>
+                            <label for="start_date" string="Send Date"
+                                   class="w-100"
+                                   attrs="{'invisible':[('activity_type','!=','out_repair')]}"/>
+                            <field name="start_date" class="w-100" readonly="1"
+                                   force_save="1"
+                                   attrs="{'invisible':[('activity_type','in',['remove','retire','exchange'])],'required':[('activity_type','=','install')]}"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','in',['remove','retire','exchange'])]}">
+                            <label for="equipment_warehouse"
+                                   string="Equipment Warehouse" class="w-100"
+                                   attrs="{'invisible':[('activity_type','in',['remove','retire'])]}"/>
+                            <field name="operator_locations_ids" invisible="1"
+                                   force_save="1"/>
+                            <field name="equipment_warehouse" class="w-100"
+                                   required="1"
+                                   readonly="1"
+                                   force_save="1"
+                                   domain="[('id','in',operator_locations_ids)]"
+                                   attrs="{'invisible':[('activity_type','in',['remove','retire'])],'required':[('activity_type','=','install')]}"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','in',['retire','out_repair'])]}">
+                            <label for="transfer_location_type"
+                                   string="Location Type" class="w-100"
+                                   attrs="{'readonly':[('activity_type','=','remove')],'invisible':[('activity_type','=','retire')]}"/>
+                            <field name="transfer_location_type" class="w-100"
+                                   force_save="1"
+                                   attrs="{'readonly':[('activity_type','in',['remove','retire','exchange'])],'invisible':[('activity_type','=','retire')],'required':[('activity_type','not in',['retire','out_repair'])]}"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','in',['retire','out_repair'])]}">
+                            <label for="transfer_location_partner_id"
+                                   string="Customer" class="w-100"
+                                   attrs="{'invisible':[('activity_type','=','retire')]}"/>
+                            <field name="transfer_location_partner_id"
+                                   attrs="{'readonly':[('activity_type','in',['remove','retire','exchange'])],
+                                   'invisible':[('activity_type','=','retire')],'required':[('activity_type','not in',['retire','out_repair'])]}"
+                                   force_save="1"
+                                   options="{'no_create': True}"
+                                   class="w-100"/>
+                        </div>
+
+
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible': ['|',('transfer_location_type', '=', 'order'),('activity_type','in',['retire','out_repair'])]}">
+                            <label for="transfer_micro_market_id"
+                                   string="Micromarket" class="w-100"/>
+                            <field name="transfer_micro_market_id"
+                                   string="Micromarket"
+                                   options="{'no_create': True}"
+                                   class="w-100"
+                                   force_save="1"
+                                   domain="[('partner_id','=',transfer_location_partner_id)]"
+                                   attrs="{'required': [('transfer_location_type', '=', 'micro_market'),('activity_type','not in',['retire','out_repair'])],
+                                   'readonly':[('activity_type','in',['remove','retire','exchange'])]}"/>
+                        </div>
+                        <div class="col-3 pt-2 "
+                             attrs="{'invisible':[('id','=',False)]}">
+                            <label for="create_date" string="Create Date"
+                                   class="w-100"/>
+                            <field name="create_date" class="w-100"
+                                   force_save="1"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible' : [('state', '=', 'draft')]}">
+                            <label for="transferred_date"
+                                   string="Transferred Date" class="w-100"/>
+                            <field name="transferred_date" readonly="1"
+                                   class="w-100" force_save="1"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible' : [('state', '=', 'draft')]}">
+                            <label for="transfer_user_id"
+                                   string="Transferred By" class="w-100"/>
+                            <field name="transfer_user_id"
+                                   string="Transferred By" readonly="1"
+                                   force_save="1"
+                                   class="w-100"/>
+                        </div>
+                        <div class="col-3 pt-2" invisible="1">
+                            <label for="asset_operation_type_id"
+                                   string="Operation Type" class="w-100"/>
+                            <field name="asset_operation_type_id"
+                                   options="{'no_create': True, 'no_open': True}"
+                                   force_save="1" class="w-100"/>
+                        </div>
+                        <div class="col-3 pt-2" invisible="1">
+                            <label for="asset_transfer_type"
+                                   string="Transfer Type" class="w-100"/>
+                            <field name="asset_transfer_type" class="w-100"
+                                   force_save="1"/>
+                        </div>
+                        <div class="col-3 pt-2" invisible="1">
+                            <label for="type" string="Activity Type"
+                                   class="w-100"/>
+                            <field name="type" class="w-100" force_save="1"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':['|',('activity_type','in',['retire','out_repair']),('transfer_location_type', '=', 'micro_market')]}">
+                            <label for="destination_location_id"
+                                   string="Area / POS" class="w-100"
+                                   attrs="{'invisible': ['|','|',('activity_type','=','retire'),('transfer_location_type', '=','micro_market'),('transfer_location_type', '=',False)],
+                                   'readonly':[('activity_type','in',['remove','retire','exchange'])]}"/>
+                            <label for="destination_location_id_mm"
+                                   string="Location" class="w-100"
+                                   invisible="1"/>
+                            <field name="destination_location_id"
+                                   force_save="1"
+                                   domain="[('area_partner_id','=',transfer_location_partner_id),('area_or_pos','=',True)]"
+                                   class="w-100"
+                                   attrs="{'invisible': ['|','|',('activity_type','in',['retire','out_repair']),('transfer_location_type', '=','micro_market'),('transfer_location_type', '=',False)],
+                                   'required': [('transfer_location_type', '=', 'order'),('activity_type','not in',['retire','out_repair'])],
+                                   'readonly':[('activity_type','in',['remove','retire','exchange'])]}"
+                                   context="{'default_warehouse_id': transfer_warehouse_id,'default_area_or_pos':True,'default_area_partner_id':transfer_location_partner_id,'default_is_machine_location': True,'default_usage': 'internal','form_view_ref':'account_asset_management.view_account_machine_location_form'}"/>
+                            <field name="destination_location_id_mm" create="0"
+                                   edit="0"
+                                   domain="[('id', 'in', transfer_machine_location_ids_mm), ('id', '!=', source_location_id)]"
+                                   class="w-100"
+                                   force_save="1"
+                                   invisible="1"
+                                   context="{'default_warehouse_id': transfer_micro_market_id,'default_is_bin_location': True,'default_usage': 'internal','form_view_ref':'account_asset_management.view_account_machine_location_form','no_create': True, 'no_create_edit':True}"/>
+                        </div>
+                        <div class="col-3 pt-2" invisible="1">
+                            <label for="initial_meter_reading"
+                                   string="Initial Meter reading" class="w-100"
+                                   invisible="1"/>
+                            <field name="initial_meter_reading" class="w-100"
+                                   force_save="1"
+                                   invisible="1"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','!=','install')]}">
+                            <label for="relative_commission_rate"
+                                   string="Relative Commission Rate"
+                                   class="w-100"
+                                   invisible="1"/>
+                            <field name="relative_commission_rate" class="w-100"
+                                   invisible="1"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','!=','retire')]}">
+                            <label for="retired_reason" string="Retired Reason"
+                                   class="w-100"
+                                   attrs="{'invisible':[('activity_type','!=','retire')]}"/>
+                            <field name="retired_reason" class="w-100"
+                                   force_save="1"
+                                   attrs="{'invisible':[('activity_type','!=','retire')],'required':[('activity_type','=','retire')]}"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','not in',['retire','remove'])]}">
+                            <label for="disposition_date" string="Remove Date"
+                                   class="w-100"
+                                   attrs="{'invisible':[('activity_type','!=','remove')]}"/>
+                            <label for="disposition_date" string="Retire Date"
+                                   class="w-100"
+                                   attrs="{'invisible':[('activity_type','!=','retire')]}"/>
+                            <field name="disposition_date" class="w-100"
+                                   readonly="1" force_save="1"
+                                   attrs="{'invisible':[('activity_type','not in',['retire','remove'])],'required':[('activity_type','=','retire')]}"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','not in',['retire','remove','exchange'])]}">
+                            <label for="equipment_warehouse"
+                                   string="Disposition Warehouse" class="w-100"
+                                   attrs="{'invisible':[('activity_type','not in',['retire','remove','exchange'])]}"/>
+                            <field name="operator_locations_ids" invisible="1"
+                                   force_save="1"/>
+                            <field name="equipment_warehouse" class="w-100"
+                                   force_save="1"
+                                   domain="[('id','in',operator_locations_ids)]"
+                                   attrs="{'readonly':[('activity_type','not in',['retire','remove','exchange'])],'invisible':[('activity_type','not in',['retire','remove','exchange'])],'required':[('activity_type','=','retire')]}"/>
+                        </div>
+                        <div class="col-12 pt-2"
+                             attrs="{'invisible':[('activity_type','!=','exchange')]}">
+                            <Hr/>
+                            <span>
+                                <h2 style="color:#3d9bbb">New Equipment</h2>
+                            </span>
+                        </div>
+
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','!=','exchange')]}">
+                            <label for="new_equipment" string="Equipment"
+                                   class="w-100"/>
+                            <field name="new_equipment" class="w-100"
+                                   force_save="1"
+                                   context="{
+                           'tree_view_ref':'account_asset_management.account_machine_view_tree',
+                           'form_view_ref': 'account_asset_management.account_machine_view_form_external',
+                           'search_view_ref':'account_asset_management.account_machine_view_search'}"
+                                   domain="[('id','!=',transferred_asset_id),('state','=','draft')]"
+                                   options="{'no_quick_create': True, 'no_create_edit' : True}"
+                                   attrs="{'required':[('activity_type','=','exchange')]}"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','!=','exchange')]}">
+                            <label for="new_equipment_serial_no"
+                                   string="Serial No" class="w-100"/>
+                            <field name="new_equipment_serial_no" class="w-100"
+                                   force_save="1"
+                                   attrs="{'required':[('activity_type','=','exchange')]}"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','!=','exchange')]}">
+                            <label for="new_location_type"
+                                   string="Location Type" class="w-100"/>
+                            <field name="new_location_type" class="w-100"
+                                   force_save="1"
+                                   attrs="{'required':[('activity_type','=','exchange')]}"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','!=','exchange')]}">
+                            <label for="new_start" string="Start Date"
+                                   class="w-100"/>
+                            <field name="new_start" class="w-100" readonly="1"
+                                   force_save="1"
+                                   attrs="{'required':[('activity_type','=','exchange')]}"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','!=','exchange')]}">
+                            <label for="new_equipment_warehouse_id"
+                                   string="Equipment Warehouse" class="w-100"/>
+                            <field name="new_transfer_machine_location_ids_mm"
+                                   invisible="1"/>
+                            <field name="new_transfer_machine_location_ids"
+                                   invisible="1"/>
+                            <field name="operator_locations_ids" invisible="1"/>
+                            <field name="new_equipment_warehouse_id"
+                                   class="w-100"
+                                   domain="[('id','in',operator_locations_ids)]"
+                                   force_save="1"
+                                   attrs="{'required':[('activity_type','=','exchange'),('new_location_type', '=', 'order')]}"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':['|',('activity_type','!=','exchange'),('new_location_type','=','order')]}">
+                            <label for="new_transfer_micro_market_id"
+                                   string="MicroMarket" class="w-100"/>
+                            <field name="new_transfer_micro_market_id"
+                                   class="w-100"
+                                   force_save="1"
+                                   domain="[('partner_id','=',transfer_location_partner_id)]"
+                                   options="{'no_quick_create': True, 'no_create_edit' : True}"
+                                   attrs="{'required':[('activity_type','=','exchange'),('new_location_type', '=', 'micro_market')]}"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':['|',('activity_type','!=','exchange'),('new_location_type','=','micro_market')]}">
+                            <label for="new_destination_location_id"
+                                   string="Area / POS" class="w-100"/>
+                            <field name="new_destination_location_id"
+                                   class="w-100"
+                                   context="{'default_warehouse_id': transfer_warehouse_id,'default_area_or_pos':True,'default_area_partner_id':transfer_location_partner_id,'default_is_machine_location': True,'default_usage': 'internal','form_view_ref':'account_asset_management.view_account_machine_location_form'}"
+                                   force_save="1"
+                                   domain="[('area_or_pos','=',True),('area_partner_id','=',transfer_location_partner_id)]"
+                                   attrs="{'required':[('activity_type','=','exchange'),('new_location_type', '=', 'order')]}"/>
+                        </div>
+                        <div class="col-3 pt-2" invisible="1">
+                            <label for="new_destination_location_id_mm"
+                                   string="Location" class="w-100"/>
+                            <field name="new_destination_location_id_mm"
+                                   class="w-100"
+                                   force_save="1"
+                                   options="{'no_quick_create': True, 'no_create_edit' : True}"
+                                   domain="[('id', 'in', new_transfer_machine_location_ids_mm)]"
+                                   />
+                        </div>
+                        <div class="col-3 pt-2"
+                             invisible="1">
+                            <label for="new_initial_meter_reading"
+                                   string="Initial Meter Reading" class="w-100"
+                                   invisible="1"/>
+                            <field name="new_initial_meter_reading"
+                                   class="w-100" invisible="1" force_save="1"
+                            />
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','!=','exchange')]}">
+                            <label for="new_relative_commission_rate"
+                                   string="Relative Commission Rate"
+                                   class="w-100"
+                                   invisible="1"/>
+                            <field name="new_relative_commission_rate"
+                                   class="w-100" invisible="1" force_save="1"
+                            />
+                        </div>
+                    </div>
+                    <group invisible="1">
+                        <group string="Current Location" name="current_location"
+                               invisible="1">
+                            <field name="source_location_id"
+                                   domain="[('id', 'in', transfer_machine_location_ids)]"
+                                   force_save="1" readonly="1"
+                                   context="{'default_warehouse_id': transfer_warehouse_id,'default_is_machine_location': True,'default_usage': 'internal','form_view_ref':'account_asset_management.view_account_machine_location_form'}"
+                                   invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Other Info" invisible="1">
+                            <group>
+                                <group string="Information" name="price_value">
+                                    <field name="company_id"/>
+                                    <field name="currency_id"/>
+                                    <field name="purchase_price"
+                                           widget="monetary"/>
+                                    <field name="residual_value"
+                                           widget="monetary"/>
+                                    <field name="analytic_account_id"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="reason_remove" string="Reason For Remove"
+                              attrs="{'invisible':[('activity_type','!=','remove')]}">
+                            <field name="reason"
+                                   placeholder="Reason for Remove..."
+                                   attrs="{'required':[('activity_type','=','remove')]}"/>
+                        </page>
+                        <page string="Reason For Exchange"
+                              name="reason_exchange"
+                              attrs="{'invisible':[('activity_type','!=','exchange')]}">
+                            <field name="reason"
+                                   placeholder="Reason for Exchange..."
+                                   attrs="{'required':[('activity_type','=','exchange')]}"/>
+                        </page>
+                        <page string="Reason For Retired" name="reason_retire"
+                              attrs="{'invisible':[('activity_type','!=','retire')]}">
+                            <field name="reason"
+                                   placeholder="Reason for Retired..."
+                                   attrs="{'required':[('activity_type','=','retire')]}"/>
+                        </page>
+                        <page string="Reason For OutSide Repair"
+                              name="reason_outside_repair"
+                              attrs="{'invisible':[('activity_type','!=','out_repair')]}">
+                            <field name="reason"
+                                   placeholder="Reason for OutSide Repair..."
+                                   attrs="{'required':[('activity_type','=','out_repair')]}"/>
+                        </page>
+                        <page string="Internal Note" name="internal_note"
+                              attrs="{'invisible':[('activity_type','!=','install')]}">
+                            <field name="internal_note"/>
+                        </page>
+                        <page string="Internal Note" name="internal_note"
+                              attrs="{'invisible':[('activity_type','=','install')]}">
+                            <field name="internal_note"/>
+                        </page>
+                        <page/>
+                    </notebook>
+                </sheet>
+                <!--                <footer>-->
+                <!--                    <button name="act_done" class="oe_highlight" string="Submit" type="object"-->
+                <!--                            attrs="{'invisible': ['|','|',('state', '=', 'done'),('disable_transfer','=',True),('activity_type','=','remove')]}"/>-->
+                <!--                    <button name="act_done" class="oe_highlight" string="Submit" type="object"-->
+                <!--                            confirm="Are you sure you want to remove this Equipment ?"-->
+                <!--                            attrs="{'invisible': ['|','|',('state', '=', 'done'),('disable_transfer','=',True),('activity_type','!=','remove')]}"/>-->
+                <!--                    <button string="Discard" class="btn btn btn o_form_button_cancel btn-secondary" special="cancel"/>-->
+
+                <!--                </footer>-->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_account_asset_transfer_form" model="ir.ui.view">
+        <field name="name">account.asset.transfer.form</field>
+        <field name="model">account.asset.transfer</field>
+        <field name="arch" type="xml">
+            <form name="Equipment Activity" create="false" edit="false">
+                <style>
+                    .o_field_many2manytags{max-height: 7vh; overflow: scroll;}
+                    .col-4 {
+                    min-height: 50px;
+                    }
+                    .o_form_sheet{
+                    width:100% !important;
+                    }
+                    textarea {
+                    padding-left: 10px !important;
+                    padding-top: 2px !important;
+                    }
+                    @media (min-width: 992px){
+                    .modal-lg, .modal-xl {
+                    max-width: 80vw !important;
+                    }}
+                    hr {
+                    margin-top: 1rem;
+                    margin-bottom: 1rem;
+                    border: 0;
+                    border-top: 2px solid rgb(0 0 0 / 12%);
+                    }
+
+                </style>
+                <header name="">
+                    <field name="disable_transfer" invisible="1"/>
+                    <button name="act_done" class="oe_highlight" string="Submit"
+                            type="object"
+                            attrs="{'invisible': ['|','|',('state', '=', 'done'),('disable_transfer','=',True),('activity_type','=','remove')]}"/>
+                    <button name="act_done" class="oe_highlight" string="Submit"
+                            type="object"
+                            confirm="Are you sure you want to remove this Equipment ?"
+                            attrs="{'invisible': ['|','|',('state', '=', 'done'),('disable_transfer','=',True),('activity_type','!=','remove')]}"/>
+                    <button name="act_reset_draft" string="Set to Draft"
+                            type="object" states="cancelled"
+                            class="btn btn-white"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,done" invisible="1"/>
+                </header>
+                <div class="alert alert-danger " role="alert"
+                     attrs="{'invisible':[('disable_transfer','=',False)]}">
+                    <span>
+                        This equipment is currently in
+                        <strong>
+                            <field name="equipment_state" readonly="1"/>
+                        </strong>
+                        and
+                        <strong>
+                            <field name="activity_type" force_save="1"
+                                   readonly="1"/>
+                        </strong>
+                        activity is not possible.
+                    </span>
+                </div>
+
+                <sheet>
+
+                    <div class="row field_color" name="h1_title">
+                        <field name="transfer_warehouse_id" invisible="1"/>
+                        <field name="mm_ids" invisible="1"/>
+                        <field name="customer_ids" invisible="1"/>
+                        <field name="disable_transfer" invisible="1"/>
+                        <field name="transfer_machine_location_ids"
+                               widget="many2many_tags" invisible="1"/>
+                        <field name="transfer_machine_location_ids_mm"
+                               widget="many2many_tags" invisible="1"/>
+
+                        <div class="col-3 pt-2" invisible="1">
+                            <label for="name" string="Equipment Name"
+                                   class="w-100"/>
+                            <field name="name" class="w-100" force_save="1"/>
+                        </div>
+                        <div class="col-3 pt-2">
+                            <label for="transferred_asset_id" string="Equipment"
+                                   class="w-100"/>
+                            <field name="transferred_asset_id"
+                                   options="{'no_create': True}" class="w-100"
+                                   force_save="1"
+                                   readonly="1"/>
+                        </div>
+                        <div class="col-3 pt-2">
+                            <label for="transferred_asset_serial_no"
+                                   string="Serial No" class="w-100"/>
+                            <field name="transferred_asset_serial_no"
+                                   class="w-100"
+                                   readonly="1" force_save="1"/>
+                        </div>
+                        <div class="col-3 pt-2">
+                            <label for="activity_type" string="Activity Type"
+                                   class="w-100"/>
+                            <field name="activity_type" class="w-100"
+                                   required="1" force_save="1"/>
+                        </div>
+                        <div class="col-12 pt-2"
+                             attrs="{'invisible':[('activity_type','!=','exchange')]}">
+                            <Hr/>
+                            <span>
+                                <h2 style="color:#3d9bbb">Current Equipment</h2>
+                            </span>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','=','exchange')]}">
+                            <label for="start_date" string="Installed Date"
+                                   class="w-100"
+                                   attrs="{'invisible':[('activity_type','in',['remove','retire','exchange','out_repair'])]}"/>
+                            <label for="start_date" string="Send Date"
+                                   class="w-100"
+                                   attrs="{'invisible':[('activity_type','!=','out_repair')]}"/>
+                            <field name="start_date" class="w-100" readonly="1"
+                                   force_save="1"
+                                   attrs="{'invisible':[('activity_type','in',['remove','retire','exchange'])],'required':[('activity_type','=','install')]}"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','in',['remove','retire','exchange'])]}">
+                            <label for="equipment_warehouse"
+                                   string="Equipment Warehouse" class="w-100"
+                                   attrs="{'invisible':[('activity_type','in',['remove','retire'])]}"/>
+                            <field name="operator_locations_ids" invisible="1"
+                                   force_save="1"/>
+                            <field name="equipment_warehouse" class="w-100"
+                                   required="1"
+                                   readonly="1"
+                                   force_save="1"
+                                   domain="[('id','in',operator_locations_ids)]"
+                                   attrs="{'invisible':[('activity_type','in',['remove','retire'])],'required':[('activity_type','=','install')]}"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','in',['retire','out_repair'])]}">
+                            <label for="transfer_location_type"
+                                   string="Location Type" class="w-100"
+                                   attrs="{'readonly':[('activity_type','=','remove')],'invisible':[('activity_type','=','retire')]}"/>
+                            <field name="transfer_location_type" class="w-100"
+                                   force_save="1"
+                                   attrs="{'readonly':[('activity_type','in',['remove','retire','exchange'])],'invisible':[('activity_type','=','retire')],'required':[('activity_type','not in',['retire','out_repair'])]}"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','in',['retire','out_repair'])]}">
+                            <label for="transfer_location_partner_id"
+                                   string="Customer" class="w-100"
+                                   attrs="{'invisible':[('activity_type','=','retire')]}"/>
+                            <field name="transfer_location_partner_id"
+                                   attrs="{'readonly':[('activity_type','in',['remove','retire','exchange'])],
+                                   'invisible':[('activity_type','=','retire')],'required':[('activity_type','not in',['retire','out_repair'])]}"
+                                   force_save="1"
+                                   options="{'no_create': True}"
+                                   class="w-100"/>
+                        </div>
+
+
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible': ['|',('transfer_location_type', '=', 'order'),('activity_type','in',['retire','out_repair'])]}">
+                            <label for="transfer_micro_market_id"
+                                   string="Micromarket" class="w-100"/>
+                            <field name="transfer_micro_market_id"
+                                   string="Micromarket"
+                                   options="{'no_create': True}"
+                                   class="w-100"
+                                   force_save="1"
+                                   domain="[('partner_id','=',transfer_location_partner_id)]"
+                                   attrs="{'required': [('transfer_location_type', '=', 'micro_market'),('activity_type','not in',['retire','out_repair'])],
+                                   'readonly':[('activity_type','in',['remove','retire','exchange'])]}"/>
+                        </div>
+                        <div class="col-3 pt-2 "
+                             attrs="{'invisible':[('id','=',False)]}">
+                            <label for="create_date" string="Create Date"
+                                   class="w-100"/>
+                            <field name="create_date" class="w-100"
+                                   force_save="1"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible' : [('state', '=', 'draft')]}">
+                            <label for="transferred_date"
+                                   string="Transferred Date" class="w-100"/>
+                            <field name="transferred_date" readonly="1"
+                                   class="w-100" force_save="1"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible' : [('state', '=', 'draft')]}">
+                            <label for="transfer_user_id"
+                                   string="Transferred By" class="w-100"/>
+                            <field name="transfer_user_id"
+                                   string="Transferred By" readonly="1"
+                                   force_save="1"
+                                   class="w-100"/>
+                        </div>
+                        <div class="col-3 pt-2" invisible="1">
+                            <label for="asset_operation_type_id"
+                                   string="Operation Type" class="w-100"/>
+                            <field name="asset_operation_type_id"
+                                   options="{'no_create': True, 'no_open': True}"
+                                   force_save="1" class="w-100"/>
+                        </div>
+                        <div class="col-3 pt-2" invisible="1">
+                            <label for="asset_transfer_type"
+                                   string="Transfer Type" class="w-100"/>
+                            <field name="asset_transfer_type" class="w-100"
+                                   force_save="1"/>
+                        </div>
+                        <div class="col-3 pt-2" invisible="1">
+                            <label for="type" string="Activity Type"
+                                   class="w-100"/>
+                            <field name="type" class="w-100" force_save="1"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':['|',('activity_type','in',['retire','out_repair']),('transfer_location_type', '=', 'micro_market')]}">
+                            <label for="destination_location_id"
+                                   string="Area / POS" class="w-100"
+                                   attrs="{'invisible': ['|','|',('activity_type','=','retire'),('transfer_location_type', '=','micro_market'),('transfer_location_type', '=',False)],
+                                   'readonly':[('activity_type','in',['remove','retire','exchange'])]}"/>
+                            <label for="destination_location_id_mm"
+                                   string="Location" class="w-100"
+                                   invisible="1"/>
+                            <field name="destination_location_id"
+                                   force_save="1"
+                                   domain="[('area_partner_id','=',transfer_location_partner_id),('area_or_pos','=',True)]"
+                                   class="w-100"
+                                   attrs="{'invisible': ['|','|',('activity_type','in',['retire','out_repair']),('transfer_location_type', '=','micro_market'),('transfer_location_type', '=',False)],
+                                   'required': [('transfer_location_type', '=', 'order'),('activity_type','not in',['retire','out_repair'])],
+                                   'readonly':[('activity_type','in',['remove','retire','exchange'])]}"
+                                   context="{'default_warehouse_id': transfer_warehouse_id,'default_area_or_pos':True,'default_area_partner_id':transfer_location_partner_id,'default_is_machine_location': True,'default_usage': 'internal','form_view_ref':'account_asset_management.view_account_machine_location_form'}"/>
+                            <field name="destination_location_id_mm" create="0"
+                                   edit="0"
+                                   domain="[('id', 'in', transfer_machine_location_ids_mm), ('id', '!=', source_location_id)]"
+                                   class="w-100"
+                                   force_save="1"
+                                   invisible="1"
+                                   context="{'default_warehouse_id': transfer_micro_market_id,'default_is_bin_location': True,'default_usage': 'internal','form_view_ref':'account_asset_management.view_account_machine_location_form','no_create': True, 'no_create_edit':True}"/>
+                        </div>
+                        <div class="col-3 pt-2" invisible="1">
+                            <label for="initial_meter_reading"
+                                   string="Initial Meter reading" class="w-100"
+                                   invisible="1"/>
+                            <field name="initial_meter_reading" class="w-100"
+                                   force_save="1"
+                                   invisible="1"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','!=','install')]}">
+                            <label for="relative_commission_rate"
+                                   string="Relative Commission Rate"
+                                   class="w-100"
+                                   invisible="1"/>
+                            <field name="relative_commission_rate" class="w-100"
+                                   invisible="1"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','!=','retire')]}">
+                            <label for="retired_reason" string="Retired Reason"
+                                   class="w-100"
+                                   attrs="{'invisible':[('activity_type','!=','retire')]}"/>
+                            <field name="retired_reason" class="w-100"
+                                   force_save="1"
+                                   attrs="{'invisible':[('activity_type','!=','retire')],'required':[('activity_type','=','retire')]}"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','not in',['retire','remove'])]}">
+                            <label for="disposition_date" string="Remove Date"
+                                   class="w-100"
+                                   attrs="{'invisible':[('activity_type','!=','remove')]}"/>
+                            <label for="disposition_date" string="Retire Date"
+                                   class="w-100"
+                                   attrs="{'invisible':[('activity_type','!=','retire')]}"/>
+                            <field name="disposition_date" class="w-100"
+                                   readonly="1" force_save="1"
+                                   attrs="{'invisible':[('activity_type','not in',['retire','remove'])],'required':[('activity_type','=','retire')]}"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','not in',['retire','remove','exchange'])]}">
+                            <label for="equipment_warehouse"
+                                   string="Disposition Warehouse" class="w-100"
+                                   attrs="{'invisible':[('activity_type','not in',['retire','remove','exchange'])]}"/>
+                            <field name="operator_locations_ids" invisible="1"
+                                   force_save="1"/>
+                            <field name="equipment_warehouse" class="w-100"
+                                   force_save="1"
+                                   domain="[('id','in',operator_locations_ids)]"
+                                   attrs="{'readonly':[('activity_type','not in',['retire','remove','exchange'])],'invisible':[('activity_type','not in',['retire','remove','exchange'])],'required':[('activity_type','=','retire')]}"/>
+                        </div>
+                        <div class="col-12 pt-2"
+                             attrs="{'invisible':[('activity_type','!=','exchange')]}">
+                            <Hr/>
+                            <span>
+                                <h2 style="color:#3d9bbb">New Equipment</h2>
+                            </span>
+                        </div>
+
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','!=','exchange')]}">
+                            <label for="new_equipment" string="Equipment"
+                                   class="w-100"/>
+                            <field name="new_equipment" class="w-100"
+                                   force_save="1"
+                                   context="{
+                           'tree_view_ref':'account_asset_management.account_machine_view_tree',
+                           'form_view_ref': 'account_asset_management.account_machine_view_form_external',
+                           'search_view_ref':'account_asset_management.account_machine_view_search'}"
+                                   domain="[('id','!=',transferred_asset_id),('state','=','draft')]"
+                                   options="{'no_quick_create': True, 'no_create_edit' : True}"
+                                   attrs="{'required':[('activity_type','=','exchange')]}"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','!=','exchange')]}">
+                            <label for="new_equipment_serial_no"
+                                   string="Serial No" class="w-100"/>
+                            <field name="new_equipment_serial_no" class="w-100"
+                                   force_save="1"
+                                   attrs="{'required':[('activity_type','=','exchange')]}"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','!=','exchange')]}">
+                            <label for="new_location_type"
+                                   string="Location Type" class="w-100"/>
+                            <field name="new_location_type" class="w-100"
+                                   force_save="1"
+                                   attrs="{'required':[('activity_type','=','exchange')]}"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','!=','exchange')]}">
+                            <label for="new_start" string="Start Date"
+                                   class="w-100"/>
+                            <field name="new_start" class="w-100" readonly="1"
+                                   force_save="1"
+                                   attrs="{'required':[('activity_type','=','exchange')]}"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','!=','exchange')]}">
+                            <label for="new_equipment_warehouse_id"
+                                   string="Equipment Warehouse" class="w-100"/>
+                            <field name="new_transfer_machine_location_ids_mm"
+                                   invisible="1"/>
+                            <field name="new_transfer_machine_location_ids"
+                                   invisible="1"/>
+                            <field name="operator_locations_ids" invisible="1"/>
+                            <field name="new_equipment_warehouse_id"
+                                   class="w-100"
+                                   domain="[('id','in',operator_locations_ids)]"
+                                   force_save="1"
+                                   attrs="{'required':[('activity_type','=','exchange'),('new_location_type', '=', 'order')]}"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':['|',('activity_type','!=','exchange'),('new_location_type','=','order')]}">
+                            <label for="new_transfer_micro_market_id"
+                                   string="MicroMarket" class="w-100"/>
+                            <field name="new_transfer_micro_market_id"
+                                   class="w-100"
+                                   force_save="1"
+                                   domain="[('partner_id','=',transfer_location_partner_id)]"
+                                   options="{'no_quick_create': True, 'no_create_edit' : True}"
+                                   attrs="{'required':[('activity_type','=','exchange'),('new_location_type', '=', 'micro_market')]}"/>
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':['|',('activity_type','!=','exchange'),('new_location_type','=','micro_market')]}">
+                            <label for="new_destination_location_id"
+                                   string="Area / POS" class="w-100"/>
+                            <field name="new_destination_location_id"
+                                   class="w-100"
+                                   context="{'default_warehouse_id': transfer_warehouse_id,'default_area_or_pos':True,'default_area_partner_id':transfer_location_partner_id,'default_is_machine_location': True,'default_usage': 'internal','form_view_ref':'account_asset_management.view_account_machine_location_form'}"
+                                   force_save="1"
+                                   domain="[('area_or_pos','=',True),('area_partner_id','=',transfer_location_partner_id)]"
+                                   attrs="{'required':[('activity_type','=','exchange'),('new_location_type', '=', 'order')]}"/>
+                        </div>
+                        <div class="col-3 pt-2" invisible="1">
+                            <label for="new_destination_location_id_mm"
+                                   string="Location" class="w-100"/>
+                            <field name="new_destination_location_id_mm"
+                                   class="w-100"
+                                   force_save="1"
+                                   options="{'no_quick_create': True, 'no_create_edit' : True}"
+                                   domain="[('id', 'in', new_transfer_machine_location_ids_mm)]"
+                                   />
+                        </div>
+                        <div class="col-3 pt-2"
+                             invisible="1">
+                            <label for="new_initial_meter_reading"
+                                   string="Initial Meter Reading" class="w-100"
+                                   invisible="1"/>
+                            <field name="new_initial_meter_reading"
+                                   class="w-100" invisible="1" force_save="1"
+                            />
+                        </div>
+                        <div class="col-3 pt-2"
+                             attrs="{'invisible':[('activity_type','!=','exchange')]}">
+                            <label for="new_relative_commission_rate"
+                                   string="Relative Commission Rate"
+                                   class="w-100"
+                                   invisible="1"/>
+                            <field name="new_relative_commission_rate"
+                                   class="w-100" invisible="1" force_save="1"
+                            />
+                        </div>
+                    </div>
+                    <group invisible="1">
+                        <group string="Current Location" name="current_location"
+                               invisible="1">
+                            <field name="source_location_id"
+                                   domain="[('id', 'in', transfer_machine_location_ids)]"
+                                   force_save="1"
+                                   context="{'default_warehouse_id': transfer_warehouse_id,'default_is_machine_location': True,'default_usage': 'internal','form_view_ref':'account_asset_management.view_account_machine_location_form'}"
+                                   invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Other Info" invisible="1">
+                            <group>
+                                <group string="Information" name="price_value">
+                                    <field name="company_id"/>
+                                    <field name="currency_id"/>
+                                    <field name="purchase_price"
+                                           widget="monetary"/>
+                                    <field name="residual_value"
+                                           widget="monetary"/>
+                                    <field name="analytic_account_id"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="reason_remove" string="Reason For Remove"
+                              attrs="{'invisible':[('activity_type','!=','remove')]}">
+                            <field name="reason"
+                                   placeholder="Reason for Remove..."
+                                   attrs="{'required':[('activity_type','=','remove')]}"/>
+                        </page>
+                        <page string="Reason For Exchange"
+                              name="reason_exchange"
+                              attrs="{'invisible':[('activity_type','!=','exchange')]}">
+                            <field name="reason"
+                                   placeholder="Reason for Exchange..."
+                                   attrs="{'required':[('activity_type','=','exchange')]}"/>
+                        </page>
+                        <page string="Reason For Retired" name="reason_retire"
+                              attrs="{'invisible':[('activity_type','!=','retire')]}">
+                            <field name="reason"
+                                   placeholder="Reason for Retired..."
+                                   attrs="{'required':[('activity_type','=','retire')]}"/>
+                        </page>
+                        <page string="Reason For OutSide Repair"
+                              name="reason_outside_repair"
+                              attrs="{'invisible':[('activity_type','!=','out_repair')]}">
+                            <field name="reason"
+                                   placeholder="Reason for OutSide Repair..."
+                                   attrs="{'required':[('activity_type','=','out_repair')]}"/>
+                        </page>
+                        <page string="Internal Note" name="internal_note"
+                              attrs="{'invisible':[('activity_type','!=','install')]}">
+                            <field name="internal_note"/>
+                        </page>
+                        <page string="Internal Note" name="internal_note"
+                              attrs="{'invisible':[('activity_type','=','install')]}">
+                            <field name="internal_note"/>
+                        </page>
+                        <page/>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button name="act_done" class="oe_highlight" string="Submit"
+                            type="object"
+                            attrs="{'invisible': ['|','|',('state', '=', 'done'),('disable_transfer','=',True),('activity_type','=','remove')]}"/>
+                    <button name="act_done" class="oe_highlight" string="Submit"
+                            type="object"
+                            confirm="Are you sure you want to remove this Equipment ?"
+                            attrs="{'invisible': ['|','|',('state', '=', 'done'),('disable_transfer','=',True),('activity_type','!=','remove')]}"/>
+                    <button string="Discard"
+                            class="btn btn btn o_form_button_cancel btn-secondary oe_edit_only"
+                            special="cancel"/>
+
+                </footer>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="account_asset_transfer_tree" model="ir.ui.view">
+        <field name="name">account.asset.transfer.list</field>
+        <field name="model">account.asset.transfer</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" default_order="start_date desc,id desc">
+                <field name="transferred_asset_id" string="Equipment"/>
+                <field name="source_location_id" invisible="1"/>
+                <field name="destination_location_id" invisible="1"/>
+                <field name="destination_location_id_mm" invisible="1"/>
+                <field name="destination_location" invisible="1"/>
+                <field name="equipment_location" readonly="1"/>
+                <field name="activity_type"/>
+                <field name="start_date" string="Activity date"/>
+                <field name="transfer_user_id" string="Transferred By"/>
+                <!--                <field name="asset_transfer_type"/>-->
+                <!--                <field name="type"/>-->
+                <!--                <field name="transferred_date"/>-->
+                <field name="state" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="account_asset_transfer_search" model="ir.ui.view">
+        <field name="name">account.asset.transfer.filter</field>
+        <field name="model">account.asset.transfer</field>
+        <field name="arch" type="xml">
+            <search string="Asset Accountability Transfer">
+                <field name="transferred_asset_id" string="Transfer Asset"/>
+                <field name="transferred_asset_serial_no"
+                       string="Equipment Serial No"
+                       filter_domain="[('transferred_asset_serial_no','ilike', self)]"/>
+                <field name="transfer_micro_market_id" string="Micro Market"
+                       filter_domain="[('transfer_micro_market_id.name','ilike', self)]"/>
+                <field name="transfer_location_partner_id" string="Customer"
+                       filter_domain="[('transfer_location_partner_id.name','ilike', self)]"/>
+
+
+                <!--                <field name="source_location_id" string="Source Location"/>-->
+                <!--                <field name="destination_location_id" string="Destination Location"/>-->
+                <!--                <field name="asset_operation_type_id" string="Operation Type"/>-->
+                <field name="asset_transfer_type" string="Transfer Type"/>
+                <filter string="install" name="done"
+                        domain="[('activity_type', '=', 'install')]"/>
+                <filter string="Remove" name="cancelled"
+                        domain="[('activity_type', '=', 'remove')]"/>
+                <filter string="Exchange" name="draft"
+                        domain="[('activity_type', '=', 'exchange')]"/>
+                <filter string="Retire" name="draft"
+                        domain="[('activity_type', '=', 'retire')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Equipment" name="equipment"
+                            context="{'group_by':'transferred_asset_id'}"/>
+                    <!--                    <filter string="Source Location" name="source_location"-->
+                    <!--                            context="{'group_by':'source_location_id'}"/>-->
+                    <!--                    <filter string="Destination Location" name="destination_location"-->
+                    <!--                            context="{'group_by':'destination_location_id'}"/>-->
+                    <filter string="Activity Type" name="activity_type"
+                            context="{'group_by':'activity_type'}"/>
+                    <filter string="Transfer By" name="responsible_person"
+                            context="{'group_by':'create_uid'}"/>
+                    <!--                    <filter string="Status" name="status" context="{'group_by':'state'}"/>-->
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="default_warehouse_equipment" model="ir.ui.view">
+        <field name="name">default.warehouse.equipment.company</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base_averigo.res_company_information"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/notebook/page/div" position="inside">
+                <div class="col-4 pt-2">
+                    <label for="enable_store_order_export"
+                           string="Default Equipment Warehouse" class="w-100"
+                           style="margin-bottom: 8px !important;"/>
+                    <div class="checklist">
+                        <field name="operator_locations_ids" invisible="1"/>
+                        <field name="equipment_warehouse_id"
+                               options="{'no_quick_create': True, 'no_create_edit' : True,'no_open': True}"
+                               create="0"/>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_account_asset_transfer" model="ir.actions.act_window">
+        <field name="name">Equipment Activity</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.asset.transfer</field>
+        <field name="search_view_id" ref="account_asset_transfer_search"/>
+        <field name="context">{'search_default_equipment': 1}</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('account_asset_transfer_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_account_asset_transfer_form')})]"/>
+    </record>
+
+</odoo>

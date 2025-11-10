@@ -1,0 +1,67 @@
+<odoo>
+
+    <record id="view_reordering_rule_parts_form" model="ir.ui.view">
+        <field name="name">reordering.rule.parts.form</field>
+        <field name="model">reordering.rule</field>
+        <field name="arch" type="xml">
+            <form string="Reordering Rules">
+<!--                <div class="alert alert-info" role="alert">-->
+<!--                    <a style="cursor: pointer" class="alert-link o_form_uri" type="action"-->
+<!--                       name="%(stock.action_procurement_compute)d">Run the scheduler</a> manually to trigger the-->
+<!--                    reordering rules right now.-->
+<!--                </div>-->
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="active" invisible="1"/>
+                            <field name="product_id"/>
+                            <label for="product_min_qty"/>
+                            <div class="o_row">
+                                <field name="product_min_qty"/>
+                                <field name="product_uom_name"/>
+                            </div>
+                            <label for="product_max_qty"/>
+                            <div class="o_row">
+                                <field name="product_max_qty"/>
+                                <field name="product_uom_name"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="allowed_location_ids" invisible="1"/>
+                            <field name="warehouse_id" domain="[('is_parts_warehouse', '=', True)]"/>
+                            <field name="location_id" options="{'no_create': True}"
+                                   domain="[('id', 'in', allowed_location_ids)]"/>
+                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_reordering_rule_tree" model="ir.ui.view">
+        <field name="name">reordering.rule.tree</field>
+        <field name="model">reordering.rule</field>
+        <field name="arch" type="xml">
+            <tree string="Reordering Rules" multi_edit="1">
+                <field name="name"/>
+                <field name="active" invisible="1"/>
+                <field name="warehouse_id" readonly="1" groups="stock.group_stock_multi_locations"/>
+                <field name="location_id" options="{'no_create': True}" groups="stock.group_stock_multi_locations"/>
+                <field name="product_id" readonly="1"/>
+                <field name="company_id" readonly="1"  invisible="1"/>
+                <field name="product_min_qty"/>
+                <field name="product_max_qty"/>
+                <field name="product_uom" options="{'no_open': True, 'no_create': True}" groups="uom.group_uom"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>
